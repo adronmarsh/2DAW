@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
+    <title></title>
+  </head>
+  <body>
+    <h1>TABLERO DE AJEDREZ</h1>
+    <div class="container">
+      <div class="subcontainer">
+        <div class="jugador">
+           <h2 class="j">JUGADOR 1</h2>
+           <div class="cementerio"><img id="reyW" src="img/whiteRey.svg" alt="Rey Blanco"></div>
+           <div class="cementerio"><img id="reinaW" src="img/whiteReina.svg" alt="Reina Blanca"></div>
+           <div class="cementerio"></div>
+           <div class="cementerio"></div>
+           <div class="cementerio"></div>
+           <div class="cementerio"></div>
+           <div class="cementerio"></div>
+           <div class="cementerio"></div>
+           <div class="cementerio"></div>
+           <div class="cementerio"></div>
+           <div class="cementerio"></div>
+           <div class="cementerio"></div>
+           <div class="cementerio"></div>
+           <div class="cementerio"></div>
+           <div class="cementerio"></div>
+           <div class="cementerio"></div>           
+        </div>
+        <div class="tablero">
+                  <!--COLUMNA 1-->
+          <div class="columna">        
+            <div class="white"><img id="torreW1" src="img/whiteTower.svg" alt="Torre Blanca"></div>
+            <div class="black"><img id="peonW1" src="img/whitePeon.svg" alt="Peon Blanco"></div>
+            <div class="white"></div>
+            <div class="black"></div>
+            <div class="white"></div>
+            <div class="black"></div>
+            <div class="white"><img id="peonN1" src="img/blackPeon.svg" alt="Peon Negro"></div>
+            <div class="black"><img id="torreN1" src="img/blackTower.svg" alt="Torre Negra"></div>
+          </div>
+                  <!--COLUMNA 2-->
+          <div class="columna">
+            <div class="black"><img id="caballoW1" src="img/whiteHorse.svg" alt="Caballo Blanco"></div>
+            <div class="white"><img id="peonW2" src="img/whitePeon.svg" alt="Peon Blanco"></div>
+            <div class="black"></div>
+            <div class="white"></div>
+            <div class="black"></div>
+            <div class="white"></div>
+            <div class="black"><img id="peonN2" src="img/blackPeon.svg" alt="Peon Negro"></div>
+            <div class="white"><img id="caballoN1" src="img/blackHorse.svg" alt="Caballo Negro"></div>
+          </div>
+                  <!--COLUMNA 3-->
+          <div class="columna">              
+            <div class="white"><img id="alfilW1" src="img/whiteAlfil.svg" alt="Alfil Blanco"></div>
+            <div class="black"><img id="peonW3" src="img/whitePeon.svg" alt="Peon Blanco"></div>
+            <div class="white"></div>
+            <div class="black"></div>
+            <div class="white"></div>
+            <div class="black"></div>
+            <div class="white"><img id="peonN3" src="img/blackPeon.svg" alt="Peon Negro"></div>
+            <div class="black"><img id="alfilN1" src="img/blackAlfil.svg" alt="Alfil Negro"></div>
+          </div>
+                  <!--COLUMNA 4-->
+          <div class="columna">
+            <div class="black"><img id="reyW" src="img/whiteRey.svg" alt="Rey Blanco"></div>
+            <div class="white"><img id="peonW4" src="img/whitePeon.svg" alt="Peon Blanco"></div>
+            <div class="black"></div>
+            <div class="white"></div>
+            <div class="black"></div>
+            <div class="white"></div>
+            <div class="black"><img id="peonN4" src="img/blackPeon.svg" alt="Peon Negro"></div>
+            <div class="white"><img id="reinaN" src="img/blackReina.svg" alt="Reina Negra"></div>
+          </div>
+                  <!--COLUMNA 5-->
+          <div class="columna">
+            <div class="white"><img id="reinaW" src="img/whiteReina.svg" alt="Reina Blanca"></div>
+            <div class="black"><img id="peonW5" src="img/whitePeon.svg" alt="Peon Blanco"></div>
+            <div class="white"></div>
+            <div class="black"></div>
+            <div class="white"></div>
+            <div class="black"></div>
+            <div class="white"><img id="peonN5" src="img/blackPeon.svg" alt="Peon Negro"></div>
+            <div class="black"><img id="reyN" src="img/blackRey.svg" alt="Rey Negro"></div>
+          </div>
+                  <!--COLUMNA 6-->
+          <div class="columna">
+            <div class="black"><img id="alfilW2" src="img/whiteAlfil.svg" alt="Alfil Blanco"></div>
+            <div class="white"><img id="peonW6" src="img/whitePeon.svg" alt="Peon Blanco"></div>
+            <div class="black"></div>
+            <div class="white"></div>
+            <div class="black"></div>
+            <div class="white"></div>
+            <div class="black"><img id="peonN6" src="img/blackPeon.svg" alt="Peon Negro"></div>
+            <div class="white"><img id="alfilN2" src="img/blackAlfil.svg" alt="Alfil Negro"></div>
+          </div>         
+                  <!--COLUMNA 7-->
+          <div class="columna">
+            <div class="white"><img id="caballoW2" src="img/whiteHorse.svg" alt="Caballo Blanco"></div>
+            <div class="black"><img id="peonW7" src="img/whitePeon.svg" alt="Peon Blanco"></div>
+            <div class="white"></div>
+            <div class="black"></div>
+            <div class="white"></div>
+            <div class="black"></div>
+            <div class="white"><img id="peonN7" src="img/blackPeon.svg" alt="Peon Negro"></div>
+            <div class="black"><img id="caballoN2" src="img/blackHorse.svg" alt="Caballo Negro"></div>
+          </div>     
+                  <!--COLUMNA 8-->
+          <div class="columna">
+            <div class="black"><img id="torreW2" src="img/whiteTower.svg" alt="Torre Blanca"></div>
+            <div class="white"><img id="peonW8" src="img/whitePeon.svg" alt="Peon Blanco"></div>
+            <div class="black"></div>
+            <div class="white"></div>
+            <div class="black"></div>
+            <div class="white"></div>
+            <div class="black"><img id="peonN8" src="img/blackPeon.svg" alt="Peon Negro"></div>
+            <div class="white"><img id="torreN2" src="img/blackTower.svg" alt="Torre Negra"></div> 
+          </div>
+
+        </div>
+
+        <!--Jugador 2-->
+        <div class="jugador">
+          <h2 class="j">JUGADOR 2</h2>
+          <div class="cementerio"></div>
+          <div class="cementerio"></div>
+          <div class="cementerio"></div>
+          <div class="cementerio"></div>
+          <div class="cementerio"></div>
+          <div class="cementerio"></div>
+          <div class="cementerio"></div>
+          <div class="cementerio"></div>
+          <div class="cementerio"></div>
+          <div class="cementerio"></div>
+          <div class="cementerio"></div>
+          <div class="cementerio"></div>
+          <div class="cementerio"></div>
+          <div class="cementerio"></div>
+          <div class="cementerio"></div>
+          <div class="cementerio"></div>
+        </div>
+      </div>
+  
+      <!--Piezas blancas-->
+      <!--
+      <div class="piezas" class="col-" class=".col-s-1">
+        <img id="reyW" src="img/whiteRey.svg" alt="Rey Blanco">
+        <img id="reinaW" src="img/whiteReina.svg" alt="Reina Blanca">
+        <img id="torreW1" src="img/whiteTower.svg" alt="Torre Blanca">
+        <img id="torreW2" src="img/whiteTower.svg" alt="Torre Blanca">
+        <img id="caballoW1" src="img/whiteHorse.svg" alt="Caballo Blanco">
+        <img id="caballoW2" src="img/whiteHorse.svg" alt="Caballo Blanco">
+        <img id="alfilW1" src="img/whiteAlfil.svg" alt="Alfil Blanco">
+        <img id="alfilW2" src="img/whiteAlfil.svg" alt="Alfil Blanco">
+        <img id="peonW1" src="img/whitePeon.svg" alt="Peon Blanco">
+        <img id="peonW2" src="img/whitePeon.svg" alt="Peon Blanco">
+        <img id="peonW3" src="img/whitePeon.svg" alt="Peon Blanco">
+        <img id="peonW4" src="img/whitePeon.svg" alt="Peon Blanco">
+        <img id="peonW5" src="img/whitePeon.svg" alt="Peon Blanco">
+        <img id="peonW6" src="img/whitePeon.svg" alt="Peon Blanco">
+        <img id="peonW7" src="img/whitePeon.svg" alt="Peon Blanco">
+        <img id="peonW8" src="img/whitePeon.svg" alt="Peon Blanco">
+
+      </div>
+      -->
+      <!--Piezas negras-->
+      <!--
+      <div class="piezas">
+        <img id="reyN" src="img/blackRey.svg" alt="Rey Negro">
+        <img id="reinaN" src="img/blackReina.svg" alt="Reina Negra">
+        <img id="torreN1" src="img/blackTower.svg" alt="Torre Negra">
+        <img id="torreN2" src="img/blackTower.svg" alt="Torre Negra">
+        <img id="caballoN1" src="img/blackHorse.svg" alt="Caballo Negro">
+        <img id="caballoN2" src="img/blackHorse.svg" alt="Caballo Negro">
+        <img id="alfilN1" src="img/blackAlfil.svg" alt="Alfil Negro">
+        <img id="alfilN2" src="img/blackAlfil.svg" alt="Alfil Negro">
+        <img id="peonN1" src="img/blackPeon.svg" alt="Peon Negro">
+        <img id="peonN2" src="img/blackPeon.svg" alt="Peon Negro">
+        <img id="peonN3" src="img/blackPeon.svg" alt="Peon Negro">
+        <img id="peonN4" src="img/blackPeon.svg" alt="Peon Negro">
+        <img id="peonN5" src="img/blackPeon.svg" alt="Peon Negro">
+        <img id="peonN6" src="img/blackPeon.svg" alt="Peon Negro">
+        <img id="peonN7" src="img/blackPeon.svg" alt="Peon Negro">
+        <img id="peonN8" src="img/blackPeon.svg" alt="Peon Negro">
+      </div>
+      -->
+    </div>
+  </body>
+</html>
