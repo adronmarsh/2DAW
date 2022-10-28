@@ -6,18 +6,20 @@
     width: 802px;
     margin: auto;
     box-shadow: 6px 6px 50px 10px black;
-
 }
 .black{
-    background-color:#b4983b;
     background-color:#935695;
     width: 100px;
     height: 100px;
+    display: flex;
+    justify-content: center;
 }
 .white{
     background-color: antiquewhite;
     width: 100px;
     height: 100px;
+    display: flex;
+    justify-content: center;
 }
 h1{
     text-align: center;
@@ -34,6 +36,7 @@ h1{
 body{
     background-color: #312e2b;
 }
-.piezas img{
+img{
     width: 100px;
+
 }
