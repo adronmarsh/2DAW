@@ -1,0 +1,120 @@
+body{
+    background-color:#009d71;
+    font-family:'Courier New', Courier, monospace
+}
+.title{
+    display: flex;
+    justify-content: center;
+    text-decoration-line: underline;
+}
+#name{
+    display: flex;
+    justify-content: center;
+}
+.lista{
+    /*border: 1px red solid;*/
+    display: flex;
+    justify-content:space-around;
+    list-style: none;
+} 
+.lista > li{
+    margin-left:1%;
+    background-color: #5ccda7;
+    border-radius: 50%;
+    font-size: 24px;
+    color: #026842;
+
+}
+
+.lista > li a:link, a:visited, a:active{
+    color: #003817;
+    text-decoration-line: none;
+}
+
+.lista li a:hover{
+    color: black;
+}
+.mesaInicio{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.mesaInicio img{
+    width:5%;
+    margin: 1%;
+    border: black 2px solid;
+    border-radius: 7%;
+}
+.mesaAlta{
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+.mesaAlta img{
+    width: 7%;
+    margin: 1%;
+    border: black 2px solid;
+    border-radius: 7%;
+}
+img{
+    width: 35%;
+    border: black 4px solid;
+    border-radius: 8%;
+    margin: 0%;
+}
+.banca{
+    display: flex;
+    justify-content: center;
+}
+#banca0{
+    /*border: 2px rgb(0, 0, 0) solid;*/
+    border-radius: 10px;
+    width: 30%;
+    text-align: center;
+    
+}
+.jugadores{
+    display: flex;
+}
+#j1{
+    /*border: 2px rgb(0, 0, 0) solid;*/
+    border-radius: 10px;
+    width: 20%;
+    text-align: center;
+    margin: 3%;
+    margin-top: -120px;
+}
+
+#j2{
+    /*border: 2px rgb(0, 0, 0) solid;*/
+    border-radius: 10px;
+    width: 20%;
+    text-align: center;
+    margin: 3%;
+    margin-top: -60px;
+}
+#j3{
+    /*border: 2px rgb(0, 0, 0) solid;*/
+    border-radius: 10px;
+    width: 20%;
+    text-align: center;
+    margin: 3%;
+}
+#j4{
+    /*border: 2px rgb(0, 0, 0) solid;*/
+    border-radius: 10px;
+    width: 20%;
+    text-align: center;
+    margin: 3%;
+    margin-top: -60px;
+}
+#j5{
+    /*border: 2px rgb(0, 0, 0) solid;*/
+    border-radius: 10px;
+    width: 20%;
+    text-align: center;
+    margin: 3%;
+    margin-top: -120px;
+}
