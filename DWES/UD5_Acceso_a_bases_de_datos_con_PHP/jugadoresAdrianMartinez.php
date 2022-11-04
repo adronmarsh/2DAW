@@ -1,11 +1,11 @@
 <?php
-//include_once('creajugadorAdrianMartinez.php');
-
+//Se conecta a la BDD
 $dsn = 'mysql:host=localhost;dbname=dungeonsanddragons';
 $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 $conexion = new PDO($dsn, 'dad', 'd20', $opciones);
 
-$resultado = $conexion->query('SELECT * FROM jugadores');
+//Guarda la tabla jugadores
+$jugadores = $conexion->query('SELECT * FROM jugadores');
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +25,8 @@ $resultado = $conexion->query('SELECT * FROM jugadores');
             text-align: center;
         }
 
-        td,th {
+        td,
+        th {
             background: #fff;
             color: #000;
             padding: 10px;
@@ -34,7 +35,7 @@ $resultado = $conexion->query('SELECT * FROM jugadores');
 </head>
 
 <body>
-<a href="creajugadorAdrianMartinez.php">Crear Jugador</a>
+    <a href="creajugadorAdrianMartinez.php">Crear Jugador</a>
 
     <table>
         <tr>
@@ -45,7 +46,7 @@ $resultado = $conexion->query('SELECT * FROM jugadores');
             <th>MONEDAS</th>
         </tr>
         <?php
-        foreach ($resultado->fetchAll() as $registro) {
+        foreach ($jugadores->fetchAll() as $registro) {
             echo '<tr>';
             echo '<td>' . $registro['nick'] . '</td>';
             echo '<td>' . $registro['mail'] . '</td>';

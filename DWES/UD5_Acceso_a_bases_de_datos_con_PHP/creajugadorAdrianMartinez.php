@@ -6,6 +6,9 @@ $errorMail = '<span class="error">ERROR: Dirección de mail errónea!</span><br>
 $errorPais = '<span class="error">ERROR: Este campo debe tener como mínimo 4 letras y no puede contener espacios!</span><br>';
 $errorFecha = '<span class="error">ERROR: Este campo debe contener el siguiente formato: YYYY/MM/DD</span><br>';
 $errorMonedas = '<span class="error">ERROR: Este campo solo puede contener números!</span>';
+$errorPrimaryNick = '<span class="error">ERROR: Este nick ya se encuentra registrado!</span><br>';
+$errorPrimaryMail = '<span class="error">ERROR: Este mail ya se encuentra registrado!</span><br>';
+
 
 //Expresiones regulares
 $nick_formato = '/^[\w ñ]{3,}$/';
@@ -13,6 +16,15 @@ $mail_formato = '/^[\w\d_.]+@[\w]+.[\w]{2,3}$/';
 $pais_formato = '/^[\w ñ]{4,}$/';
 $fecha_formato = '/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/';
 $monedas_formato = '/^[0-9]/';
+
+//Se conecta a la BDD
+$dsn = 'mysql:host=localhost;dbname=dungeonsanddragons';
+$opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
+$conexion = new PDO($dsn, 'dad', 'd20', $opciones);
+
+//Guarda la tabla jugadores
+$jugadores = $conexion->query('SELECT * FROM jugadores');
+
 
 if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 
@@ -39,13 +51,18 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     if (!preg_match($monedas_formato, $_POST['monedas'])) {
         $errores['monedas'] = $errorMonedas;
     }
+    foreach ($jugadores->fetchAll() as $registro) { //Comprueba que no se repita ni el nick ni el mail
+        if ($_POST['nick'] == $registro['nick']) {
+            $errores['nick'] = $errorPrimaryNick;
+        }
+        if ($_POST['mail'] == $registro['mail']) {
+            $errores['mail'] = $errorPrimaryMail;
+        }
+    }
 }
 
 //Muestra los resultados
 if (!empty($_POST) && empty($errores)) {
-    $dsn = 'mysql:host=localhost;dbname=dungeonsanddragons';
-    $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
-    $conexion = new PDO($dsn, 'dad', 'd20', $opciones);
 
     $consulta = $conexion->prepare('INSERT INTO jugadores
                                         (nick, mail, pais, fechanacimiento, monedas)
@@ -170,5 +187,8 @@ if (!empty($_POST) && empty($errores)) {
 
 
 </body>
+<script>
+
+</script>
 
 </html>
