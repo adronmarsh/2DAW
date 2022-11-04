@@ -1,5 +1,5 @@
 <?php
-include_once('creajugadorAdrianMartinez.php');
+//include_once('creajugadorAdrianMartinez.php');
 
 $dsn = 'mysql:host=localhost;dbname=dungeonsanddragons';
 $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
@@ -9,7 +9,7 @@ $resultado = $conexion->query('SELECT * FROM jugadores');
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -34,6 +34,8 @@ $resultado = $conexion->query('SELECT * FROM jugadores');
 </head>
 
 <body>
+<a href="creajugadorAdrianMartinez.php">Crear Jugador</a>
+
     <table>
         <tr>
             <th>NICK</th>
