@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio1</title>
+</head>
+
+<body>
+    <form action="#" method="get">
+        Introduce los primeros enteros separados por comas:<br>
+        <input type="text" name="text1" id="text1" placeholder="Introduce los elementos del primer array">
+        <input type="submit" name="Enviar" value="Ejemplo 1">
+        <br><br>
+        Introduce los segundos enteros separados por comas:<br>
+        <input type="text" name="text2" id="text2" placeholder="Introduce los elementos del segundo array">
+        <input type="submit" name="Enviar" value="Ejemplo 2">
+        <br><br>
+        <button>Concatenar</button>
+        <button>Reiniciar</button>
+    </form>
+    <script>
+        a = ['a,b,c,d,e'];
+        b = ['A,B,C,D,E'];
+        c = [];
+        for (let i = 0; i < a.length; i++) {
+            c.push(a[i]);
+            c.push(b[i]);
+        }
+        for (let i = 0; i < c.length; i++) {
+            document.write(i);
+
+        }
+
+    </script>
+</body>
+
+</html>
