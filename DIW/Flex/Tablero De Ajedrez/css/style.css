@@ -22,15 +22,15 @@
     justify-content: center;
 }
 h1{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-variant: small-caps;
     text-align: center;
     color: white;
     text-shadow: 2px 2px 15px black;
-    width: 400px;
     margin: auto;
     margin-top: 20px;
     margin-bottom: 20px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-variant: small-caps;
+    width: 400px;
 
 }
 body{

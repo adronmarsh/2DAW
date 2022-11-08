@@ -9,17 +9,17 @@
 </head>
 
 <body>
-    Texto: <div id="texto"></div>
-    Numero de palabras: <div id="palabras"></div>
-    Primera palabra: <div id="primera"></div>
-    Última palabra: <div id="ultima"></div>
-    Orden inverso: <div id="inverso"></div>
-    Orden AZ: <div id="az"></div>
-    Orden ZA: <div id="za"></div>
+   <div id="texto"><strong>Texto: </strong></div><br>
+   <div id="palabras"><strong>Numero de palabras:</strong> </div><br>
+   <div id="primera"><strong>Primera palabra:</strong> </div><br>
+   <div id="ultima"><strong>Última palabra:</strong> </div><br>
+   <div id="inverso"><strong>Orden inverso:</strong> </div><br>
+   <div id="az"> <strong>Orden AZ:</strong> </div><br>
+   <div id="za"><strong>Orden ZA:</strong> </div><br>
 
     <script>
-        let a = "ey muy buenas a todos";
-        let split = a.split(" "); //Crea el array de a
+        let text = "javascript es un lenguaje de programación interpretado";
+        let split = text.split(" "); //Crea el array de a
         
         let numPalabras =  split.length; //Cuenta las palabras del array
         let primeraPalabra = split[0]; //Selecciona la primera palabra del array
@@ -28,7 +28,7 @@
         
         
         p0 = document.createElement('texto');
-        p0.innerText = a;
+        p0.innerText = text;
         texto = document.getElementById('texto');
         texto.appendChild(p0);
         

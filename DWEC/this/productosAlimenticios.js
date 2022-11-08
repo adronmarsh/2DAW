@@ -5,5 +5,4 @@ const ProductosAlimenticios = {
     imprimeDatos : function() {
         return this;
     }
-
 }
