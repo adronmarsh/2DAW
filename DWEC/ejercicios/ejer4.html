@@ -1,29 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio 4</title>
 </head>
-<body>
-    <script>
-            a = "Ey muy buenas a todos";
-            a = str.split(" ");
-            numPalabras =  a.lenght;
-            primeraPalabra = a[0];
-            ultimaPalabra = a[a.lenght-1];
-            ordenInverso = a.reverse();
-            orderAZ = a.sort();
-            orderZA = a.sort().reverse();
 
-            document.getElementById('palabras').innerHTML = numPalabras;
-            document.getElementById('primera').innerHTML = primeraPalabra;
-            document.getElementById('ultima').innerHTML = ultimaPalabra;
-            document.getElementById('inverso').innerHTML = ordenInverso;
-            document.getElementById('az').innerHTML = orderAZ;
-            document.getElementById('za').innerHTML = orderZA;
-    </script>
+<body>
+    Texto: <div id="texto"></div>
     Numero de palabras: <div id="palabras"></div>
     Primera palabra: <div id="primera"></div>
     Última palabra: <div id="ultima"></div>
@@ -31,5 +17,57 @@
     Orden AZ: <div id="az"></div>
     Orden ZA: <div id="za"></div>
 
+    <script>
+        let a = "ey muy buenas a todos";
+        let split = a.split(" "); //Crea el array de a
+        
+        let numPalabras =  split.length; //Cuenta las palabras del array
+        let primeraPalabra = split[0]; //Selecciona la primera palabra del array
+        let ultimaPalabra = split[split.length - 1]; //Selecciona la última posición del array
+        let ordenInverso = split.reverse(); //Invierte el orden del array
+        
+        
+        p0 = document.createElement('texto');
+        p0.innerText = a;
+        texto = document.getElementById('texto');
+        texto.appendChild(p0);
+        
+        p1 = document.createElement('palabras');
+        p1.innerText = numPalabras;
+        let palabras = document.getElementById('palabras');
+        palabras.appendChild(p1);
+        
+        p2 = document.createElement('primera');
+        p2.innerText = primeraPalabra;
+        let primera  = document.getElementById('primera');
+        primera.appendChild(p2);
+        
+        p3 = document.createElement('ultima');
+        p3.innerText = ultimaPalabra;
+        let ultima  = document.getElementById('ultima');
+        ultima.appendChild(p3);
+        
+        p4 = document.createElement('inverso');
+        p4.innerText = ordenInverso;
+        let inverso = document.getElementById('inverso');
+        inverso.appendChild(p4);
+        
+        let orderAZ = split.sort(); //Ordena alfabéticamente de la A a la Z
+        
+        p5 = document.createElement('az');
+        p5.innerText = orderAZ;
+        let az  = document.getElementById('az');
+        az.appendChild(p5);
+        
+        let orderZA = split.sort().reverse(); //Ordena alfabéticamente de la Z a la A
+
+        p6 = document.createElement('za');
+        p6.innerText = orderZA;
+        let za  = document.getElementById('za');
+        za.appendChild(p6);
+
+    </script>
+
 </body>
+
 </html>
