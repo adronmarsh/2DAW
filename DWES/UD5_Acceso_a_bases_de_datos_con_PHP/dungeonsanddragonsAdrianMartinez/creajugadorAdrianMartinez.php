@@ -61,7 +61,7 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     }
 }
 
-//Muestra los resultados
+//Introduce los resultados y redirecciona la página para mostrarlos
 if (!empty($_POST) && empty($errores)) {
 
     $consulta = $conexion->prepare('INSERT INTO jugadores
