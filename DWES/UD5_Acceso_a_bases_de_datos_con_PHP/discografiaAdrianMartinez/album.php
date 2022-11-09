@@ -89,7 +89,7 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 </head>
 
 <body>
-    <h1><a href="index.php">Discografia</a></h1>
+    <h1><a href="index.php">Discografía</a></h1>
     <table>
         <tr>
             <th>Posición</th>

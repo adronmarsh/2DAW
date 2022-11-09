@@ -60,6 +60,27 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     unset($grupos);
 }
 
+if (isset($_GET['accion'])) {
+    if ($_GET['accion']=='editar') {
+        $formulario='editar';
+    }
+    if ($_GET['accion']=='borrar') {
+        $formulario='borrar';
+    }
+    if ($_GET['accion']=='guardar'){
+        $guardar = $conexion->prepare('UPDATE grupos SET codigo = ?,
+        nombre = ?,
+        genero = ?,
+        pais = ?,
+        inicio = ?');
+        /*$guardar->bindParam(
+            ''
+        );*/
+    }
+}else{
+    $formulario='ver';
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -99,7 +120,7 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 
     //Muesta los grupos en una lista ordenada
     foreach ($grupos->fetchAll() as $registro) {
-        echo '<li>' . '<a href="grupo.php?codigo=' . $registro['codigo'] . '">' . $registro['nombre'] . '</a><a href="index.php?codigo=' . $registro['codigo'] . '?nombre='.$registro['nombre'].'"> &#9999;&#65039;</a><a href="index.php?"> &#128465;&#65039;</a></li>';
+        echo '<li>' . '<a href="grupo.php?codigo=' . $registro['codigo'] . '">' . $registro['nombre'] . '</a><a href="index.php?accion=editar&codigo=' . $registro['codigo'] . '&nombre=' . $registro['nombre'] . '&genero=' . $registro['genero'] . '&pais=' . $registro['pais'] . '&inicio=' . $registro['inicio'] . '"> &#9999;&#65039;</a><a href="index.php?accion=borrar"> &#128465;&#65039;</a></li>';
     }
     echo '</ol>';
 
@@ -159,8 +180,18 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
             <?php
             }
             ?>
-
             <input type="submit" name="Enviar" value="Añadir Grupo">
+
+            <?php
+        
+            if ($formulario == 'editar') {
+            ?>
+                <div class="guardar"><a href="index.php?accion=guardar"></a> Guardar</div>
+                <div class="volver"><a href="index.php?<?= $editar = false ?>">Cancelar</a></div>
+            <?php
+            }
+        
+            ?>
         </form>
 
     <?php
