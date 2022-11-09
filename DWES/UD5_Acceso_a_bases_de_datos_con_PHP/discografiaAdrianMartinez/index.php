@@ -21,14 +21,6 @@ $dsn = 'mysql:host=localhost;dbname=discografia';
 $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 $conexion = new PDO($dsn, 'vetustamorla', '15151', $opciones);
 
-//Selecciona todo sobre la tabla grupos
-$grupos = $conexion->query('SELECT * FROM grupos');
-
-//Borra un grupo
-//$borrar = $conexion->query('DELETE FROM grupos WHERE grupos.codigo = ' . $registro['codigo']);
-
-
-
 if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 
     //Filtro para que no existan espacios ni por delante ni por detrás
@@ -54,6 +46,8 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     if (!preg_match($inicio_formato, $_POST['inicio'])) {
         $errores['inicio'] = $errorInicio;
     }
+    //Selecciona todo sobre la tabla grupos
+    $grupos = $conexion->query('SELECT * FROM grupos');
     foreach ($grupos->fetchAll() as $registro) { //Comprueba que no se repita ni el código ni el nombre
         if ($_POST['codigo'] == $registro['codigo']) {
             $errores['codigo'] = $errorPrimaryCodigo;
@@ -62,6 +56,8 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
             $errores['nombre'] = $errorPrimaryNombre;
         }
     }
+    // Se elimina el objeto PDOStatement
+    unset($grupos);
 }
 
 ?>
@@ -94,43 +90,89 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     <h1>Discografía</h1>
     <h2>Grupos:</h2>
     <?php
+    echo '<ol>';
+    //Selecciona todo sobre la tabla grupos
+    $grupos = $conexion->query('SELECT * FROM grupos');
+
+    //Borra un grupo
+    //$borrar = $conexion->query('DELETE FROM grupos WHERE grupos.codigo = ' . $registro['codigo']);
+
+    //Muesta los grupos en una lista ordenada
+    foreach ($grupos->fetchAll() as $registro) {
+        echo '<li>' . '<a href="grupo.php?codigo=' . $registro['codigo'] . '">' . $registro['nombre'] . '</a><a href="index.php?codigo=' . $registro['codigo'] . '?nombre='.$registro['nombre'].'"> &#9999;&#65039;</a><a href="index.php?"> &#128465;&#65039;</a></li>';
+    }
+    echo '</ol>';
+
+    // Se elimina el objeto PDOStatement
+    unset($grupos);
 
     if (empty($_POST)) { //Muestra el formulario por primera vez
         $errores = []; //Creación del array $errores para posteriormente comprobar si está vacío
-        echo '<ol>';
-        foreach ($grupos->fetchAll() as $registro) {
-            echo '<li>' . '<a href="grupo.php?codigo=' . $registro['codigo'] . '">' . $registro['nombre'] . '</a> &#9999;&#65039; &#128465;&#65039;</li>';
-        }
-        echo '</ol>';
+
 
     ?>
         <form name="Grupos Nuevos" action="#" method="POST">
-            Código:<br><input type="text" name="codigo" id="codigo"><br><br>
-            Nombre:<br><input type="text" name="nombre" id="nombre"><br><br>
-            Género:<br><input type="text" name="genero" id="genero"><br><br>
-            País:<br><input type="text" name="pais" id="pais"><br><br>
-            Inicio:<br><input type="text" name="inicio" id="inicio"><br><br>
+            <?php
+            if (isset($_GET['codigo'])) {
+            ?>
+                Código:<br><input type="text" name="codigo" id="codigo" value=<?= $_GET['codigo'] ?>><br><br>
+            <?php
+            } else {
+            ?>
+                Código:<br><input type="text" name="codigo" id="codigo"><br><br>
+            <?php
+            }
+            if (isset($_GET['nombre'])) {
+            ?>
+                Nombre:<br><input type="text" name="nombre" id="nombre" value=<?= $_GET['nombre'] ?>><br><br>
+            <?php
+            } else {
+            ?>
+                Nombre:<br><input type="text" name="nombre" id="nombre"><br><br>
+            <?php
+            }
+            if (isset($_GET['genero'])) {
+            ?>
+                Género:<br><input type="text" name="genero" id="genero" value=<?= $_GET['genero'] ?>><br><br>
+            <?php
+            } else {
+            ?>
+                Género:<br><input type="text" name="genero" id="genero"><br><br>
+            <?php
+            }
+            if (isset($_GET['pais'])) {
+            ?>
+                País:<br><input type="text" name="pais" id="pais" value=<?= $_GET['pais'] ?>><br><br>
+            <?php
+            } else {
+            ?>
+                País:<br><input type="text" name="pais" id="pais"><br><br>
+            <?php
+            }
+            if (isset($_GET['inicio'])) {
+            ?>
+                Inicio:<br><input type="text" name="inicio" id="inicio" value=<?= $_GET['inicio'] ?>><br><br>
+            <?php
+            } else {
+            ?>
+                Inicio:<br><input type="text" name="inicio" id="inicio"><br><br>
+            <?php
+            }
+            ?>
+
             <input type="submit" name="Enviar" value="Añadir Grupo">
         </form>
 
     <?php
 
+
     }
 
     //Si hay errores muestra el formulario indicando los errores
     if (!empty($errores)) {
-        //Selecciona todo sobre la tabla grupos
-        $grupos = $conexion->query('SELECT * FROM grupos');
-        echo '<ol>';
-        foreach ($grupos->fetchAll() as $registro) {
-            echo '<li>' . '<a href="grupo.php?codigo=' . $registro['codigo'] . '">' . $registro['nombre'] . '</a> &#9999;&#65039; &#128465;&#65039;</li>';
-        }
-        echo '</ol>';
     ?>
-
         <form name="Grupos Nuevos" action="#" method="POST">
             Código:<br><input type="text" name="codigo" id="codigo" value=<?= $_POST['codigo'] ?>><br><br>
-
             <?php
             if (empty($_POST['codigo'])) {
                 echo $mensajeError;
@@ -180,7 +222,7 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
                 }
             }
             ?>
-            <input type="submit" name="Enviar" value="Añadir Jugador">
+            <input type="submit" name="Enviar" value="Añadir Grupo">
         </form>
     <?php
     }
@@ -197,14 +239,6 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
         $consulta->bindparam(5, $_POST['inicio']);
 
         $consulta->execute();
-
-        //Selecciona todo sobre la tabla grupos
-        $grupos = $conexion->query('SELECT * FROM grupos');
-        echo '<ol>';
-        foreach ($grupos->fetchAll() as $registro) {
-            echo '<li>' . '<a href="grupo.php?codigo=' . $registro['codigo'] . '">' . $registro['nombre'] . '</a> &#9999;&#65039; &#128465;&#65039;</li>';
-        }
-        echo '</ol>';
     ?>
         <form name="Grupos Nuevos" action="#" method="POST">
             Código:<br><input type="text" name="codigo" id="codigo"><br><br>
@@ -216,10 +250,7 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
         </form>
     <?php
     }
-    // Se elimina el objeto PDOStatement
-    //   unset($grupos);
-    // Se elimina el objeto PDO
-    //   unset($conexion);
+
     ?>
 </body>
 

@@ -20,9 +20,6 @@ $dsn = 'mysql:host=localhost;dbname=discografia';
 $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 $conexion = new PDO($dsn, 'vetustamorla', '15151', $opciones);
 
-//Selecciona las canciones del álbum elegido
-$canciones = $conexion->query("SELECT * FROM albumes INNER JOIN canciones ON canciones.album = albumes.codigo AND albumes.codigo = " . $_GET['codigo']);
-
 if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 
     //Filtro para que no existan espacios ni por delante ni por detrás
@@ -45,6 +42,10 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     if (!preg_match($duracion_formato, $_POST['duracion'])) {
         $errores['duracion'] = $errorDuracion;
     }
+
+    //Selecciona las canciones del álbum elegido
+    $canciones = $conexion->query("SELECT * FROM albumes INNER JOIN canciones ON canciones.album = albumes.codigo AND albumes.codigo = " . $_GET['codigo']);
+
     foreach ($canciones->fetchAll() as $registro) { //Comprueba que no se repita ni el código ni el titulo
         if ($_POST['codigo'] == $registro['codigo']) {
             $errores['codigo'] = $errorPrimaryCodigo;
@@ -53,6 +54,8 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
             $errores['titulo'] = $errorPrimaryTitulo;
         }
     }
+    // Se elimina el objeto PDOStatement
+    unset($canciones);
 }
 ?>
 <!DOCTYPE html>
@@ -71,13 +74,14 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
             margin: auto;
             text-align: center;
         }
-        
+
         td,
         th {
             background: #fff;
             color: #000;
             padding: 10px;
         }
+
         .error {
             color: red;
         }
@@ -86,34 +90,41 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 
 <body>
     <h1><a href="index.php">Discografia</a></h1>
+    <table>
+        <tr>
+            <th>Posición</th>
+            <th>Título</th>
+            <th>Duración</th>
+            <th>Modifica</th>
+            <th>Borra</th>
+        </tr>
+
+        <?php
+        //Selecciona las canciones del álbum elegido
+        $canciones = $conexion->query("SELECT * FROM albumes INNER JOIN canciones ON canciones.album = albumes.codigo AND albumes.codigo = " . $_GET['codigo']);
+        //Muestra las canciones en una tabla
+        foreach ($canciones->fetchAll() as $registro) {
+            $duracion = $registro['duracion'];
+            $minutos = floor($duracion / 60);
+            $segundos = $duracion - ($minutos * 60);
+            $duracion = $minutos . 'm ' . $segundos . 's';
+
+            echo '<tr><td>' . $registro['posicion'] . '</td>';
+            echo '<td>' . $registro['titulo'] . '</td>';
+            echo '<td>' . $duracion . '</td>';
+            echo '<td>&#9999;&#65039;</td>';
+            echo '<td>&#128465;&#65039</td></tr>';
+        }
+        // Se elimina el objeto PDOStatement
+        unset($canciones);
+        ?>
+    </table>
+
     <?php
+
     if (empty($_POST)) { //Muestra el formulario por primera vez
         $errores = []; //Creación del array $errores para posteriormente comprobar si está vacío
     ?>
-        <table>
-            <tr>
-                <th>Posición</th>
-                <th>Título</th>
-                <th>Duración</th>
-                <th>Modifica</th>
-                <th>Borra</th>
-            </tr>
-
-            <?php
-            foreach ($canciones->fetchAll() as $registro) {
-                $duracion = $registro['duracion'];
-                $minutos = floor($duracion / 60);
-                $segundos = $duracion - ($minutos * 60);
-                $duracion = $minutos . 'm ' . $segundos . 's';
-
-                echo '<tr><td>' . $registro['posicion'] . '</td>';
-                echo '<td>' . $registro['titulo'] . '</td>';
-                echo '<td>' . $duracion . '</td>';
-                echo '<td>&#9999;&#65039;</td>';
-                echo '<td>&#128465;&#65039</td></tr>';
-            }
-            ?>
-        </table>
 
         <form name="Grupos Nuevos" action="#" method="POST">
             Código:<br><input type="text" name="codigo" id="codigo"><br><br>
@@ -133,84 +144,61 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
         //Selecciona las canciones del álbum elegido
         $canciones = $conexion->query("SELECT * FROM albumes INNER JOIN canciones ON canciones.album = albumes.codigo AND albumes.codigo = " . $_GET['codigo']);
     ?>
-        <table>
-            <tr>
-                <th>Posición</th>
-                <th>Título</th>
-                <th>Duración</th>
-                <th>Modifica</th>
-                <th>Borra</th>
-            </tr>
 
+        <form name="Albumes Nuevos" action="#" method="POST">
+            Código:<br><input type="text" name="codigo" id="codigo" value=<?= $_POST['codigo'] ?>><br><br>
             <?php
-            foreach ($canciones->fetchAll() as $registro) {
-                $duracion = $registro['duracion'];
-                $minutos = floor($duracion / 60);
-                $segundos = $duracion - ($minutos * 60);
-                $duracion = $minutos . 'm ' . $segundos . 's';
-
-                echo '<tr><td>' . $registro['posicion'] . '</td>';
-                echo '<td>' . $registro['titulo'] . '</td>';
-                echo '<td>' . $duracion . '</td>';
-                echo '<td>&#9999;&#65039;</td>';
-                echo '<td>&#128465;&#65039</td></tr>';
+            if (empty($_POST['codigo'])) {
+                echo $mensajeError;
+            } else {
+                if (isset($errores['codigo'])) {
+                    echo $errores['codigo'];
+                }
             }
-
             ?>
-            <form name="Albumes Nuevos" action="#" method="POST">
-                Código:<br><input type="text" name="codigo" id="codigo" value=<?= $_POST['codigo'] ?>><br><br>
-                <?php
-                if (empty($_POST['codigo'])) {
-                    echo $mensajeError;
-                } else {
-                    if (isset($errores['codigo'])) {
-                        echo $errores['codigo'];
-                    }
+            Titulo:<br><input type="text" name="titulo" id="titulo" value=<?= $_POST['titulo'] ?>><br><br>
+            <?php
+            if (empty($_POST['titulo'])) {
+                echo $mensajeError;
+            } else {
+                if (isset($errores['titulo'])) {
+                    echo $errores['titulo'];
                 }
-                ?>
-                Titulo:<br><input type="text" name="titulo" id="titulo" value=<?= $_POST['titulo'] ?>><br><br>
-                <?php
-                if (empty($_POST['titulo'])) {
-                    echo $mensajeError;
-                } else {
-                    if (isset($errores['titulo'])) {
-                        echo $errores['titulo'];
-                    }
+            }
+            ?>
+            Album:<br><input type="text" name="album" id="album" value=<?= $_POST['album'] ?>><br><br>
+            <?php
+            if (empty($_POST['album'])) {
+                echo $mensajeError;
+            } else {
+                if (isset($errores['album'])) {
+                    echo $errores['album'];
                 }
-                ?>
-                Album:<br><input type="text" name="album" id="album" value=<?= $_POST['album'] ?>><br><br>
-                <?php
-                if (empty($_POST['album'])) {
-                    echo $mensajeError;
-                } else {
-                    if (isset($errores['album'])) {
-                        echo $errores['album'];
-                    }
+            }
+            ?>
+            Duración:<br><input type="text" name="duracion" id="duracion" value=<?= $_POST['duracion'] ?>><br><br>
+            <?php
+            if (empty($_POST['duracion'])) {
+                echo $mensajeError;
+            } else {
+                if (isset($errores['duracion'])) {
+                    echo $errores['duracion'];
                 }
-                ?>
-                Duración:<br><input type="text" name="duracion" id="duracion" value=<?= $_POST['duracion'] ?>><br><br>
-                <?php
-                if (empty($_POST['duracion'])) {
-                    echo $mensajeError;
-                } else {
-                    if (isset($errores['duracion'])) {
-                        echo $errores['duracion'];
-                    }
+            }
+            ?>
+            Posición:<br><input type="text" name="posicion" id="posicion" value=<?= $_POST['posicion'] ?>><br><br>
+            <?php
+            if (empty($_POST['posicion'])) {
+                echo $mensajeError;
+            } else {
+                if (isset($errores['posicion'])) {
+                    echo $errores['posicion'];
                 }
-                ?>
-                Posición:<br><input type="text" name="posicion" id="posicion" value=<?= $_POST['posicion'] ?>><br><br>
-                <?php
-                if (empty($_POST['posicion'])) {
-                    echo $mensajeError;
-                } else {
-                    if (isset($errores['posicion'])) {
-                        echo $errores['posicion'];
-                    }
-                }
-                ?>
-                <input type="submit" name="Enviar" value="Añadir Canción">
-            </form>
-        <?php
+            }
+            ?>
+            <input type="submit" name="Enviar" value="Añadir Canción">
+        </form>
+    <?php
     }
     //Introduce los resultados y los muestra
     if (!empty($_POST && empty($errores))) {
@@ -234,42 +222,18 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 
         //Selecciona las canciones del álbum elegido
         $canciones = $conexion->query("SELECT * FROM albumes INNER JOIN canciones ON canciones.album = albumes.codigo AND albumes.codigo = " . $_GET['codigo']);
-        ?>
-            <table>
-                <tr>
-                    <th>Posición</th>
-                    <th>Título</th>
-                    <th>Duración</th>
-                    <th>Modifica</th>
-                    <th>Borra</th>
-                </tr>
-
-                <?php
-                foreach ($canciones->fetchAll() as $registro) {
-                    $duracion = $registro['duracion'];
-                    $minutos = floor($duracion / 60);
-                    $segundos = $duracion - ($minutos * 60);
-                    $duracion = $minutos . 'm ' . $segundos . 's';
-
-                    echo '<tr><td>' . $registro['posicion'] . '</td>';
-                    echo '<td>' . $registro['titulo'] . '</td>';
-                    echo '<td>' . $duracion . '</td>';
-                    echo '<td>&#9999;&#65039;</td>';
-                    echo '<td>&#128465;&#65039</td></tr>';
-                }
-
-                ?>
-                <form name="Grupos Nuevos" action="#" method="POST">
-                    Código:<br><input type="text" name="codigo" id="codigo"><br><br>
-                    Titulo:<br><input type="text" name="titulo" id="titulo"><br><br>
-                    Album:<br><input type="text" name="album" id="album"><br><br>
-                    Duración:<br><input type="text" name="duracion" id="duracion"><br><br>
-                    Posición:<br><input type="text" name="posicion" id="posicion"><br><br>
-                    <input type="submit" name="Enviar" value="Añadir Canción">
-                </form>
-            <?php
-        }
-            ?>
+    ?>
+        <form name="Grupos Nuevos" action="#" method="POST">
+            Código:<br><input type="text" name="codigo" id="codigo"><br><br>
+            Titulo:<br><input type="text" name="titulo" id="titulo"><br><br>
+            Album:<br><input type="text" name="album" id="album"><br><br>
+            Duración:<br><input type="text" name="duracion" id="duracion"><br><br>
+            Posición:<br><input type="text" name="posicion" id="posicion"><br><br>
+            <input type="submit" name="Enviar" value="Añadir Canción">
+        </form>
+    <?php
+    }
+    ?>
 
 
 </body>

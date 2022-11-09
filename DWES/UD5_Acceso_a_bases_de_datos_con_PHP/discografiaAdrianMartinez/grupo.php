@@ -7,7 +7,7 @@ $errorGrupo = '<span class="error">ERROR: El código no puede contener letras o 
 $errorAnyo = '<span class="error">ERROR: Este campo debe contener exactamente 4 números! </span><br>';
 $errorFormato = '<span class="error">ERROR: Este campo debe contener como mínimo 2 letras!</span><br>';
 $errorFecha = '<span class="error">ERROR: Este campo debe contener el siguiente formato: YYYY/MM/DD</span><br>';
-$errorPrecio = '<span class="error">ERROR: Este campo debe contener un número con 2 decimales separados por una coma!</span><br>';
+$errorPrecio = '<span class="error">ERROR: Este campo debe contener un número con 2 decimales separados por un punto!</span><br>';
 $errorPrimaryCodigo = '<span class="error">ERROR: Este codigo ya se encuentra registrado!</span><br>';
 $errorPrimaryTitulo = '<span class="error">ERROR: Este titulo ya se encuentra registrado!</span><br>';
 $errorCorrespondencia = '<span class="error">ERROR: El grupo introducido no pertene al grupo seleccionado!</span><br>';
@@ -19,15 +19,13 @@ $grupo_formato = '/^\d{1,}$/';
 $anyo_formato = '/^\d{4}$/';
 $formato_formato = '/^[\w\d]{2,}$/';
 $fecha_formato = '/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/';
-$precio_formato = '/^\d{2},\d{2}$/';
+$precio_formato = '/^\d{1,}.\d{2}$/';
 
 //Conexión a la BDD
 $dsn = 'mysql:host=localhost;dbname=discografia';
 $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 $conexion = new PDO($dsn, 'vetustamorla', '15151', $opciones);
 
-//Selecciona los álbumes que coinciden con el código del grupo
-$albumes = $conexion->query("SELECT * FROM grupos INNER JOIN albumes ON grupos.codigo = albumes.grupo AND grupos.codigo = " . $_GET['codigo']);
 
 if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 
@@ -62,6 +60,10 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     if (!preg_match($precio_formato, $_POST['precio'])) {
         $errores['precio'] = $errorPrecio;
     }
+
+    //Selecciona los álbumes que coinciden con el código del grupo
+    $albumes = $conexion->query("SELECT * FROM grupos INNER JOIN albumes ON grupos.codigo = albumes.grupo AND grupos.codigo = " . $_GET['codigo']);
+
     foreach ($albumes->fetchAll() as $registro) { //Comprueba que no se repita ni el código ni el titulo
         if ($_POST['codigo'] == $registro['codigo']) {
             $errores['codigo'] = $errorPrimaryCodigo;
@@ -70,6 +72,8 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
             $errores['titulo'] = $errorPrimaryTitulo;
         }
     }
+    // Se elimina el objeto PDOStatement
+    unset($albumes);
 }
 ?>
 <!DOCTYPE html>
@@ -100,19 +104,21 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 <body>
     <h1><a href="index.php">Discografia</a></h1>
     <?php
+
+    //Imprime los álbumes en una lista desordenada
+    echo '<ul>';
+    //Selecciona los álbumes que coinciden con el código del grupo
+    $albumes = $conexion->query("SELECT * FROM grupos INNER JOIN albumes ON grupos.codigo = albumes.grupo AND grupos.codigo = " . $_GET['codigo']);
+    foreach ($albumes->fetchAll() as $registro) {
+        echo '<li>' . '<a href="album.php?codigo=' . $registro['codigo'] . '">'  . $registro['nombre'] . ' - ' . $registro['titulo'] . '</a> &#9999;&#65039; &#128465;&#65039;</li>';
+    }
+    echo '</ul>';
+
+    // Se elimina el objeto PDOStatement
+    unset($albumes);
+
     if (empty($_POST)) { //Muestra el formulario por primera vez
         $errores = []; //Creación del array $errores para posteriormente comprobar si está vacío
-        function imprimeAlbumes($conexion) //Crea una función para imprimir los álbumes
-        {
-            echo '<ul>';
-            //Selecciona los álbumes que coinciden con el código del grupo
-            $albumes = $conexion->query("SELECT * FROM grupos INNER JOIN albumes ON grupos.codigo = albumes.grupo AND grupos.codigo = " . $_GET['codigo']);
-            foreach ($albumes->fetchAll() as $registro) {
-                echo '<li>' . '<a href="album.php?codigo=' . $registro['codigo'] . '">'  . $registro['nombre'] . ' - ' . $registro['titulo'] . '</a> &#9999;&#65039; &#128465;&#65039;</li>';
-            }
-            echo '</ul>';
-        }
-        imprimeAlbumes($conexion);
     ?>
         <form name="Grupos Nuevos" action="#" method="POST">
             Código:<br><input type="text" name="codigo" id="codigo"><br><br>
@@ -130,8 +136,6 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     }
 
     if (!empty($errores)) {
-        imprimeAlbumes($conexion);
-
     ?>
 
         <form name="Albumes Nuevos" action="#" method="POST">
@@ -224,14 +228,12 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
         $consulta->bindparam(7, $_POST['precio']);
 
         try { //FALLA
-            $_POST['grupo'] == $_GET['codigo'];
+            $_POST['grupo'] != $_GET['codigo'];
         } catch (PDOException $e) {
             echo $errorCorrespondencia . $e->getMessage();
         }
 
         $consulta->execute();
-
-        imprimeAlbumes($conexion);
 
     ?>
         <form name="Grupos Nuevos" action="#" method="POST">
