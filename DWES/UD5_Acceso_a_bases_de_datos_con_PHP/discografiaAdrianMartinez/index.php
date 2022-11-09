@@ -61,24 +61,45 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 }
 
 if (isset($_GET['accion'])) {
-    if ($_GET['accion']=='editar') {
-        $formulario='editar';
+
+    if ($_GET['accion'] == 'aviso') {
+        $formulario = 'aviso';
     }
-    if ($_GET['accion']=='borrar') {
-        $formulario='borrar';
+    if ($_GET['accion'] == 'borrar') {
+        //Borra un grupo
+        $borrar = $conexion->query('DELETE FROM grupos WHERE grupos.codigo = ' . $_GET['codigo']);
+        header('location:index.php');
     }
-    if ($_GET['accion']=='guardar'){
-        $guardar = $conexion->prepare('UPDATE grupos SET codigo = ?,
-        nombre = ?,
-        genero = ?,
-        pais = ?,
-        inicio = ?');
-        /*$guardar->bindParam(
-            ''
-        );*/
+    if ($_GET['accion'] == 'guardar') {
+        if (!empty($_GET['codigo'])) {
+            $guardar = $conexion->query('UPDATE grupos SET codigo = "' . $_GET['codigo'] . '" WHERE grupos.codigo = ' . $_GET['codigo']);
+            $guardar->execute();
+        }
+        if (!empty($_GET['nombre'])) {
+            $guardar = $conexion->query('UPDATE grupos SET nombre = "' . $_GET['nombre'] . '" WHERE grupos.codigo = ' . $_GET['codigo']);
+            $guardar->execute();
+        }
+        if (!empty($_GET['genero'])) {
+            $guardar = $conexion->query('UPDATE grupos SET genero = "' . $_GET['genero'] . '" WHERE grupos.codigo = ' . $_GET['codigo']);
+            $guardar->execute();
+        }
+        if (!empty($_GET['pais'])) {
+            $guardar = $conexion->query('UPDATE grupos SET pais = "' . $_GET['pais'] . '" WHERE grupos.codigo = ' . $_GET['codigo']);
+            $guardar->execute();
+        }
+        if (!empty($_GET['inicio'])) {
+            $guardar = $conexion->query('UPDATE grupos SET inicio = "' . $_GET['inicio'] . '" WHERE grupos.codigo = ' . $_GET['codigo']);
+            $guardar->execute();
+        }
+        header('location:index.php');
     }
-}else{
-    $formulario='ver';
+    if ($_GET['accion'] == 'editar') {
+        $formulario = 'editar';
+    } else {
+        $formulario = 'ver';
+    }
+} else {
+    $formulario = 'ver';
 }
 
 ?>
@@ -115,12 +136,9 @@ if (isset($_GET['accion'])) {
     //Selecciona todo sobre la tabla grupos
     $grupos = $conexion->query('SELECT * FROM grupos');
 
-    //Borra un grupo
-    //$borrar = $conexion->query('DELETE FROM grupos WHERE grupos.codigo = ' . $registro['codigo']);
-
     //Muesta los grupos en una lista ordenada
     foreach ($grupos->fetchAll() as $registro) {
-        echo '<li>' . '<a href="grupo.php?codigo=' . $registro['codigo'] . '">' . $registro['nombre'] . '</a><a href="index.php?accion=editar&codigo=' . $registro['codigo'] . '&nombre=' . $registro['nombre'] . '&genero=' . $registro['genero'] . '&pais=' . $registro['pais'] . '&inicio=' . $registro['inicio'] . '"> &#9999;&#65039;</a><a href="index.php?accion=borrar"> &#128465;&#65039;</a></li>';
+        echo '<li>' . '<a href="grupo.php?codigo=' . $registro['codigo'] . '">' . $registro['nombre'] . '</a><a href="index.php?accion=editar&codigo=' . $registro['codigo'] . '&nombre=&quot;' . $registro['nombre'] . '&quot;&genero=&quot;' . $registro['genero'] . '&quot;&pais=&quot;' . $registro['pais'] . '&quot;&inicio=' . $registro['inicio'] . '"> &#9999;&#65039;</a><a href="index.php?accion=borrar&codigo=' . $registro['codigo'] . '"> &#128465;&#65039;</a></li>';
     }
     echo '</ol>';
 
@@ -129,8 +147,6 @@ if (isset($_GET['accion'])) {
 
     if (empty($_POST)) { //Muestra el formulario por primera vez
         $errores = []; //Creación del array $errores para posteriormente comprobar si está vacío
-
-
     ?>
         <form name="Grupos Nuevos" action="#" method="POST">
             <?php
@@ -183,14 +199,24 @@ if (isset($_GET['accion'])) {
             <input type="submit" name="Enviar" value="Añadir Grupo">
 
             <?php
-        
-            if ($formulario == 'editar') {
+
+            if ($formulario == 'aviso') {
+                echo 'Estás seguro que lo quieres borrar?';
             ?>
-                <div class="guardar"><a href="index.php?accion=guardar"></a> Guardar</div>
-                <div class="volver"><a href="index.php?<?= $editar = false ?>">Cancelar</a></div>
+                <input type="button" name="si" id="si" value="SI">
+                <input type="button" name="no" id="no" value="NO">
             <?php
             }
-        
+            if ($formulario == 'editar') {
+                //Selecciona todo sobre la tabla grupos
+                $grupos = $conexion->query('SELECT * FROM grupos');
+                foreach ($grupos->fetchAll() as $registro) {
+                    echo '<div class="guardar"><a href="index.php?accion=guardar&codigo=' . $_GET['codigo'] . '&nombre=' . $_GET['nombre'] . '&genero=' . $_GET['genero'] . '&pais=' . $_GET['pais'] . '&inicio=' . $_GET['inicio'] . '">Guardar</a></div>';
+                }
+                echo '<div class="volver"><a href="index.php?">Cancelar</a></div>';
+                // Se elimina el objeto PDOStatement
+                unset($grupos);
+            }
             ?>
         </form>
 
