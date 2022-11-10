@@ -60,7 +60,7 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     unset($grupos);
 }
 
-if (isset($_GET['accion'])) {
+if (isset($_GET['accion'])) { //Se ejecutará cuando se indique la acción
 
     if ($_GET['accion'] == 'aviso') {
         $formulario = 'aviso';
@@ -95,14 +95,35 @@ if (isset($_GET['accion'])) {
     }
     if ($_GET['accion'] == 'editar') {
         $formulario = 'editar';
-    } else {
-        $formulario = 'ver';
     }
+    if ($_GET['accion'] == 'pantalla') {
+        $redireccion = header('location:index.php?codigo=' . $_GET["codigo"] . '&nombre=' . $_GET["nombre"]);
+    }
+    /*else {
+        $formulario = 'ver';
+    }*/
 } else {
     $formulario = 'ver';
 }
 
+//Si se ha enviado el formulario y no hay errores introduce los datos en la BDD y actualiza la página
+if (!empty($_POST && empty($errores))) {
+
+    $consulta = $conexion->prepare('INSERT INTO grupos
+                                        (codigo, nombre, genero, pais, inicio)
+                                        VALUES (?, ?, ?, ?, ?);');
+    $consulta->bindparam(1, $_POST['codigo']);
+    $consulta->bindparam(2, $_POST['nombre']);
+    $consulta->bindparam(3, $_POST['genero']);
+    $consulta->bindparam(4, $_POST['pais']);
+    $consulta->bindparam(5, $_POST['inicio']);
+
+    $consulta->execute();
+
+    header('location:index.php');
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -138,7 +159,28 @@ if (isset($_GET['accion'])) {
 
     //Muesta los grupos en una lista ordenada
     foreach ($grupos->fetchAll() as $registro) {
-        echo '<li>' . '<a href="grupo.php?codigo=' . $registro['codigo'] . '">' . $registro['nombre'] . '</a><a href="index.php?accion=editar&codigo=' . $registro['codigo'] . '&nombre=&quot;' . $registro['nombre'] . '&quot;&genero=&quot;' . $registro['genero'] . '&quot;&pais=&quot;' . $registro['pais'] . '&quot;&inicio=' . $registro['inicio'] . '"> &#9999;&#65039;</a><a href="index.php?accion=borrar&codigo=' . $registro['codigo'] . '"> &#128465;&#65039;</a></li>';
+        echo '<li>';
+        /*Nombre del grupo*/
+        echo '<a href="grupo.php?codigo=' . $registro['codigo'] . '">' . $registro['nombre'] . '</a>';
+        /*Modificar*/
+        echo '<a href="index.php?
+            accion=editar&
+            codigo=' . $registro['codigo'] . '&
+            nombre=&quot;' . $registro['nombre'] . '&quot;&
+            genero=&quot;' . $registro['genero'] . '&quot;&
+            pais=&quot;' . $registro['pais'] . '&quot;&
+            inicio=' . $registro['inicio'] . '">
+            &#9999;&#65039;</a>';
+        /*Borrar*/
+        echo '<a href="index.php?
+            accion=aviso&
+            codigo=' . $registro['codigo'] . '&
+            nombre=&quot;' . $registro['nombre'] . '&quot;&
+            genero=&quot;' . $registro['genero'] . '&quot;&
+            pais=&quot;' . $registro['pais'] . '&quot;&
+            inicio=' . $registro['inicio'] . '">
+         &#128465;&#65039;</a>';
+        echo '</li>';
     }
     echo '</ol>';
 
@@ -197,27 +239,6 @@ if (isset($_GET['accion'])) {
             }
             ?>
             <input type="submit" name="Enviar" value="Añadir Grupo">
-
-            <?php
-
-            if ($formulario == 'aviso') {
-                echo 'Estás seguro que lo quieres borrar?';
-            ?>
-                <input type="button" name="si" id="si" value="SI">
-                <input type="button" name="no" id="no" value="NO">
-            <?php
-            }
-            if ($formulario == 'editar') {
-                //Selecciona todo sobre la tabla grupos
-                $grupos = $conexion->query('SELECT * FROM grupos');
-                foreach ($grupos->fetchAll() as $registro) {
-                    echo '<div class="guardar"><a href="index.php?accion=guardar&codigo=' . $_GET['codigo'] . '&nombre=' . $_GET['nombre'] . '&genero=' . $_GET['genero'] . '&pais=' . $_GET['pais'] . '&inicio=' . $_GET['inicio'] . '">Guardar</a></div>';
-                }
-                echo '<div class="volver"><a href="index.php?">Cancelar</a></div>';
-                // Se elimina el objeto PDOStatement
-                unset($grupos);
-            }
-            ?>
         </form>
 
     <?php
@@ -225,6 +246,29 @@ if (isset($_GET['accion'])) {
 
     }
 
+    if ($formulario == 'aviso') {
+        echo 'Estás seguro que lo quieres borrar?<br>';
+        echo '<a href="index.php?accion=borrar&codigo='.$_GET['codigo'].'">SI</a> ';
+        echo '<a href="index.php">NO</a>';
+        ?>
+    <?php
+    }
+
+    /* if ($formulario == 'editar') {
+        //Selecciona todo sobre la tabla grupos
+        $grupos = $conexion->query('SELECT * FROM grupos');
+        //echo '<div class="guardar">';
+        //echo '<input type="button" name="Guardar" id="guardar" value="Guardar" onclick="<a href="index.php">FAFA</a>">';
+        foreach ($grupos->fetchAll() as $registro) {
+            echo '<a href="index.php?accion=guardar&codigo=' . $registro[$_GET['codigo']] . '&nombre=&quot;' . $registro[$_GET['nombre']] . '&quot;&genero=&quot;' . $registro[$_GET['genero']] . '&quot;&pais=&quot;' . $registro[$_GET['pais']] . '&quot;&inicio=' . $registro[$_GET['inicio']] . '">';
+        }
+        // echo 'Guardar</a></div><div class="volver"><a href="index.php?">Cancelar</a></div>';
+        // Se elimina el objeto PDOStatement
+        //unset($grupos);
+    ?><input type="button" name="Guardar" id="guardar" value="Guardar" onclick="<?= $_GET['accion'] = 'pantalla' ?>">
+    <?php
+    }
+    */
     //Si hay errores muestra el formulario indicando los errores
     if (!empty($errores)) {
     ?>
@@ -283,31 +327,6 @@ if (isset($_GET['accion'])) {
         </form>
     <?php
     }
-    //Introduce los resultados y los muestra
-    if (!empty($_POST && empty($errores))) {
-
-        $consulta = $conexion->prepare('INSERT INTO grupos
-                                        (codigo, nombre, genero, pais, inicio)
-                                        VALUES (?, ?, ?, ?, ?);');
-        $consulta->bindparam(1, $_POST['codigo']);
-        $consulta->bindparam(2, $_POST['nombre']);
-        $consulta->bindparam(3, $_POST['genero']);
-        $consulta->bindparam(4, $_POST['pais']);
-        $consulta->bindparam(5, $_POST['inicio']);
-
-        $consulta->execute();
-    ?>
-        <form name="Grupos Nuevos" action="#" method="POST">
-            Código:<br><input type="text" name="codigo" id="codigo"><br><br>
-            Nombre:<br><input type="text" name="nombre" id="nombre"><br><br>
-            Género:<br><input type="text" name="genero" id="genero"><br><br>
-            País:<br><input type="text" name="pais" id="pais"><br><br>
-            Inicio:<br><input type="text" name="inicio" id="inicio"><br><br>
-            <input type="submit" name="Enviar" value="Añadir Grupo">
-        </form>
-    <?php
-    }
-
     ?>
 </body>
 
