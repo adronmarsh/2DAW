@@ -75,6 +75,52 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     // Se elimina el objeto PDOStatement
     unset($albumes);
 }
+
+//Se ejecutará cuando se indique la acción
+if (isset($_GET['accion'])) {
+    //Actualiza la tabla "albumes" de la BDD y redirecciona la página
+    if ($_GET['accion'] == 'editar' && !empty($_POST)) {
+        $codigo = $_POST['codigo'];
+        $titulo = $_POST['titulo'];
+        $grupo = $_POST['grupo'];
+        $anyo = $_POST['anyo'];
+        $formato = $_POST['formato'];
+        $fechacompra = $_POST['fechacompra'];
+        $precio = $_POST['precio'];
+
+        $actualizar = $conexion->query("UPDATE albumes SET codigo = '$codigo', titulo = '$titulo', anyo = '$anyo', formato = '$formato' , fechacompra = '$fechacompra', precio = '$precio' WHERE grupo = '$grupo'");
+        $actualizar->execute();
+
+        header('location:grupo.php?' . $codigo);
+    }
+    //Lanza un mensaje de aviso
+    if ($_GET['accion'] == 'aviso') {
+        $formulario = 'aviso';
+    }
+    //Borra el grupo seleccionado y redirecciona la página
+    if ($_GET['accion'] == 'borrar') {
+        $borrar = $conexion->query('DELETE FROM albumes WHERE albumes.codigo = ' . $_GET['codigo']);
+        header('location:index.php');
+    }
+}
+
+//Introduce los resultados y los muestra
+if (!empty($_POST && empty($errores))) {
+
+    $consulta = $conexion->prepare('INSERT INTO albumes
+                                        (codigo, titulo, grupo, anyo, formato, fechacompra, precio)
+                                        VALUES (?, ?, ?, ?, ?, ?, ?);');
+    $consulta->bindparam(1, $_POST['codigo']);
+    $consulta->bindparam(2, $_POST['titulo']);
+    $consulta->bindparam(3, $_POST['grupo']);
+    $consulta->bindparam(4, $_POST['anyo']);
+    $consulta->bindparam(5, $_POST['formato']);
+    $consulta->bindparam(6, $_POST['fechacompra']);
+    $consulta->bindparam(7, $_POST['precio']);
+    $consulta->execute();
+
+    header('location:album.php?codigo=' . $_POST['codigo']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -108,9 +154,36 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     //Imprime los álbumes en una lista desordenada
     echo '<ul>';
     //Selecciona los álbumes que coinciden con el código del grupo
-    $albumes = $conexion->query("SELECT * FROM grupos INNER JOIN albumes ON grupos.codigo = albumes.grupo AND grupos.codigo = " . $_GET['codigo']);
+    $albumes = $conexion->query("SELECT * FROM grupos INNER JOIN albumes ON grupos.codigo = albumes.grupo AND grupos.codigo = " . $_GET['codigoGrupo']);
     foreach ($albumes->fetchAll() as $registro) {
-        echo '<li>' . '<a href="album.php?codigo=' . $registro['codigo'] . '">'  . $registro['nombre'] . ' - ' . $registro['titulo'] . '</a> &#9999;&#65039; &#128465;&#65039;</li>';
+        echo '<li>';
+        /*Nombre del álbum*/
+        echo '<a href="album.php?codigoAlbum=' . $registro['codigo'] . '">'  . $registro['nombre'] . ' - ' . $registro['titulo'] . '</a>';
+        /*Modificar*/
+        echo '<a href="grupo.php?' .
+            'accion=editar&' .
+            'codigoGrupo=' . $registro['grupo'] . '&' .
+            'codigoAlbum=' . $registro['codigo'] . '&' .
+            'titulo=&quot;' . $registro['titulo'] . '&quot;&' .
+            'grupo=' . $registro['grupo'] . '&' .
+            'anyo=&quot;' . $registro['anyo'] . '&quot;&' .
+            'formato=&quot;' . $registro['formato'] . '&quot;&' .
+            'fechacompra=' . $registro['fechacompra'] . '&' .
+            'precio=' . $registro['precio'] . '">' .
+            '&#9999;&#65039;</a>';
+        /*Borrar*/
+        echo '<a href="grupo.php?' .
+            'accion=aviso&' .
+            'codigoGrupo=' . $registro['grupo'] . '&' .
+            'codigoAlbum=' . $registro['codigo'] . '&' .
+            'titulo=&quot;' . $registro['titulo'] . '&quot;&' .
+            'grupo=' . $registro['grupo'] . '&' .
+            'anyo=&quot;' . $registro['anyo'] . '&quot;&' .
+            'formato=&quot;' . $registro['formato'] . '&quot;&' .
+            'fechacompra=' . $registro['fechacompra'] . '&' .
+            'precio=' . $registro['precio'] . '">' .
+            '&#128465;&#65039;</a>';
+        echo '</li>';
     }
     echo '</ul>';
 
@@ -121,18 +194,90 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
         $errores = []; //Creación del array $errores para posteriormente comprobar si está vacío
     ?>
         <form name="Grupos Nuevos" action="#" method="POST">
-            Código:<br><input type="text" name="codigo" id="codigo"><br><br>
-            Titulo:<br><input type="text" name="titulo" id="titulo"><br><br>
-            Grupo:<br><input type="text" name="grupo" id="grupo"><br><br>
-            Año:<br><input type="text" name="anyo" id="anyo"><br><br>
-            Formato:<br><input type="text" name="formato" id="formato"><br><br>
-            Fecha de Compra:<br><input type="text" name="fechacompra" id="fechacompra"><br><br>
-            Precio:<br><input type="text" name="precio" id="precio"><br><br>
-            <input type="submit" name="Enviar" value="Añadir Álbum">
+            <?php
+            if (isset($_GET['codigo'])) {
+            ?>
+                Código:<br><input type="text" name="codigo" id="codigo" value=<?= $_GET['codigo'] ?>><br><br>
+            <?php
+            }
+            if (isset($_GET['titulo'])) {
+            ?>
+                Título:<br><input type="text" name="titulo" id="titulo" value=<?= $_GET['titulo'] ?>><br><br>
+            <?php
+            } else {
+            ?>
+                Título:<br><input type="text" name="titulo" id="titulo"><br><br>
+            <?php
+            }
+            if (isset($_GET['grupo'])) {
+            ?>
+                <input type="text" name="grupo" id="grupo" value=<?= $_GET['grupo'] ?>>
+            <?php
+            } else {
+            ?>
+                <input type="hidden" name="grupo" id="grupo">
+            <?php
+            }
+            if (isset($_GET['anyo'])) {
+            ?>
+                Año:<br><input type="text" name="anyo" id="anyo" value=<?= $_GET['anyo'] ?>><br><br>
+            <?php
+            } else {
+            ?>
+                Año:<br><input type="text" name="anyo" id="anyo"><br><br>
+            <?php
+            }
+            if (isset($_GET['formato'])) {
+            ?>
+                Formato:<br><input type="text" name="formato" id="formato" value=<?= $_GET['formato'] ?>><br><br>
+            <?php
+            } else {
+            ?>
+                Formato:<br><input type="text" name="formato" id="formato"><br><br>
+            <?php
+            }
+            if (isset($_GET['fechacompra'])) {
+            ?>
+                Fecha de Compra:<br><input type="text" name="fechacompra" id="fechacompra" value=<?= $_GET['fechacompra'] ?>><br><br>
+            <?php
+            } else {
+            ?>
+                Fecha de Compra:<br><input type="text" name="fechacompra" id="fechacompra"><br><br>
+            <?php
+            }
+            if (isset($_GET['precio'])) {
+            ?>
+                Precio:<br><input type="text" name="precio" id="precio" value=<?= $_GET['precio'] ?>><br><br>
+            <?php
+            } else {
+            ?>
+                Precio:<br><input type="text" name="precio" id="precio"><br><br>
+                <?php
+            }
+            if (isset($_GET['accion'])) {
+                if ($_GET['accion'] == 'editar') {
+                ?>
+                    <input type="submit" name="Enviar" value="Modificar">
+                    <a href="index.php">Cancelar</a>
+                <?php
+                }
+            } else {
+                ?>
+                <input type="submit" name="Enviar" value="Añadir Álbum">
+            <?php
+            }
+            ?>
         </form>
 
     <?php
 
+    }
+    if (isset($formulario)) {
+        if ($formulario == 'aviso') {
+            echo 'Estás seguro que lo quieres borrar?<br>';
+            echo '<a href="index.php?accion=borrar&codigo=' . $_GET['codigo'] . '">SI</a> ';
+            echo '<a href="index.php">NO</a>';
+        }
     }
 
     if (!empty($errores)) {
@@ -213,41 +358,7 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
         </form>
     <?php
     }
-    //Introduce los resultados y los muestra
-    if (!empty($_POST && empty($errores))) {
 
-        $consulta = $conexion->prepare('INSERT INTO albumes
-                                            (codigo, titulo, grupo, anyo, formato, fechacompra, precio)
-                                            VALUES (?, ?, ?, ?, ?, ?, ?);');
-        $consulta->bindparam(1, $_POST['codigo']);
-        $consulta->bindparam(2, $_POST['titulo']);
-        $consulta->bindparam(3, $_POST['grupo']);
-        $consulta->bindparam(4, $_POST['anyo']);
-        $consulta->bindparam(5, $_POST['formato']);
-        $consulta->bindparam(6, $_POST['fechacompra']);
-        $consulta->bindparam(7, $_POST['precio']);
-
-        try { //FALLA
-            $_POST['grupo'] != $_GET['codigo'];
-        } catch (PDOException $e) {
-            echo $errorCorrespondencia . $e->getMessage();
-        }
-
-        $consulta->execute();
-
-    ?>
-        <form name="Grupos Nuevos" action="#" method="POST">
-            Código:<br><input type="text" name="codigo" id="codigo"><br><br>
-            Titulo:<br><input type="text" name="titulo" id="titulo"><br><br>
-            Grupo:<br><input type="text" name="grupo" id="grupo"><br><br>
-            Año:<br><input type="text" name="anyo" id="anyo"><br><br>
-            Formato:<br><input type="text" name="formato" id="formato"><br><br>
-            Fecha de Compra:<br><input type="text" name="fechacompra" id="fechacompra"><br><br>
-            Precio:<br><input type="text" name="precio" id="precio"><br><br>
-            <input type="submit" name="Enviar" value="Añadir Álbum">
-        </form>
-    <?php
-    }
     ?>
 </body>
 

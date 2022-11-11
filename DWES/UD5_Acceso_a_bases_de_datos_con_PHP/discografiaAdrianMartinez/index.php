@@ -52,13 +52,10 @@ if (!empty($_POST)) {
     //Selecciona todo sobre la tabla grupos
     $grupos = $conexion->query('SELECT * FROM grupos');
 
-    //Comprueba que no se repita ni el código ni el nombre
+    //Comprueba que no se repita ni el código
     foreach ($grupos->fetchAll() as $registro) {
         if ($_POST['codigo'] == $registro['codigo']) {
             $errores['codigo'] = $errorPrimaryCodigo;
-        }
-        if ($_POST['nombre'] == $registro['nombre']) {
-            $errores['nombre'] = $errorPrimaryNombre;
         }
     }
     // Se elimina el objeto PDOStatement
@@ -86,7 +83,7 @@ if (isset($_GET['accion'])) {
     }
     //Borra el grupo seleccionado y redirecciona la página
     if ($_GET['accion'] == 'borrar') {
-        $borrar = $conexion->query('DELETE FROM grupos WHERE grupos.codigo = ' . $_GET['codigo']);
+        $borrar = $conexion->query('DELETE FROM grupos WHERE grupos.codigo = ' . $_GET['codigoGrupo']);
         header('location:index.php');
     }
 }
@@ -145,11 +142,11 @@ if (!empty($_POST && empty($errores))) {
     foreach ($grupos->fetchAll() as $registro) {
         echo '<li>';
         /*Nombre del grupo*/
-        echo '<a href="grupo.php?codigo=' . $registro['codigo'] . '">' . $registro['nombre'] . '</a>';
+        echo '<a href="grupo.php?codigoGrupo=' . $registro['codigo'] . '">' . $registro['nombre'] . '</a>';
         /*Modificar*/
         echo '<a href="index.php?' .
             'accion=editar&' .
-            'codigo=' . $registro['codigo'] . '&' .
+            'codigoGrupo=' . $registro['codigo'] . '&' .
             'nombre=&quot;' . $registro['nombre'] . '&quot;&' .
             'genero=&quot;' . $registro['genero'] . '&quot;&' .
             'pais=&quot;' . $registro['pais'] . '&quot;&' .
@@ -158,7 +155,7 @@ if (!empty($_POST && empty($errores))) {
         /*Borrar*/
         echo '<a href="index.php?' .
             'accion=aviso&' .
-            'codigo=' . $registro['codigo'] . '&' .
+            'codigoGrupo=' . $registro['codigo'] . '&' .
             'nombre=&quot;' . $registro['nombre'] . '&quot;&' .
             'genero=&quot;' . $registro['genero'] . '&quot;&' .
             'pais=&quot;' . $registro['pais'] . '&quot;&' .
@@ -177,9 +174,9 @@ if (!empty($_POST && empty($errores))) {
     ?>
         <form name="Grupos Nuevos" action="#" method="POST">
             <?php
-            if (isset($_GET['codigo'])) {
+            if (isset($_GET['codigoGrupo'])) {
             ?>
-                <input type="hidden" name="codigo" id="codigo" value=<?= $_GET['codigo'] ?>>
+                <input type="hidden" name="codigo" id="codigo" value=<?= $_GET['codigoGrupo'] ?>>
             <?php
             } else {
             ?>
@@ -242,7 +239,7 @@ if (!empty($_POST && empty($errores))) {
     if (isset($formulario)) {
         if ($formulario == 'aviso') {
             echo 'Estás seguro que lo quieres borrar?<br>';
-            echo '<a href="index.php?accion=borrar&codigo=' . $_GET['codigo'] . '">SI</a> ';
+            echo '<a href="index.php?accion=borrar&codigoGrupo=' . $_GET['codigoGrupo'] . '">SI</a> ';
             echo '<a href="index.php">NO</a>';
         }
     }
