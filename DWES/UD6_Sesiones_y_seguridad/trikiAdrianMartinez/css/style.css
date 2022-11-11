@@ -1,0 +1,7 @@
+.alerta{
+    border: 1px solid black;
+    background-color:lightblue;
+    margin: auto;
+    width: 50em;
+    text-align:center;
+}
