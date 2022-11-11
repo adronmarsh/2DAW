@@ -67,6 +67,9 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Album</title>
     <style>
+        body{
+            background-color: lightcoral;
+        }
         table {
             border-collapse: separate;
             border-spacing: 2px;

@@ -114,6 +114,10 @@ if (!empty($_POST && empty($errores))) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discografia</title>
     <style>
+        body {
+            background-color: cadetblue;
+        }
+
         h1,
         h2 {
             font-variant: small-caps;
@@ -176,6 +180,7 @@ if (!empty($_POST && empty($errores))) {
             <?php
             if (isset($_GET['codigoGrupo'])) {
             ?>
+                <div>Código: <?php echo $_GET['codigoGrupo'] ?></div><br><br>
                 <input type="hidden" name="codigo" id="codigo" value=<?= $_GET['codigoGrupo'] ?>>
             <?php
             } else {
@@ -219,6 +224,7 @@ if (!empty($_POST && empty($errores))) {
                 Inicio:<br><input type="text" name="inicio" id="inicio"><br><br>
                 <?php
             }
+            //En caso de que accion sea editar el botón de submit se llamará "Modificar" y aparecerá un botón de cancelar
             if (isset($_GET['accion'])) {
                 if ($_GET['accion'] == 'editar') {
                 ?>
@@ -226,7 +232,7 @@ if (!empty($_POST && empty($errores))) {
                     <a href="index.php">Cancelar</a>
                 <?php
                 }
-            } else {
+            } else { //En caso contrario el botón de submit se llamará "Añadir Grupo"
                 ?>
                 <input type="submit" name="Enviar" value="Añadir Grupo">
             <?php
@@ -235,7 +241,7 @@ if (!empty($_POST && empty($errores))) {
         </form>
     <?php
     }
-
+    //Si $formulario es aviso mostrará dos botones de confirmación
     if (isset($formulario)) {
         if ($formulario == 'aviso') {
             echo 'Estás seguro que lo quieres borrar?<br>';
