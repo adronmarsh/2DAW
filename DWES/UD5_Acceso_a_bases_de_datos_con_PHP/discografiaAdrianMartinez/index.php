@@ -131,6 +131,9 @@ if (!empty($_POST && empty($errores))) {
         .error {
             color: red;
         }
+        a{
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -146,7 +149,7 @@ if (!empty($_POST && empty($errores))) {
     foreach ($grupos->fetchAll() as $registro) {
         echo '<li>';
         /*Nombre del grupo*/
-        echo '<a href="grupo.php?codigoGrupo=' . $registro['codigo'] . '">' . $registro['nombre'] . '</a>';
+        echo '<a href="grupo.php?codigoGrupo=' . $registro['codigo'] . '">' . $registro['nombre'] . '</a>&nbsp;&nbsp;';
         /*Modificar*/
         echo '<a href="index.php?' .
             'accion=editar&' .
@@ -155,7 +158,7 @@ if (!empty($_POST && empty($errores))) {
             'genero=&quot;' . $registro['genero'] . '&quot;&' .
             'pais=&quot;' . $registro['pais'] . '&quot;&' .
             'inicio=' . $registro['inicio'] . '">' .
-            '&#9999;&#65039;</a>';
+            '&#9999;&#65039;</a>&nbsp;&nbsp;';
         /*Borrar*/
         echo '<a href="index.php?' .
             'accion=aviso&' .
@@ -180,7 +183,7 @@ if (!empty($_POST && empty($errores))) {
             <?php
             if (isset($_GET['codigoGrupo'])) {
             ?>
-                <div>Código: <?php echo $_GET['codigoGrupo'] ?></div><br><br>
+                <div>Código: <?php echo $_GET['codigoGrupo'] ?></div><br>
                 <input type="hidden" name="codigo" id="codigo" value=<?= $_GET['codigoGrupo'] ?>>
             <?php
             } else {

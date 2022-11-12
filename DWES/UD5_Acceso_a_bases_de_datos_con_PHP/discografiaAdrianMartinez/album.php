@@ -27,7 +27,6 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     $_POST['titulo'] = trim($_POST['titulo']);
     $_POST['album'] = trim($_POST['album']);
     $_POST['duracion'] = trim($_POST['duracion']);
-    $_POST['posicion'] = trim($_POST['posicion']);
 
     //Comprobación de errores
     if (!preg_match($codigo_formato, $_POST['codigo'])) {
@@ -44,18 +43,68 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     }
 
     //Selecciona las canciones del álbum elegido
-    $canciones = $conexion->query("SELECT * FROM albumes INNER JOIN canciones ON canciones.album = albumes.codigo AND albumes.codigo = " . $_GET['codigo']);
+    $primaryCodigo = $conexion->query("SELECT * FROM canciones WHERE codigo = " . $_POST['codigo']);
+    $primaryTitulo = $conexion->query("SELECT * FROM canciones WHERE titulo = '" . $_POST['titulo'] . "' AND album = " . $_POST['album']);
 
-    foreach ($canciones->fetchAll() as $registro) { //Comprueba que no se repita ni el código ni el titulo
+    foreach ($primaryCodigo->fetchAll() as $registro) { //Comprueba que no se repita el código
         if ($_POST['codigo'] == $registro['codigo']) {
             $errores['codigo'] = $errorPrimaryCodigo;
         }
+    }
+    foreach ($primaryTitulo->fetchAll() as $registro) { //Comprueba que no se repita el titulo
         if ($_POST['titulo'] == $registro['titulo']) {
             $errores['titulo'] = $errorPrimaryTitulo;
         }
     }
     // Se elimina el objeto PDOStatement
-    unset($canciones);
+    unset($primaryCodigo);
+    unset($primaryTitulo);
+}
+
+//Se ejecutará cuando se indique la acción
+if (isset($_GET['accion'])) {
+    //Actualiza la tabla "albumes" de la BDD y redirecciona la página
+    if ($_GET['accion'] == 'editar' && !empty($_POST)) {
+        $codigo = $_POST['codigo'];
+        $titulo = $_POST['titulo'];
+        $album = $_POST['album'];
+        $duracion = $_POST['duracion'];
+        $posicion = $_POST['posicion'];
+
+        $actualizar = $conexion->query("UPDATE canciones SET titulo = '$titulo', duracion = '$duracion' , posicion = '$posicion' WHERE album = '$album' AND codigo = '$codigo'");
+        $actualizar->execute();
+        unset($actualizar);
+        header('location:album.php?album=' . $_GET['album']);
+    }
+    //Lanza un mensaje de aviso
+    if ($_GET['accion'] == 'aviso') {
+        $formulario = 'aviso';
+    }
+    //Borra el grupo seleccionado y redirecciona la página
+    if ($_GET['accion'] == 'borrar') {
+        $borrar = $conexion->query('DELETE FROM canciones WHERE canciones.codigo = ' . $_GET['codigo']);
+        $borrar->execute();
+        unset($borrar);
+        $album = $_GET['album'];
+        header("location:album.php?album=$album");
+    }
+}
+
+//Introduce los resultados y los muestra
+if (!empty($_POST && empty($errores))) {
+
+    $consulta = $conexion->prepare('INSERT INTO canciones
+                                                (codigo, titulo, album, duracion, posicion)
+                                                VALUES (?, ?, ?, ?, ?);');
+    $consulta->bindparam(1, $_POST['codigo']);
+    $consulta->bindparam(2, $_POST['titulo']);
+    $consulta->bindparam(3, $_POST['album']);
+    $consulta->bindparam(4, $_POST['duracion']);
+    $consulta->bindparam(5, $_POST['posicion']);
+
+    $consulta->execute();
+    unset($consulta);
+    header('location:album.php?album=' . $_POST['album']);
 }
 ?>
 <!DOCTYPE html>
@@ -67,9 +116,10 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Album</title>
     <style>
-        body{
+        body {
             background-color: lightcoral;
         }
+
         table {
             border-collapse: separate;
             border-spacing: 2px;
@@ -88,6 +138,10 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
         .error {
             color: red;
         }
+
+        a {
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -95,7 +149,7 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     <h1><a href="index.php">Discografía</a></h1>
     <table>
         <tr>
-            <th>Posición</th>
+            <th>Código</th>
             <th>Título</th>
             <th>Duración</th>
             <th>Modifica</th>
@@ -104,50 +158,127 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 
         <?php
         //Selecciona las canciones del álbum elegido
-        $canciones = $conexion->query("SELECT * FROM albumes INNER JOIN canciones ON canciones.album = albumes.codigo AND albumes.codigo = " . $_GET['codigo']);
+        $canciones = $conexion->query("SELECT * FROM albumes INNER JOIN canciones ON canciones.album = albumes.codigo AND albumes.codigo = " . $_GET['album']);
+
         //Muestra las canciones en una tabla
         foreach ($canciones->fetchAll() as $registro) {
             $duracion = $registro['duracion'];
             $minutos = floor($duracion / 60);
             $segundos = $duracion - ($minutos * 60);
             $duracion = $minutos . 'm ' . $segundos . 's';
-
-            echo '<tr><td>' . $registro['posicion'] . '</td>';
+            /*Nombre de la canción*/
+            echo '<td>' . $registro['codigo'] . '</td>';
             echo '<td>' . $registro['titulo'] . '</td>';
             echo '<td>' . $duracion . '</td>';
-            echo '<td>&#9999;&#65039;</td>';
-            echo '<td>&#128465;&#65039</td></tr>';
+            /*Modificar*/
+            echo '<td><a href="album.php?' .
+                'accion=editar&album=' . $_GET['album'] . '&' .
+                'codigo=' . $registro['codigo'] . '&' .
+                'titulo=&quot;' . $registro['titulo'] . '&quot;&' .
+                'album=' . $registro['album'] . '&' .
+                'duracion=' . $registro['duracion'] . '">' .
+                '&#9999;&#65039;</a></td>';
+            /*Borrar*/
+            echo '<td><a href="album.php?' .
+                'accion=aviso&album=' . $_GET['album'] . '&' .
+                'codigo=' . $registro['codigo'] . '&' .
+                'titulo=&quot;' . $registro['titulo'] . '&quot;&' .
+                'album=' . $registro['album'] . '&' .
+                'duracion=' . $registro['duracion'] . '">' .
+                '&#128465;&#65039;</a></td></tr>';
         }
-        // Se elimina el objeto PDOStatement
-        unset($canciones);
         ?>
     </table>
-
     <?php
+    // Se elimina el objeto PDOStatement
+    unset($canciones);
 
     if (empty($_POST)) { //Muestra el formulario por primera vez
         $errores = []; //Creación del array $errores para posteriormente comprobar si está vacío
     ?>
 
         <form name="Grupos Nuevos" action="#" method="POST">
-            Código:<br><input type="text" name="codigo" id="codigo"><br><br>
-            Titulo:<br><input type="text" name="titulo" id="titulo"><br><br>
-            Album:<br><input type="text" name="album" id="album"><br><br>
-            Duración:<br><input type="text" name="duracion" id="duracion"><br><br>
-            Posición:<br><input type="text" name="posicion" id="posicion"><br><br>
-            <input type="submit" name="Enviar" value="Añadir Canción">
+            <?php
+            if (isset($_GET['codigo'])) {
+            ?>
+                <div>Código: <?php echo $_GET['codigo'] ?></div><br><br>
+                <input type="hidden" name="codigo" id="codigo" value=<?= $_GET['codigo'] ?>>
+            <?php
+            } else {
+            ?>
+                Código:<br><input type="text" name="codigo" id="codigo"><br><br>
+            <?php
+            }
+            if (isset($_GET['titulo'])) {
+            ?>
+                Título:<br><input type="text" name="titulo" id="titulo" value=<?= $_GET['titulo'] ?>><br><br>
+            <?php
+            } else {
+            ?>
+                Titulo:<br><input type="text" name="titulo" id="titulo"><br><br>
+            <?php
+            }
+            if (isset($_GET['album'])) {
+            ?>
+                <div>Álbum: <?php echo $_GET['album'] ?></div><br>
+                <input type="hidden" name="album" id="album" value=<?= $_GET['album'] ?>>
+            <?php
+            }
+            if (isset($_GET['duracion'])) {
+            ?>
+                Duración:<br><input type="text" name="duracion" id="duracion" value=<?= $_GET['duracion'] ?>><br><br>
+            <?php
+            } else {
+            ?>
+                Duración:<br><input type="text" name="duracion" id="duracion"><br><br>
+            <?php
+            }
+            if (isset($_GET['posicion'])) {
+            ?>
+                Posición:<br><input type="text" name="posicion" id="posicion" value=<?= $_GET['posicion'] ?>><br><br>
+            <?php
+            } else {
+                #$album = $_GET['album'];
+                #$p = $conexion->query("SELECT count(posicion) FROM canciones WHERE album = $album");
+                #$posicion = $p->fetchColumn() + 1;
+            ?>
+                <input type="hidden" name="posicion" id="posicion">
+                <?php
+                #unset($p);
+            }
+
+            //En caso de que accion sea editar el botón de submit se llamará "Modificar" y aparecerá un botón de cancelar
+            if (isset($_GET['accion'])) {
+                if ($_GET['accion'] == 'editar') {
+                ?>
+                    <input type="submit" name="Enviar" value="Modificar">
+                <?php
+                    echo '<a href="album.php?album=' . $_GET['album'] . '">Cancelar</a>';
+                }
+            } else { //En caso contrario el botón de submit se llamará "Añadir Grupo"
+                ?>
+                <input type="submit" name="Enviar" value="Añadir Canción">
+            <?php
+            }
+            ?>
         </form>
 
     <?php
 
     }
 
+    //Si $formulario es aviso mostrará dos botones de confirmación
+    if (isset($formulario)) {
+        if ($formulario == 'aviso') {
+            echo 'Estás seguro que lo quieres borrar?<br>';
+            echo '<a href="album.php?accion=borrar&album=' . $_GET['album'] . '&codigo=' . $_GET['codigo'] . '">SI</a> ';
+            echo '<a href="album.php?album=' . $_GET['album'] . '">NO</a>';
+        }
+    }
 
+    //Si hay errores muestra el formulario indicando los errores
     if (!empty($errores)) {
-        //Selecciona las canciones del álbum elegido
-        $canciones = $conexion->query("SELECT * FROM albumes INNER JOIN canciones ON canciones.album = albumes.codigo AND albumes.codigo = " . $_GET['codigo']);
     ?>
-
         <form name="Albumes Nuevos" action="#" method="POST">
             Código:<br><input type="text" name="codigo" id="codigo" value=<?= $_POST['codigo'] ?>><br><br>
             <?php
@@ -169,7 +300,8 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
                 }
             }
             ?>
-            Album:<br><input type="text" name="album" id="album" value=<?= $_POST['album'] ?>><br><br>
+            <div>Álbum: <?php echo $_GET['album'] ?></div><br>
+            <input type="hidden" name="album" id="album" value=<?= $_GET['album'] ?>>
             <?php
             if (empty($_POST['album'])) {
                 echo $mensajeError;
@@ -189,55 +321,12 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
                 }
             }
             ?>
-            Posición:<br><input type="text" name="posicion" id="posicion" value=<?= $_POST['posicion'] ?>><br><br>
-            <?php
-            if (empty($_POST['posicion'])) {
-                echo $mensajeError;
-            } else {
-                if (isset($errores['posicion'])) {
-                    echo $errores['posicion'];
-                }
-            }
-            ?>
-            <input type="submit" name="Enviar" value="Añadir Canción">
-        </form>
-    <?php
-    }
-    //Introduce los resultados y los muestra
-    if (!empty($_POST && empty($errores))) {
-
-        $consulta = $conexion->prepare('INSERT INTO albumes
-                                                (codigo, titulo, album, duracion, posicion)
-                                                VALUES (?, ?, ?, ?, ?);');
-        $consulta->bindparam(1, $_POST['codigo']);
-        $consulta->bindparam(2, $_POST['titulo']);
-        $consulta->bindparam(3, $_POST['album']);
-        $consulta->bindparam(4, $_POST['duracion']);
-        $consulta->bindparam(5, $_POST['posicion']);
-
-        try { //FALLA
-            $_POST['grupo'] == $_GET['codigo'];
-        } catch (PDOException $e) {
-            echo $errorCorrespondencia . $e->getMessage();
-        }
-
-        $consulta->execute();
-
-        //Selecciona las canciones del álbum elegido
-        $canciones = $conexion->query("SELECT * FROM albumes INNER JOIN canciones ON canciones.album = albumes.codigo AND albumes.codigo = " . $_GET['codigo']);
-    ?>
-        <form name="Grupos Nuevos" action="#" method="POST">
-            Código:<br><input type="text" name="codigo" id="codigo"><br><br>
-            Titulo:<br><input type="text" name="titulo" id="titulo"><br><br>
-            Album:<br><input type="text" name="album" id="album"><br><br>
-            Duración:<br><input type="text" name="duracion" id="duracion"><br><br>
-            Posición:<br><input type="text" name="posicion" id="posicion"><br><br>
+            <input type="hidden" name="posicion" id="posicion" value=<?= $_POST['posicion'] ?>>
             <input type="submit" name="Enviar" value="Añadir Canción">
         </form>
     <?php
     }
     ?>
-
 
 </body>
 

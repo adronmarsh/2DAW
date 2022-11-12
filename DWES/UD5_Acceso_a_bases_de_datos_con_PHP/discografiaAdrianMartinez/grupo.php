@@ -66,13 +66,7 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
             $errores['grupo'] = $errorCorrespondencia;
         }
     }
-
-
-    //Selecciona los álbumes que coinciden con el código del grupo
-    $albumes = $conexion->query("SELECT * FROM grupos INNER JOIN albumes ON grupos.codigo = albumes.grupo AND grupos.codigo = " . $_GET['codigoGrupo']);
-
-    // Se elimina el objeto PDOStatement
-    unset($albumes);
+    
 }
 
 //Se ejecutará cuando se indique la acción
@@ -90,7 +84,7 @@ if (isset($_GET['accion'])) {
         $actualizar = $conexion->query("UPDATE albumes SET titulo = '$titulo', anyo = '$anyo', formato = '$formato' , fechacompra = '$fechacompra', precio = '$precio' WHERE grupo = '$grupo' AND codigo = '$codigo'");
         $actualizar->execute();
 
-        header('location:grupo.php?codigoGrupo=' . $_GET['grupo'] . '&codigoAlbum=' . $_GET['codigoAlbum']);
+        header('location:grupo.php?codigoGrupo=' . $_GET['grupo']);
     }
     //Lanza un mensaje de aviso
     if ($_GET['accion'] == 'aviso') {
@@ -148,6 +142,9 @@ if (!empty($_POST && empty($errores))) {
         .error {
             color: red;
         }
+        a{
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -165,7 +162,7 @@ if (!empty($_POST && empty($errores))) {
     foreach ($albumes->fetchAll() as $registro) {
         echo '<li>';
         /*Nombre del álbum*/
-        echo '<a href="album.php?codigoAlbum=' . $registro['codigo'] . '">'  . $registro['nombre'] . ' - ' . $registro['titulo'] . '</a>';
+        echo '<a href="album.php?album=' . $registro['codigo'] . '">'  . $registro['nombre'] . ' - ' . $registro['titulo'] . '</a>';
         /*Modificar*/
         echo '<a href="grupo.php?' .
             'accion=editar&' .
@@ -204,7 +201,7 @@ if (!empty($_POST && empty($errores))) {
             <?php
             if (isset($_GET['codigoAlbum'])) {
             ?>
-                <div>Código: <?php echo $_GET['codigoAlbum'] ?></div><br><br>
+                <div>Código: <?php echo $_GET['codigoAlbum'] ?></div><br>
                 <input type="hidden" name="codigoAlbum" id="codigoAlbum" value=<?= $_GET['codigoAlbum'] ?>>
             <?php
             } else {
@@ -221,14 +218,10 @@ if (!empty($_POST && empty($errores))) {
                 Título:<br><input type="text" name="titulo" id="titulo"><br><br>
             <?php
             }
-            if (isset($_GET['grupo'])) {
+            if (isset($_GET['codigoGrupo'])) {
             ?>
-                <div>Grupo: <?php echo $_GET['grupo'] ?></div><br><br>
-                <input type="hidden" name="grupo" id="grupo" value=<?= $_GET['grupo'] ?>>
-            <?php
-            } else {
-            ?>
-                Grupo:<br><input type="text" name="grupo" id="grupo"><br><br>
+                <div>Grupo: <?php echo $_GET['codigoGrupo'] ?></div><br>
+                <input type="hidden" name="grupo" id="grupo" value=<?= $_GET['codigoGrupo'] ?>>
             <?php
             }
             if (isset($_GET['anyo'])) {
@@ -298,7 +291,6 @@ if (!empty($_POST && empty($errores))) {
     //Si hay errores muestra el formulario indicando los errores
     if (!empty($errores)) {
     ?>
-
         <form name="Albumes Nuevos" action="#" method="POST">
             Código:<br> <input type="text" name="codigoAlbum" id="codigoAlbum" value=<?= $_POST['codigoAlbum'] ?>><br><br>
             <?php
