@@ -1,40 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: sans-serif;
-            overflow: hidden;
-        }
-
-        #cursor {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #000;
-            box-sizing: border-box;
-            transition: 0.1s;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-    </style>
+    <link rel="stylesheet" href="css/raton.css">
+    <title>Eventos de Ratón</title>
 </head>
 
 <body>
-    <h2>Follow the cursor</h2>
-    <div id="cursor"></div>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="teclado.html">Eventos con teclado</a></li>
+                <li><a href="raton.html">Eventos con ratón</a></l>
+                <li><a href="formulario.html">Eventos con formulario</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="sub1">
+            <h1>Eventos de cursor</h1>
+            <h3 style="text-decoration: underline;">Evento mousemove</h3>
+            <p>El cursor ha cambiado su estilo. Para realizar este efecto habrá que seguir los siguientes pasos:
+            <p>Crear un div con la id "cursor":</p>
+            <img src="media/idCursor.png" alt="id cursor"></p>
+            <p>A continuación crear una variable que recoja el elemento con la id "cursor".</p>
+            <img src="media/variableCursor.png" alt="variable cursor"></p>
+        </div>
+        <div class="sub2">
+            <p>El próximo paso será crear el addEvent.Listener() con el evento mousemove.</p>
+            <p>Este evento contendrá una función que detecte la posición del ratón en la pantalla y la vaya actualizando
+                según el movimiento.</p>
+            <img src="media/mousemove.png" alt="mousemove">
+            <p>El último paso será modificar el css. En este caso el código es el siguiente:</p>
+            <div><img src="media/cssRaton.png" alt="css ratón"><img style="margin-bottom: 135px"
+                    src="media/cssRaton2.png" alt="css ratón 2"></div>
+        </div>
+        <div id="cursor"></div>
+    </div>
 </body>
 <script type="text/javascript">
     var cursor = document.getElementById('cursor');
@@ -44,8 +50,8 @@
             var y = e.clientY;
             cursor.style.left = x + "px";
             cursor.style.top = y + "px";
-
         });
+
 </script>
 
 </html>

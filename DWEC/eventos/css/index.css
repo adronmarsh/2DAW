@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #1e1e1e;
+    color: darkgrey;
+    font-family: sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 80%;
+    height: 40vw;
+    justify-content: center;
+    margin: auto;
+    margin-top: 6.5em;
+}
+
+.teclado,
+.raton,
+.formulario {
+    width: 33%;
+    height: 100%;
+    font-variant: small-caps;
+    font-size: 80px;
+    text-align: center;
+
+}
+
+a {
+    position: relative;
+    top: 40%;
+    text-decoration: none;
+    color: darkgrey;
+    text-shadow: whitesmoke 1px -2px 3px;
+}

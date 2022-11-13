@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/teclado.css">
+    <title>Eventos de Teclado</title>
+</head>
+
+<body onkeydown="moverse(event)">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="teclado.html">Eventos con teclado</a></li>
+                <li><a href="raton.html">Eventos con ratón</a></l>
+                <li><a href="formulario.html">Eventos con formulario</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="teclado">
+            <h1>Eventos de teclado</h1>
+            <h3>"C" ¡Crece!&nbsp;&nbsp;&nbsp;&nbsp;"X" ¡Disminuye!&nbsp;&nbsp;&nbsp;&nbsp;"AWSD"
+                ¡Mover!&nbsp;&nbsp;&nbsp;&nbsp;"R" Reiniciar</h3>
+            <div><img id="p" class="pelota" src="media/pelota2.svg" alt="pelota"></div>
+            <h3 style="text-decoration: underline;">Evento keydown</h3>
+            <p>Antes de nada se escribirá el evento keydown para que funcione en el body entero. <br><br><img
+                    src="media/keydown.png" alt="keydown"></p>
+            <p>La función moverse() funciona gracias al método keyCode.</p>
+            <p>Este método recoge el código de la tecla que se pulsa y que keydown recibe.</p>
+            <p>La acción a realizar dependerá de una serie de condiciones.</p>
+            <img src="media/keyCode2.png" alt="keyCode">
+            <p>También se ha creado una función llamada init() para que el elemento vuelva a la posición inicial.
+            </p>
+            <img src="media/init.png" alt="init">
+            <p>La función tendrá efecto al pulsar la tecla "r"</p>
+            <img src="media/reinicia.png" alt="reinicia">
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var elemento = null;
+        function init() {
+            elemento = document.getElementById("p");
+            elemento.style.position = "relative";
+            elemento.style.left = "0px";
+            elemento.style.top = "0px";
+            elemento.style.width = "50px";
+
+        }
+        function moverse(tecla) {
+            var p = tecla.keyCode;
+
+            if (p == 65) { //Izquierda
+                elemento.style.left = parseInt(elemento.style.left) - 5 + "px";
+
+            }
+            if (p == 68) { //Derecha
+                elemento.style.left = parseInt(elemento.style.left) + 5 + "px";
+
+            }
+            if (p == 87) { //Arriba
+                elemento.style.top = parseInt(elemento.style.top) - 5 + "px";
+
+            }
+            if (p == 83) { //Abajo
+                elemento.style.top = parseInt(elemento.style.top) + 5 + "px";
+
+            }
+            if (p == 67) { //Crece
+                elemento.style.width = "100px";
+
+            }
+            if (p == 88) { //Disminuye
+                elemento.style.width = "50px";
+
+            }
+            if (p == 82) { //Reinicia
+                init();
+            }
+        }
+
+        window.onload = init;
+    </script>
+</body>
+
+</html>

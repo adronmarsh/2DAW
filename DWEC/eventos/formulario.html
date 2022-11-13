@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/formulario.css">
+    <title>Eventos de Formulario</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="teclado.html">Eventos con teclado</a></li>
+                <li><a href="raton.html">Eventos con ratón</a></l>
+                <li><a href="formulario.html">Eventos con formulario</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="formulario">
+            <h1>Eventos de formulario</h1>
+            <h4>Convierte el texto introducido en mayúsculas</h4>
+            <form action="#">
+                <input id="input" type="text">
+                <p id="p"></p>
+            </form>
+            <h3 style="text-decoration: underline;">Evento change</h3>
+            <p>Para relaizar este ejercicio se ha hecho uso del evento change. <br><br>
+            <p>Primero se creará un formulario con un input y un elemento p donde irá el texto modificado.<br><br>
+                <img src="media/formulario.png" alt="formulario">
+            </p>
+            <p>A continuación se creará en el script dos constantes que recojan los elementos creados anteriormente.</p>
+            <img src="media/elementos.png" alt="elementos"></p>
+            <p>Por último se creará el addEventListener con el evento change.</p>
+            <p>Este evento contendrá una función que seleccionará el texto introducido y lo convertirá en mayúsculas
+                mediante la función toUpperCase().</p>
+            <img src="media/change.png" alt="change">
+        </div>
+    </div>
+    <script type="text/javascript">
+        const texto = document.getElementById("p");
+        const input = document.getElementById('input');
+
+        input.addEventListener('change', (e) => {
+            texto.textContent = e.target.value;
+            texto.textContent = texto.textContent.toUpperCase();
+        });
+    </script>
+</body>
+
+</html>
