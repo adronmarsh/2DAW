@@ -1,0 +1,14 @@
+table {
+    border-collapse: separate;
+    border-spacing: 2px;
+    background-color: black;
+    margin: auto;
+    text-align: center;
+}
+
+td,
+th {
+    background: #fff;
+    color: #000;
+    padding: 10px;
+}
