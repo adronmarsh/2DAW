@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Responsive Design</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: blanchedalmond;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            /* flex-wrap: wrap; */
+            width: 80%;
+            height: 40vw;
+            justify-content: center;
+            margin: auto;
+            margin-top: 6%;
+            align-items: center;
+        }
+
+        .rendered,
+        .narrow,
+        .adjusted,
+        .mobile {
+            width: 25%;
+            height: 100%;
+            font-variant: small-caps;
+            font-size: 30px;
+            text-align: center;
+
+        }
+
+        a {
+            position: relative;
+            top: 40%;
+            text-decoration: none;
+            color: black;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="rendered">
+            <a href="rendered.html">the rendered layout</a>
+        </div>
+        <div class="narrow">
+            <a href="narrow.html">the narrow layout</a>
+        </div>
+        <div class="adjusted">
+            <a href="adjusted.html">the adjusted layout</a>
+        </div>
+        <div class="mobile">
+            <a href="mobile.html">the mobile layout</a>
+        </div>
+    </div>
+</body>
+
+</html>
