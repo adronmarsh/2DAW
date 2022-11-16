@@ -4,11 +4,33 @@ table {
     background-color: black;
     margin: auto;
     text-align: center;
+
 }
 
 td,
 th {
     background: #fff;
-    color: #000;
+    color: #456;
     padding: 10px;
+    height: 20px;
+}
+
+img {
+    width: 2em;
+    height: 2em;
+}
+
+a {
+    text-decoration: none;
+}
+
+.menu{
+    font-variant: small-caps;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+
+.carrito{
+    width: 4em;
+    height: 4em;
 }
