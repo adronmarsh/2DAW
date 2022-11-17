@@ -17,7 +17,9 @@ if (isset($_GET['producto'])) {
 
     if ($_GET['accion'] == 'sumar') {
         if (isset($_SESSION['carrito'][$_GET['producto']])) {
-            $_SESSION['carrito'][$_GET['producto']]++;
+            if($_SESSION['carrito'][$_GET['producto']]<$_GET['unidades']){
+                $_SESSION['carrito'][$_GET['producto']]++;
+            }
         } else {
             $_SESSION['carrito'][$_GET['producto']] = 1;
         }
@@ -88,7 +90,7 @@ if (isset($_GET['producto'])) {
             echo '<tr>';
             echo '<td></td>';
             echo '<td></td>';
-            echo '<td>' . '<a href="index.php?accion=sumar&producto=' . $producto['codigo'] . '"><img src="media/productos/mas.png" alt="añadir"></a></td>';
+            echo '<td>' . '<a href="index.php?accion=sumar&producto=' . $producto['codigo'] . '&unidades='.$producto['stock'].'"><img src="media/productos/mas.png" alt="añadir"></a></td>';
             echo '<td>' . '<a href="index.php?accion=restar&producto=' . $producto['codigo'] . '"><img src="media/productos/menos.png" alt="restar"></a></td>';
             echo '<td>' . '<a href="index.php?accion=borrar&producto=' . $producto['codigo'] . '"><img src="media/productos/papelera.png" alt="borrar"></a></td>';
             echo '</tr>';
