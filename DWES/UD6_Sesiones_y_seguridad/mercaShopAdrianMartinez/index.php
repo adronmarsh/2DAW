@@ -1,7 +1,9 @@
 <?php
-ini_set("session.name","carrito");
-ini_set("session.cookie_lifetime","600000");
 session_start();
+
+if (!isset($_SESSION['usrSession'])){
+    header('Location:registro.php');
+}
 
 //Llama a la BDD
 $dsn = 'mysql:host=localhost;dbname=tiendamercha';
@@ -68,36 +70,24 @@ if (isset($_GET['producto'])) {
         }else echo '0';
         ?>
     </h4>
-    <table>
-        <tr>
-            <th>Nombre</th>
-            <th>Categoría</th>
-            <th>Precio</th>
-            <th>Unidades</th>
-            <th>Imagen</th>
-        </tr>
+  
         <?php
         $productos = $conexion->query("SELECT * FROM productos"); //Selecciona todo sobre la tabla productos
         foreach ($productos->fetchAll() as $producto) {
-            echo '<tr>';
-            echo '<td>' . $producto['nombre'] . '</td>';
-            echo '<td>' . $producto['categoria'] . '</td>';
-            echo '<td>' . $producto['precio'] . '</td>';
-            echo '<td>' . $producto['stock'] . '</td>';
-            echo '<td><img src="media/' . $producto['imagen'] . '" alt="' . $producto['nombre'] . '"></td>';
-            echo '</tr>';
-
-            echo '<tr>';
-            echo '<td></td>';
-            echo '<td></td>';
-            echo '<td>' . '<a href="index.php?accion=sumar&producto=' . $producto['codigo'] . '&unidades='.$producto['stock'].'"><img src="media/productos/mas.png" alt="añadir"></a></td>';
-            echo '<td>' . '<a href="index.php?accion=restar&producto=' . $producto['codigo'] . '"><img src="media/productos/menos.png" alt="restar"></a></td>';
-            echo '<td>' . '<a href="index.php?accion=borrar&producto=' . $producto['codigo'] . '"><img src="media/productos/papelera.png" alt="borrar"></a></td>';
-            echo '</tr>';
+            echo '<ul>';
+            echo '<li>' . $producto['nombre'] . '</li>';
+            echo '<li>' . $producto['categoria'] . '</li>';
+            echo '<li>' . $producto['precio'] . '</li>';
+            echo '<li>' . $producto['stock'] . '</li>';
+            echo '<li><img src="media/' . $producto['imagen'] . '" alt="' . $producto['nombre'] . '"></li>';
+            
+            echo '<li>' . '<a href="index.php?accion=sumar&producto=' . $producto['codigo'] . '&unidades='.$producto['stock'].'"><img src="media/productos/mas.png" alt="añadir"></a></li>';
+            echo '<li>' . '<a href="index.php?accion=restar&producto=' . $producto['codigo'] . '"><img src="media/productos/menos.png" alt="restar"></a></li>';
+            echo '<li>' . '<a href="index.php?accion=borrar&producto=' . $producto['codigo'] . '"><img src="media/productos/papelera.png" alt="borrar"></a></li>';
+            echo '</ul>';
         }
         unset($productos);
         ?>
-    </table>
 </body>
 
 </html>

@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 
     //Filtro para que no existan espacios ni por delante ni por detrás
@@ -9,30 +8,33 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 
     //Mensajes de error
     $mensajeError = '<span class="error">ERROR: Este campo no puede estar vacío.</span><br>';
-    $errorUser = '<span class="error">ERROR: Este campo debe tener como mínimo 3 letras y no puede contener espacios!</span><br>';
-    $errorMail = '<span class="error">ERROR: Dirección de mail errónea!</span><br>';
-    $errorPassword = '<span class="error">ERROR: La contraseña debe contener como mínimo 8 caracteres</span><br>';
+    $errorUser = '<span class="error">ERROR: Este usuario no existe!</span><br>';
+    $errorPassword = '<span class="error">ERROR: Contraseña incorrecta!</span><br>';
 
-    //Expresiones regulares
-    $user_formato = '/^\w{3,}$/';
-    $mail_formato = '/^[\w\d_.]+@[\w]+.[\w]{2,3}$/';
-    $password_formato = '/^[\w\d]{8,}$/';
+    $dsn = 'mysql:host=localhost;dbname=tiendamercha';
+    $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
+    $conexion = new PDO($dsn, 'Lumos', 'Nox', $opciones);
+    $usuarios = $conexion->query("SELECT * FROM usuarios");
 
-    //Comprobación de errrores
-    if (empty($_POST['user']))
-        $errores['user'] = $mensajeError;
-    else if (!preg_match($user_formato, $_POST['user']))
-        $errores['user'] = $errorUser;
-
-    if (empty($_POST['mail']))
-        $errores['mail'] = $mensajeError;
-    else if (!preg_match($mail_formato, $_POST['mail']))
-        $errores['mail'] = $errorMail;
-
-    if (empty($_POST['password']))
-        $errores['password'] = $mensajeError;
-    else if (!preg_match($password_formato, $_POST['password']))
-        $errores['password'] = $errorPassword;
+    foreach ($usuarios->fetchAll() as $usuario) {
+        if ($_POST['user'] == $usuario['usuario']) {
+            if (password_verify($_POST['password'], $usuario['contrasenya'])) {
+                $_SESSION['usrSession']['user'] = $usuario['usuario'];
+                $_SESSION['usrSession']['rol'] = $usuario['rol'];
+                // -> nombre y rol que dure 180 minutos + casilla de recuerdame
+                // crear token q lo meto en una cookie y en una base de datos para que cuando la sesion se cierre si existe la cookie si hay algun token que coincida con la cookie y me voy a la base de datos y los meto en la session
+                // setcookie('sessid', $sessionid, 604800);      // One week or seven days
+                // setcookie('sesshash', $sessionhash, 604800);  // One week or seven days
+             
+                header('location:index.php');
+            } else {
+                $errores['password'] = $errorPassword;
+            }
+        } else {
+            $errores['user'] = $errorUser;
+        }
+    }
+    unset($usuarios);
 }
 
 if (!empty($_POST) && !isset($errores)) {
@@ -60,9 +62,9 @@ if (!empty($_POST) && !isset($errores)) {
     if (!isset($_SESSION['usrSession'])) {
         $_SESSION['usrSession'] = [];
     } else {
-        $_SESSION['usrSession']['user'] = $_POST['user'];
+        $_SESSION['usrSession'][$_POST['user']] = '';
     }
-    header('location:login.php');
+    header('location:index.php');
 }
 
 ?>
@@ -103,23 +105,18 @@ if (!empty($_POST) && !isset($errores)) {
     if (empty($_POST) || isset($errores)) {
     ?>
         <br><br>
-        <h1>Registro</h1>
+        <h1>Login</h1>
         <form action="#" method="POST">
             <label for="user">Usuario: </label><br>
             <input type="text" name="user" id="user" value="<?= $_POST['user'] ?? "" ?>"><br>
             <?= isset($errores['user']) ? $errores['user'] : "" ?>
             <br>
-            <label for="mail">Mail: </label><br>
-            <input type="text" name="mail" id="mail" value="<?= $_POST['mail'] ?? "" ?>"><br>
-            <?= isset($errores['mail']) ? $errores['mail'] : "" ?>
-            <br>
             <label for="password">Contraseña: </label><br>
             <input type="password" name="password" id="password" value="<?= $_POST['password'] ?? "" ?>"><br>
             <?= isset($errores['password']) ? $errores['password'] : "" ?>
             <br>
-            <label for="registrar"></label><br>
-            <input type="submit" id="registrar" value="Registrar">
-            <a href="login.php">Iniciar Sesión</a>
+            <label for="login"></label><br>
+            <input type="submit" id="login" value="Login">
         </form>
     <?php
     }

@@ -1,10 +1,10 @@
-table {
-    border-collapse: separate;
-    border-spacing: 2px;
-    background-color: black;
-    margin: auto;
-    text-align: center;
-
+li{
+    list-style: none;
+    display: flex;
+}
+ul{
+    border: 1px solid red;
+    width: 20%;
 }
 
 td,
@@ -29,6 +29,7 @@ a {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
 }
+
 
 .carrito{
     width: 4em;
