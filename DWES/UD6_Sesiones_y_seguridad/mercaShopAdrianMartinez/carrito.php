@@ -1,5 +1,4 @@
 <?php
-ini_set("session.name","carrito");
 session_start();
 
 //Llama a la BDD
@@ -9,7 +8,7 @@ $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 $conexion = new PDO($dsn, 'Lumos', 'Nox', $opciones);
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -34,7 +33,7 @@ $conexion = new PDO($dsn, 'Lumos', 'Nox', $opciones);
         }
     }
 
-    echo 'Total: ' . $res . '€';
+    echo '<hr>Total: ' . $res . '€';
     echo '</ul>';
 
     unset($productos);
