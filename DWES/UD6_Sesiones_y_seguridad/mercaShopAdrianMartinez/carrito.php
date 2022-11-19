@@ -25,6 +25,7 @@ $conexion = new PDO($dsn, 'Lumos', 'Nox', $opciones);
     $productos = $conexion->query("SELECT * FROM productos"); //Selecciona todo sobre la tabla productos
     echo '<ul>';
     $res = 0;
+    //Muestra un listado de los productos añadidos al carrito
     foreach ($productos as $producto) {
         if (isset($_SESSION['carrito'][$producto['codigo']])) {
             echo '<li>' . $producto['nombre'] . ' - ' . $_SESSION['carrito'][$producto['codigo']] . ' unidades: ' . $producto['precio'] . '€/unidad</li>';

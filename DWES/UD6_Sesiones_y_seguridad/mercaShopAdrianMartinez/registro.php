@@ -58,7 +58,7 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
             $_SESSION['errores']['mail'] = $errorPrimaryMail;
         }
     }
-   
+
     unset($primaryMail);
 }
 
@@ -71,6 +71,7 @@ if (!empty($_POST) && empty($_SESSION['errores'])) {
     //Se encripta la contraseña
     $encryptedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
+    //Se introducen los datos
     $consulta = $conexion->prepare('INSERT INTO usuarios
                                                 (usuario, email, contrasenya, rol)
                                                 VALUES (?, ?, ?, ?);');
@@ -82,75 +83,7 @@ if (!empty($_POST) && empty($_SESSION['errores'])) {
 
     $consulta->execute();
     unset($consulta);
-    // $_SESSION['usrSession'] = [];
-    // $_SESSION['usrSession']['user'] = $_POST['user'];
-    // $_SESSION['usrSession']['mail'] = $_POST['mail'];
-    // $_SESSION['usrSession']['rol'] = $rol;
     header('location:login.php?mssg=registrado');
 } else {
     header('location:index.php');
 }
-
-/*?>
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <title>MercaShop | Registro</title>
-    <style>
-        form,
-        form input {
-            text-align: center;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        .error {
-            color: red;
-        }
-
-        label {
-            display: inline-block;
-            width: 10em;
-            margin: .3em 0;
-        }
-    </style>
-</head>
-
-<body>
-    <?php
-
-     if (empty($_POST) || isset($errores)) {
-    ?>
-        <div class="login">
-            <h1>Registro</h1>
-            <form action="#" method="POST">
-                <label for="user">Usuario: </label><br>
-                <input type="text" name="user" id="user" value="<?= $_POST['user'] ?? "" ?>"><br>
-                <?= isset($errores['user']) ? $errores['user'] : "" ?>
-                <br>
-                <label for="mail">Mail: </label><br>
-                <input type="text" name="mail" id="mail" value="<?= $_POST['mail'] ?? "" ?>"><br>
-                <?= isset($errores['mail']) ? $errores['mail'] : "" ?>
-                <br>
-                <label for="password">Contraseña: </label><br>
-                <input type="password" name="password" id="password" value="<?= $_POST['password'] ?? "" ?>"><br>
-                <?= isset($errores['password']) ? $errores['password'] : "" ?>
-                <br>
-                <label for="registrar"></label><br>
-                <input type="submit" id="registrar" value="Registrar">
-                <a href="login.php">Iniciar Sesión</a>
-            </form>
-        </div>
-    <?php
-    } 
-    ?>
-</body>
-
-</html>*/

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['usrSession']['rol']!='admin'){
+if ($_SESSION['usrSession']['rol'] != 'admin') {
     header('Location:index.php');
 }
 ?>
@@ -35,6 +35,7 @@ if ($_SESSION['usrSession']['rol']!='admin'){
             $usuarios = $conexion->query("SELECT * FROM usuarios"); //Selecciona todo sobre la tabla usuarios
             ?>
             <div class="usuarios">
+                <!--Muestra una tabla con los usuarios-->
                 <table>
                     <tr>
                         <th>Nombre</th>

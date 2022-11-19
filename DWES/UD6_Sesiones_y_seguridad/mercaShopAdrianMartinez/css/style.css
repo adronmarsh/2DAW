@@ -12,12 +12,15 @@ header {
 .menu ul {
     list-style: none;
     display: flex;
-    justify-content: center;
+    justify-content: left;
+    padding: 0px;
+    margin: 0px;
 }
 
 .menu ul li {
     font-family: Arial, sans-serif;
     font-size: 16px;
+    width: 100%;
 
 }
 
@@ -40,6 +43,10 @@ a {
     text-decoration: none;
 }
 
+a:visited {
+    color: black;
+}
+
 
 .carrito {
     width: 4em;
@@ -50,6 +57,13 @@ a {
     display: flex;
     flex-wrap: wrap;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    justify-content: center;
+}
+
+.container-login {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .subcontainer1 {
@@ -67,11 +81,23 @@ a {
     justify-content: center;
 }
 
-
 .subcontainer2-1 {
     width: 100%;
 }
 
+.container-ofer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.subcontainer1-ofer {
+    width: 100%;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.ofertas,
 .usuarios,
 .productos {
     width: 80%;
@@ -125,21 +151,42 @@ label {
     margin: .3em 0;
 }
 
-.mssgRegistrado{
+.mssgRegistrado {
     text-align: center;
+    background-color: rgba(100, 148, 237, 0.301);
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 1%;
+    width: 23%;
+    margin-top: 1em;
 }
 
-.login{
+.registro {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 40%;
 }
 
-.iframe{
-    width: 20em;
-    height: 24em;
+.login {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 100%;
 }
 
-.oferta{
-    border: 1px solid red;
-    width: 4px;
-    height: 4em;
+.oferta {
+    width: 22em;
+    height: 100%;
+}
+
+.subcontainer2-0 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+body {
+    background-color: gainsboro;
+}
+
+.autologin {
+    font-size: small;
 }
