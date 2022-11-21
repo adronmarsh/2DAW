@@ -1,4 +1,5 @@
 <?php
+session_start();
 //Mensajes de error
 $errorMessage = "<span class='error'>ERROR: Este campo no puede estar vacío.</span><br>";
 $errorMessageUser = "<span class='error'>ERROR: Este campo debe tener como mínimo 3 letras y no puede contener espacios!</span><br>";
@@ -33,30 +34,53 @@ if (!empty($_POST)) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
-  <title>Revels | Login</title>
+  <title>Revels</title>
 </head>
 
 <body>
-  <header>
-    <?php
-    include 'includes/menu.inc.php';
-    ?>
-  </header>
+  <?php
+  include_once("includes/menu.inc.php");
+  ?>
   <main>
-    <h1>Login</h1>
-    <?php
-    if (empty($_POST)) { //Muestra el formulario por primera vez
-      $errores = []; //Creación del array $errores para posteriormente comprobar si está vacío.
-    ?>
-      <form name="datos" action="#" method="POST" enctype="multipart/form-data">
-        User<br><input type="text" name="user" id="user"><br><br>
-        Password<br><input type="password" name="password" id="password"><br><br>
-        <input type="submit" name="submit" value="Sign In">
-      </form>
-
-    <?php
-    }
-    ?>
+    <div class="container">
+      <!-- <div class="sub1"></div> -->
+      <?php
+      //Si el usuario no ha iniciado sesión se muestra el formulario de registro.
+      //Si no, muestran las revelaciones del usuario.
+      if (!isset($_SESSION['usrSession'])) {
+      ?>
+        <div class="sub1">
+          <h1 class="welcome-text">Bienevenido a Revels</h1>
+        </div>
+        <div class="sub2">
+          <h2 class="form-title">registro</h2>
+          <form action="registro.php" method="POST">
+            <label for="user">Usuario: </label><br>
+            <input type="text" name="user" id="user" value="<?= $_SESSION['tmpSession']['user'] ?? "" ?>"><br>
+            <?= isset($_SESSION['errores']['user']) ? $_SESSION['errores']['user'] : "" ?>
+            <br>
+            <label for="mail">Mail: </label><br>
+            <input type="text" name="mail" id="mail" value="<?= $_SESSION['tmpSession']['mail'] ?? "" ?>"><br>
+            <?= isset($_SESSION['errores']['mail']) ? $_SESSION['errores']['mail'] : "" ?>
+            <br>
+            <label for="password">Contraseña: </label><br>
+            <input type="password" name="password" id="password" value="<?= "" ?? "" ?>"><br>
+            <?= isset($_SESSION['errores']['password']) ? $_SESSION['errores']['password'] : "" ?>
+            <br>
+            <label for="registrar"></label><br>
+            <?php
+            unset($_SESSION['errores']);
+            ?>
+            <input type="submit" id="registrar" value="Registrar">
+            <a style="font-size: 11px;" href="login.php">Iniciar Sesión</a>
+          </form>
+        </div>
+      <?php
+      } else {
+        //Código que se ejecutará en caso de estar logeado
+      }
+      ?>
+    </div>
   </main>
 
 </body>

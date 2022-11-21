@@ -1,23 +1,35 @@
 /*MENU*/
 header {
-    background-color: #001 200;
+    /* background-color: rgba(0, 0, 0, 0.1); */
     width: 100%;
     height: 60px;
+    display: flex;
+    justify-content: center;
 }
 
 nav {
     float: left;
+
 }
 
 nav ul {
     list-style: none;
     overflow: hidden;
+    /* border: 1px solid black; */
+    /* box-shadow: 1px 1px 1px 0px black; */
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    /* margin: 0%; */
+    padding: 0%;
 }
 
 nav ul li {
+    border: 1px solid red;
     float: left;
     font-family: Arial, sans-serif;
     font-size: 16px;
+
 }
 
 nav ul li a {
@@ -28,7 +40,9 @@ nav ul li a {
 }
 
 nav ul li:hover {
-    background: rgb(239, 81, 126, 0.7);
+    /* background: rgb(239, 81, 126, 0.7); */
+    background-color: rgba(0, 0, 0, 0.1);
+
     border-radius: 2px;
 }
 
@@ -41,11 +55,59 @@ form input {
     text-align: center;
 }
 
-h1 {
+.container {
+    display: flex;
+    /* border: 1px solid black; */
+    border-radius: 5px;
+    /* box-shadow: 1px 1px 1px 1px black; */
+    height: 35em;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+.sub1 {
+    /* border: 1px solid rgb(239, 81, 126, 0.7); */
+    margin-top: -5em;
+    /* height: 50%; */
+    width: 100%;
+    /* margin: auto; */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+}
+
+.sub2 {
+    /* border: 1px solid rgb(239, 81, 126, 0.7); */
+    margin-top: -15em;
+    height: 50%;
+    width: 50%;
+    /* margin: auto; */
+    justify-content: center;
+    align-items: center;
+
+}
+
+.mssgRegistrado{
+    /* border: 1px solid green; */
+    margin-top: -5em;
+    text-align: center;
+}
+.welcome-text {
+    text-align: center;
+    /* border-color: #f85483 1px solid; */
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-bottom: 0.3em;
+}
+.form-title {
     text-align: center;
     font-variant: small-caps;
-    border-color: #f85483 1px solid;
+    /* border-color: #f85483 1px solid; */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 0.3em;
 }
 
 .error {
@@ -53,7 +115,7 @@ h1 {
 }
 
 body {
-    background:whitesmoke;
+    background: whitesmoke;
     color: black;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
