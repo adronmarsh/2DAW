@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('includes/conexion.inc.php');
 if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 
     //Filtro para que no existan espacios ni por delante ni por detrás
@@ -21,7 +22,7 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 
     $_SESSION['tmpSession']['user'] = $_POST['user'];
     $_SESSION['tmpSession']['mail'] = $_POST['mail'];
-    
+
     //Comprobación de errrores
     if (empty($_POST['user']))
         $_SESSION['errores']['user'] = $mensajeError;
@@ -38,11 +39,7 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     else if (!preg_match($password_formato, $_POST['password']))
         $_SESSION['errores']['password'] = $errorPassword;
 
-    //Llama a la BDD
-    $dsn = 'mysql:host=localhost;dbname=revels';
-    $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
-    //Conecta con la BDD
-    $conexion = new PDO($dsn, 'revel', 'lever', $opciones);
+    $conexion = conectar();
 
     $usuario = $_POST['user'];
     $primaryUser = $conexion->query("SELECT usuario FROM users WHERE usuario = '$usuario'");
@@ -61,16 +58,10 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
         }
     }
     unset($primaryMail);
-
 }
 
 if (!empty($_POST) && empty($_SESSION['errores'])) {
-
-    //Llama a la BDD
-    $dsn = 'mysql:host=localhost;dbname=revels';
-    $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
-    //Conecta con la BDD
-    $conexion = new PDO($dsn, 'revel', 'lever', $opciones);
+    $conexion = conectar();
 
     //Se encripta la contraseña
     $encryptedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);

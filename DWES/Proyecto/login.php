@@ -1,11 +1,7 @@
 <?php
 session_start();
-
-//Llama a la BDD
-$dsn = 'mysql:host=localhost;dbname=revels';
-$opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
-//Conecta con la BDD
-$conexion = new PDO($dsn, 'revel', 'lever', $opciones);
+require_once('includes/conexion.inc.php');
+$conexion = conectar();
 
 if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 

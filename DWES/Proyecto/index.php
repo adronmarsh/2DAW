@@ -1,5 +1,8 @@
 <?php
 session_start();
+require_once('includes/conexion.inc.php');
+$conexion = conectar();
+
 //Mensajes de error
 $errorMessage = "<span class='error'>ERROR: Este campo no puede estar vacío.</span><br>";
 $errorMessageUser = "<span class='error'>ERROR: Este campo debe tener como mínimo 3 letras y no puede contener espacios!</span><br>";
@@ -78,7 +81,30 @@ if (!empty($_POST)) {
         </div>
       <?php
       } else {
-        //Código que se ejecutará en caso de estar logeado
+        // //Código que se ejecutará en caso de estar logeado
+        // $userid = $_SESSION['usrSession']['id'];
+        // $revels = $conexion->query("SELECT * FROM revels WHERE userid = $userid");
+        // foreach ($revels->fetchAll() as $revel) { //Recorre la tabla revels
+        //   $id = $revel['id'];
+        //   echo '<a href="revel.php?id='.$id.'"><div class="revelBox">';
+        //   //Selecciona el nombre de usuario
+        //   $userid =  $revel['userid'];
+        //   $usuarios = $conexion->query("SELECT * FROM users WHERE id = $userid");
+        //   foreach ($usuarios->fetchAll() as $usuario) {
+        //     echo $usuario['usuario'];
+        //     echo '<br>';
+        //   }
+        //   echo $revel['texto'] . '<br>';
+        //   echo $revel['fecha'] . '<br>';
+        //   $comentarios = $conexion->query("SELECT * FROM comments WHERE revelid = $id");
+        //   $count = 0;
+        //   foreach ($comentarios->fetchAll() as $comentario) {
+        //     $count++;
+        //   }
+        //   echo 'Comentarios: ' . $count;
+        //   echo '</div></a>';
+        // }
+        include_once('list.php');
       }
       ?>
     </div>

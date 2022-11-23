@@ -1,22 +1,10 @@
 <?php
 session_start();
-function conectar()
-    {
-        $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
-        $dsn = 'mysql:host=localhost;dbname=revels';
-        $usuario = "revel";
-        $contrasenya = "lever";
-        try {
-            $conexion = new PDO($dsn, $usuario, $contrasenya, $opciones);
-            $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
-        return $conexion;
-    }
+require_once('includes/conexion.inc.php');
+
+
 if (!empty($_POST)) {
-    
-    $conexion=conectar();
+    $conexion = conectar();
     //Se introducen los datos
     $consulta = $conexion->prepare('INSERT INTO revels
                                                 (id, userid, texto, fecha)
@@ -29,7 +17,7 @@ if (!empty($_POST)) {
     $consulta->execute();
     unset($consulta);
     $id = $conexion->lastInsertId();
-    header('Location:revel.php?id='.$id);
+    header('Location:revel.php?id=' . $id);
 }
 ?>
 <!DOCTYPE html>
@@ -39,11 +27,14 @@ if (!empty($_POST)) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
     <title>New</title>
 </head>
 
 <body>
-
+    <?php
+    include_once('includes/menu.inc.php');
+    ?>
     <div class="container">
         <div class="sub1">
             <h1>Nuevo Revel</h1>

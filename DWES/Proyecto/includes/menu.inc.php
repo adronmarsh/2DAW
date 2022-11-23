@@ -9,6 +9,11 @@
                 <li><a href="new.php"><img src="media/header/plus.svg" alt="new"></a></li>
                 <li><a href="account.php"><img src="media/header/user.svg" alt="account"></a></li>
                 <li><a href="logout.php"><img src="media/header/logout.svg" alt="close"></a></li>
+                <!-- <li><a href="lupa.php"><img src="media/header/lupa.svg" alt="búsqueda"></a></li> -->
+                <form action="results.php" method="POST">
+                    <input type="text" name="buscar" id="buscar">
+                    <input type="submit" name="enviar" value="buscar">
+                </form>
             <?php
             } else {
             ?>
