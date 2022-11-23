@@ -2,26 +2,10 @@
 session_start();
 
 //Llama a la BDD
-$dsn = 'mysql:host=localhost;dbname=tiendamercha';
+$dsn = 'mysql:host=localhost;dbname=revels';
 $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 //Conecta con la BDD
-$conexion = new PDO($dsn, 'Lumos', 'Nox', $opciones);
-
-// Si no existe la variable de sesión del usuario y existe la cookie con el token
-// comprueba si en la base de datos existe ese token, en caso de existir
-// se obtendrán los datos del usuario y se creará la variable de sesión con ellos
-if (!isset($_SESSION['usrSession']) && isset($_COOKIE['token'])) {
-    $usuarios = $conexion->query("SELECT * FROM usuarios");
-    foreach ($usuarios->fetchAll() as $usuario) {
-        if ($_COOKIE['token'] == $usuario['token']) {
-            $_SESSION['usrSession']['user'] = $usuario['usuario'];
-            $_SESSION['usrSession']['mail'] = $usuario['email'];
-            $_SESSION['usrSession']['rol'] = $usuario['rol'];
-            header('location:index.php');
-        }
-    }
-    unset($usuarios);
-}
+$conexion = new PDO($dsn, 'revel', 'lever', $opciones);
 
 if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 
@@ -32,15 +16,15 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     //Mensajes de error
     $errorSession = '<span class="error">ERROR: El usuario i/o contraseña no son correctos</span><br>';
 
-    $usuarios = $conexion->query("SELECT * FROM usuarios"); //Selecciona toda la tabla usuarios de la base de datos
+    $usuarios = $conexion->query("SELECT * FROM users"); //Selecciona toda la tabla usuarios de la base de datos
 
     foreach ($usuarios->fetchAll() as $usuario) { //Recorre la tabla usuarios
         if ($_POST['user'] == $usuario['usuario'] || $_POST['user'] == $usuario['email']) { //Comprueba que el usuario o email introducido exista en la base de datos
             if (password_verify($_POST['password'], $usuario['contrasenya'])) { //Comprueba que la contraseña introducida sea la correcta
                 //Se crean las variables de sesión con los datos introducidos
+                $_SESSION['usrSession']['id'] = $usuario['id'];
                 $_SESSION['usrSession']['user'] = $usuario['usuario'];
                 $_SESSION['usrSession']['mail'] = $usuario['email'];
-                $_SESSION['usrSession']['rol'] = $usuario['rol'];
                 header('Location:index.php');
             } else {
                 $errores['session'] = $errorSession;

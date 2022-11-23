@@ -3,13 +3,6 @@
     <nav class="menu">
         <ul>
             <?php
-            if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-                // Windows
-                define('SLASH', '\\');
-            } else {
-                // Linux/Unix 
-                define('SLASH', '/');
-            }
             if (isset($_SESSION['usrSession'])) {
             ?>
                 <li><a href="index.php"><img src="media/header/home.svg" alt="home"></a></li>

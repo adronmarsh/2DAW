@@ -19,6 +19,9 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     $mail_formato = '/^[\w\d_.]+@[\w]+.[\w]{2,3}$/';
     $password_formato = '/^[\w\d]{8,}$/';
 
+    $_SESSION['tmpSession']['user'] = $_POST['user'];
+    $_SESSION['tmpSession']['mail'] = $_POST['mail'];
+    
     //Comprobación de errrores
     if (empty($_POST['user']))
         $_SESSION['errores']['user'] = $mensajeError;
@@ -82,7 +85,6 @@ if (!empty($_POST) && empty($_SESSION['errores'])) {
     $consulta->bindparam(4, $_POST['mail']);
 
     $consulta->execute();
-    // $id = $consulta->lastInsertId();
     unset($consulta);
     header('location:login.php?mssg=registrado');
 } else {

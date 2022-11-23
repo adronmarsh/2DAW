@@ -72,6 +72,7 @@ if (!empty($_POST)) {
             unset($_SESSION['errores']);
             ?>
             <input type="submit" id="registrar" class="btnRegistro" value="Registrar">
+            <p>¿Ya estás registrado?</p>
             <a class="btnLogin" href="login.php">Iniciar Sesión</a>
           </form>
         </div>
