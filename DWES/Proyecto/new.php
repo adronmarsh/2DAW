@@ -21,7 +21,7 @@ if (!empty($_POST)) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -32,25 +32,31 @@ if (!empty($_POST)) {
 </head>
 
 <body>
+    <div class="container">
     <?php
     include_once('includes/menu.inc.php');
     ?>
-    <div class="container">
-        <div class="sub1">
-            <h1>Nuevo Revel</h1>
+        <main class="main">
+            <div class="container-login">
+                <div class="sub1-login">
+                    <h1>Nuevo Revel</h1>
+                </div>
+                <div class="sub2-login">
+                    <form action="#" method="POST">
+                        <label for="user">Introduce texto: </label><br>
+                        <input type="text" name="texto" id="texto" value="<?= $_POST['texto'] ?? "" ?>"><br>
+                        <input type="hidden" name="fecha" id="fecha" value="<?= date("Y-m-d H:i:s") ?>"><br>
+                        <br>
+                        <label for="revel"></label><br>
+                        <input class="btnRegistro" type="submit" id="publicar" value="Publicar">
+                    </form>
+                </div>
+            </div>
+        </main>
+        <?php
+        include_once('includes/footer.inc.php');
+        ?>
         </div>
-        <div class="sub2">
-            <form action="#" method="POST">
-                <label for="user">Introduce texto: </label><br>
-                <input type="text" name="texto" id="texto" value="<?= $_POST['texto'] ?? "" ?>"><br>
-                <input type="hidden" name="fecha" id="fecha" value="<?= date("Y-m-d H:i:s") ?>"><br>
-                <br>
-                <label for="revel"></label><br>
-                <input type="submit" id="publicar" value="Publicar">
-            </form>
-        </div>
-    </div>
-
 </body>
 
 </html>

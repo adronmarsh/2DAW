@@ -53,11 +53,11 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     ?>
 
         <!--Muestra el formulario de login-->
-        <div class="container">
-            <div class="sub1">
+        <div class="container-login">
+            <div class="sub1-login">
                 <h1>Login</h1>
             </div>
-            <div class="sub2">
+            <div class="sub2-login">
                 <form action="#" method="POST">
                     <label for="user">Usuario: </label><br>
                     <input type="text" name="user" id="user" value="<?= $_POST['user'] ?? "" ?>"><br>
@@ -67,7 +67,7 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
                     <?= isset($errores['session']) ? $errores['session'] : "" ?>
                     <br>
                     <label for="login"></label><br>
-                    <input type="submit" id="login" value="Login">
+                    <input type="submit" class="btnRegistro" id="login" value="Login">
                 </form>
             </div>
         </div>
@@ -80,6 +80,7 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
         ?>
     <?php
     }
+    include_once('includes/footer.inc.php');
     ?>
 </body>
 

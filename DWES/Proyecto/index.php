@@ -41,81 +41,120 @@ if (!empty($_POST)) {
 </head>
 
 <body>
-  <?php
-  include_once("includes/menu.inc.php");
-  ?>
-  <main>
-    <div class="container">
-      <!-- <div class="sub1"></div> -->
-      <?php
-      //Si el usuario no ha iniciado sesión se muestra el formulario de registro.
-      //Si no, muestran las revelaciones del usuario.
-      if (!isset($_SESSION['usrSession'])) {
-      ?>
-        <div class="sub1">
-          <h1 class="welcome-text">Bienevenido a Revels</h1>
+  <div class="container">
+    <?php
+    include_once("includes/menu.inc.php");
+    ?>
+    <?php
+    //Si el usuario no ha iniciado sesión se muestra el formulario de registro.
+    //Si no, muestran las revelaciones del usuario.
+    if (!isset($_SESSION['usrSession'])) {
+    ?>
+      <main class="main">
+        <div class="container-login">
+          <div class="sub1-register">
+            <h1 class="welcome-text">Bienevenido a Revels</h1>
+          </div>
+          <div class="sub2-register">
+            <h2 class="form-title">registro</h2>
+            <form action="registro.php" method="POST">
+              <label for="user">Usuario: </label><br>
+              <input type="text" name="user" id="user" value="<?= $_SESSION['tmpSession']['user'] ?? "" ?>"><br>
+              <?= isset($_SESSION['errores']['user']) ? $_SESSION['errores']['user'] : "" ?>
+              <br>
+              <label for="mail">Mail: </label><br>
+              <input type="text" name="mail" id="mail" value="<?= $_SESSION['tmpSession']['mail'] ?? "" ?>"><br>
+              <?= isset($_SESSION['errores']['mail']) ? $_SESSION['errores']['mail'] : "" ?>
+              <br>
+              <label for="password">Contraseña: </label><br>
+              <input type="password" name="password" id="password" value="<?= "" ?? "" ?>"><br>
+              <?= isset($_SESSION['errores']['password']) ? $_SESSION['errores']['password'] : "" ?>
+              <br>
+              <label for="registrar"></label><br>
+              <?php
+              unset($_SESSION['errores']);
+              ?>
+              <input type="submit" id="registrar" class="btnRegistro" value="Registrar">
+              <p>¿Ya estás registrado?</p>
+              <a class="btnLogin" href="login.php">Iniciar Sesión</a>
+            </form>
+          </div>
         </div>
-        <div class="sub2">
-          <h2 class="form-title">registro</h2>
-          <form action="registro.php" method="POST">
-            <label for="user">Usuario: </label><br>
-            <input type="text" name="user" id="user" value="<?= $_SESSION['tmpSession']['user'] ?? "" ?>"><br>
-            <?= isset($_SESSION['errores']['user']) ? $_SESSION['errores']['user'] : "" ?>
-            <br>
-            <label for="mail">Mail: </label><br>
-            <input type="text" name="mail" id="mail" value="<?= $_SESSION['tmpSession']['mail'] ?? "" ?>"><br>
-            <?= isset($_SESSION['errores']['mail']) ? $_SESSION['errores']['mail'] : "" ?>
-            <br>
-            <label for="password">Contraseña: </label><br>
-            <input type="password" name="password" id="password" value="<?= "" ?? "" ?>"><br>
-            <?= isset($_SESSION['errores']['password']) ? $_SESSION['errores']['password'] : "" ?>
-            <br>
-            <label for="registrar"></label><br>
-            <?php
-            unset($_SESSION['errores']);
-            ?>
-            <input type="submit" id="registrar" class="btnRegistro" value="Registrar">
-            <p>¿Ya estás registrado?</p>
-            <a class="btnLogin" href="login.php">Iniciar Sesión</a>
-          </form>
-        </div>
-      <?php
-      } else {
-        //Código que se ejecutará en caso de estar logeado
-        $userid = $_SESSION['usrSession']['id'];
-        $follows = $conexion->query("SELECT * FROM follows WHERE userid = $userid");
-        foreach ($follows->fetchAll() as $follow) { //Recorre la tabla revels
-          $followedid = $follow['userfollowed'];
+      </main>
+    <?php
+    } else {
+      //Código que se ejecutará en caso de estar logeado
+    ?>
+      <main class="main">
+        <!-- <div class="sidebar">
+          sidebar
+        </div> -->
+        <div class="content">
+          <?php
+          $userid = $_SESSION['usrSession']['id'];
+          $follows = $conexion->query("SELECT * FROM follows WHERE userid = $userid");
+          foreach ($follows->fetchAll() as $follow) { //Recorre la tabla revels
+            $followedid = $follow['userfollowed'];
 
-          //Muestra los revels del usuario
-          $revels = $conexion->query("SELECT * FROM revels WHERE userid = $userid OR userid = $followedid");
-          foreach ($revels->fetchAll() as $revel) { //Recorre la tabla revels
-            $revelid = $revel['id'];
-            echo '<a href="revel.php?id=' . $revelid . '"><div class="revelBox">';
-            //Selecciona el nombre de usuario
-            $userid =  $revel['userid'];
-            $usuarios = $conexion->query("SELECT * FROM users WHERE id = $userid");
+            //Muestra los revels del usuario
+            $revels = $conexion->query("SELECT * FROM revels WHERE /*userid = $userid OR*/ userid = $followedid");
+            foreach ($revels->fetchAll() as $revel) { //Recorre la tabla revels
+              $revelid = $revel['id'];
+              echo '<div class="revelBox"><a href="revel.php?id=' . $revelid . '">';
+              //Selecciona el nombre de usuario
+              $userid =  $revel['userid'];
+              $usuarios = $conexion->query("SELECT * FROM users WHERE id = $userid");
+              foreach ($usuarios->fetchAll() as $usuario) {
+                echo '<div class=revNombre>';
+                echo $usuario['usuario'];
+                echo '</div>';
+              }
+              echo '<div class=revTexto>';
+              echo $revel['texto'];
+              echo '</div>';
+              echo '<div class=revFecha>';
+              echo $revel['fecha'];
+              echo '</div>';
+              $comentarios = $conexion->query("SELECT * FROM comments WHERE revelid = $revelid");
+              $count = 0;
+              foreach ($comentarios->fetchAll() as $comentario) {
+                $count++;
+              }
+              echo '<div class=revComentario>';
+              echo 'Comentarios: ' . $count;
+              echo '</div>';
+              echo '</a></div>';
+            }
+          }
+          unset($follows);
+          ?>
+        </div>
+        <div class="sidebar">
+          <span class="title">usuarios que sigues</span>
+          <?php
+          $userid = $_SESSION['usrSession']['id'];
+          $follows = $conexion->query("SELECT * FROM follows WHERE userid = $userid");
+          foreach ($follows->fetchAll() as $follow) { //Recorre la tabla revels
+            $followedid = $follow['userfollowed'];
+            $usuarios = $conexion->query("SELECT * FROM users WHERE id = $followedid");
+           
+            // echo '<ul>';
+            echo '<div>';
             foreach ($usuarios->fetchAll() as $usuario) {
               echo $usuario['usuario'];
-              echo '<br>';
             }
-            echo $revel['texto'] . '<br>';
-            echo $revel['fecha'] . '<br>';
-            $comentarios = $conexion->query("SELECT * FROM comments WHERE revelid = $revelid");
-            $count = 0;
-            foreach ($comentarios->fetchAll() as $comentario) {
-              $count++;
-            }
-            echo 'Comentarios: ' . $count;
-            echo '</div></a>';
+            echo '</div>';
+            // echo '</ul>';
           }
-        }
-        // include_once('list.php');
-      }
-      ?>
-    </div>
-  </main>
+          ?>
+        </div>
+      </main>
+    <?php
+    }
+    include_once('includes/footer.inc.php');
+    ?>
 
+  </div>
 </body>
 
 </html>

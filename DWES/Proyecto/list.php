@@ -22,30 +22,38 @@ $conexion = conectar();
   $revels = $conexion->query("SELECT * FROM revels WHERE userid = $userid");
   foreach ($revels->fetchAll() as $revel) { //Recorre la tabla revels
     $revelid = $revel['id'];
-    echo '<a href="revel.php?id=' . $revelid . '"><div class="revelBox">';
+    echo '<div class="revelBox"><a href="revel.php?id=' . $revelid . '">';
+    if ($userid == $id) {
+      echo '<div class="revEliminar">';
+      echo '<a href="delete.php?userid=' . $userid . '&revelid=' . $revelid . '">Eliminar</a>';
+      echo '</div>';
+    }
     //Selecciona el nombre de usuario
     $userid =  $revel['userid'];
     $usuarios = $conexion->query("SELECT * FROM users WHERE id = $userid");
     foreach ($usuarios->fetchAll() as $usuario) {
+      echo '<div class=revNombre>';
       echo $usuario['usuario'];
-      echo '<br>';
+      echo '</div>';
     }
-    echo $revel['texto'] . '<br>';
-    echo $revel['fecha'] . '<br>';
+    echo '<div class=revTexto>';
+    echo $revel['texto'];
+    echo '</div>';
+    echo '<div class=revFecha>';
+    echo $revel['fecha'];
+    echo '</div>';
     $comentarios = $conexion->query("SELECT * FROM comments WHERE revelid = $revelid");
     $count = 0;
     foreach ($comentarios->fetchAll() as $comentario) {
       $count++;
     }
+    echo '<div class=revComentario>';
     echo 'Comentarios: ' . $count;
-    echo '<br>';
-    if ($userid == $id) {
-      echo '<a href="delete.php?userid=' . $userid . '&revelid=' . $revelid . '">Eliminar</a>';
-      echo '</div></a>';
-    }
+    echo '</div>';
+    echo '</a></div>';
   }
   if ($userid != $id) {
-    echo '<a href="unfollow.php?user='.$_GET['user'].'">Dejar de seguir</a>';
+    echo '<a href="unfollow.php?user=' . $_GET['user'] . '">Dejar de seguir</a>';
   }
   ?>
 </body>

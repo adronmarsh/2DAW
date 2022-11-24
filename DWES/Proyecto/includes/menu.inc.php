@@ -1,5 +1,4 @@
 <header>
-
     <nav class="menu">
         <ul>
             <?php
@@ -21,7 +20,4 @@
             ?>
         </ul>
     </nav>
-
-
-
 </header>
