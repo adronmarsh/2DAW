@@ -5,19 +5,17 @@
             <?php
             if (isset($_SESSION['usrSession'])) {
             ?>
-                <li><a href="index.php"><img src="media/header/home.svg" alt="home"></a></li>
+                <li><a href="index.php"><img id="revelsLogo" src="media/revelsLogo.png" alt="revels"></a></li>
                 <li><a href="new.php"><img src="media/header/plus.svg" alt="new"></a></li>
                 <li><a href="account.php"><img src="media/header/user.svg" alt="account"></a></li>
                 <li><a href="logout.php"><img src="media/header/logout.svg" alt="close"></a></li>
-                <!-- <li><a href="lupa.php"><img src="media/header/lupa.svg" alt="búsqueda"></a></li> -->
-                <form action="results.php" method="POST">
-                    <input type="text" name="buscar" id="buscar">
-                    <input type="submit" name="enviar" value="buscar">
+                <form action="results.php" method="GET">
+                    <input type="search" name="submit" id="buscar" placeholder="Search..." />
                 </form>
             <?php
             } else {
             ?>
-                <li><a href="index.php"><img src="media/header/home.svg" alt="home"></a></li>
+                <li><a href="index.php"><img id="revelsLogo" src="media/revelsLogo.png" alt="revels"></a></li>
             <?php
             }
             ?>

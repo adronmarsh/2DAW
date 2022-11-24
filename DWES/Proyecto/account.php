@@ -2,7 +2,7 @@
 session_start();
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -12,12 +12,14 @@ session_start();
     <title>Account</title>
 </head>
 
-<body>
+<body class="backend">
     <?php
-    include_once('includes/menu.inc.php');
+    include_once('includes/menuBackend.inc.php');
     echo 'Usuario: '.$_SESSION['usrSession']['user'];
     echo '<br>';
     echo 'Mail: '.$_SESSION['usrSession']['mail'];
+    echo '<br>';
+    echo '<a href="list.php?user='.$_SESSION['usrSession']['id'].'">Mis Revels</a>';
     ?>
 </body>
 

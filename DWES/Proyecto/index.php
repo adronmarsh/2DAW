@@ -81,30 +81,36 @@ if (!empty($_POST)) {
         </div>
       <?php
       } else {
-        // //Código que se ejecutará en caso de estar logeado
-        // $userid = $_SESSION['usrSession']['id'];
-        // $revels = $conexion->query("SELECT * FROM revels WHERE userid = $userid");
-        // foreach ($revels->fetchAll() as $revel) { //Recorre la tabla revels
-        //   $id = $revel['id'];
-        //   echo '<a href="revel.php?id='.$id.'"><div class="revelBox">';
-        //   //Selecciona el nombre de usuario
-        //   $userid =  $revel['userid'];
-        //   $usuarios = $conexion->query("SELECT * FROM users WHERE id = $userid");
-        //   foreach ($usuarios->fetchAll() as $usuario) {
-        //     echo $usuario['usuario'];
-        //     echo '<br>';
-        //   }
-        //   echo $revel['texto'] . '<br>';
-        //   echo $revel['fecha'] . '<br>';
-        //   $comentarios = $conexion->query("SELECT * FROM comments WHERE revelid = $id");
-        //   $count = 0;
-        //   foreach ($comentarios->fetchAll() as $comentario) {
-        //     $count++;
-        //   }
-        //   echo 'Comentarios: ' . $count;
-        //   echo '</div></a>';
-        // }
-        include_once('list.php');
+        //Código que se ejecutará en caso de estar logeado
+        $userid = $_SESSION['usrSession']['id'];
+        $follows = $conexion->query("SELECT * FROM follows WHERE userid = $userid");
+        foreach ($follows->fetchAll() as $follow) { //Recorre la tabla revels
+          $followedid = $follow['userfollowed'];
+
+          //Muestra los revels del usuario
+          $revels = $conexion->query("SELECT * FROM revels WHERE userid = $userid OR userid = $followedid");
+          foreach ($revels->fetchAll() as $revel) { //Recorre la tabla revels
+            $revelid = $revel['id'];
+            echo '<a href="revel.php?id=' . $revelid . '"><div class="revelBox">';
+            //Selecciona el nombre de usuario
+            $userid =  $revel['userid'];
+            $usuarios = $conexion->query("SELECT * FROM users WHERE id = $userid");
+            foreach ($usuarios->fetchAll() as $usuario) {
+              echo $usuario['usuario'];
+              echo '<br>';
+            }
+            echo $revel['texto'] . '<br>';
+            echo $revel['fecha'] . '<br>';
+            $comentarios = $conexion->query("SELECT * FROM comments WHERE revelid = $revelid");
+            $count = 0;
+            foreach ($comentarios->fetchAll() as $comentario) {
+              $count++;
+            }
+            echo 'Comentarios: ' . $count;
+            echo '</div></a>';
+          }
+        }
+        // include_once('list.php');
       }
       ?>
     </div>
