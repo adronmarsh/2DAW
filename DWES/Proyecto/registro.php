@@ -20,9 +20,6 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     $mail_formato = '/^[\w\d_.]+@[\w]+.[\w]{2,3}$/';
     $password_formato = '/^[\w\d]{8,}$/';
 
-    $_SESSION['tmpSession']['user'] = $_POST['user'];
-    $_SESSION['tmpSession']['mail'] = $_POST['mail'];
-
     //Comprobación de errrores
     if (empty($_POST['user']))
         $_SESSION['errores']['user'] = $mensajeError;

@@ -6,9 +6,21 @@ $conexion = conectar();
 if (!empty($_POST)) {
     if (isset($_POST['eliminar'])) {
         if ($_POST['eliminar']) {
-            $borrar = $conexion->query('DELETE FROM comments WHERE userid = ' . $_SESSION['usrSession']['id']);
-            $borrar = $conexion->query('DELETE FROM revels WHERE userid = ' . $_SESSION['usrSession']['id']);
-            $borrar = $conexion->query('DELETE FROM users WHERE id = ' . $_SESSION['usrSession']['id']);
+            $borrar = $conexion->prepare('DELETE FROM comments WHERE userid = ?');
+            $borrar->bindParam(1, $_SESSION['usrSession']['id']);
+            $borrar->execute();
+            unset($borrar);
+            $borrar = $conexion->prepare('DELETE FROM revels WHERE userid = ?');
+            $borrar->bindParam(1, $_SESSION['usrSession']['id']);
+            $borrar->execute();
+            unset($borrar);
+            $borrar = $conexion->prepare('DELETE FROM follows WHERE userid = ? OR userfollowed = ?');
+            $borrar->bindParam(1, $_SESSION['usrSession']['id']);
+            $borrar->bindParam(2, $_SESSION['usrSession']['id']);
+            $borrar->execute();
+            unset($borrar);
+            $borrar = $conexion->prepare('DELETE FROM users WHERE id = ?');
+            $borrar->bindParam(1, $_SESSION['usrSession']['id']);
             $borrar->execute();
             unset($borrar);
             session_destroy();

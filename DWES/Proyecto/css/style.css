@@ -213,16 +213,18 @@ footer {
     height: 35em;
     width: 30%;
     margin: auto;
-
 }
 
+
 .sub1-login {
-    width: 100%;
+    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     flex-wrap: wrap;
+    border: 1px solid transparent;
+
 }
 
 .sub2-login {
@@ -255,7 +257,6 @@ footer {
 }
 
 .mssgRegistrado {
-    margin-top: -5em;
     text-align: center;
 }
 
@@ -292,9 +293,10 @@ footer {
     margin-bottom: 0.3em;
 }
 
-.comentarioFecha{
+.comentarioFecha {
     font-size: 8px;
 }
+
 form {
     text-align: center;
 
@@ -348,7 +350,7 @@ form input {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-.btnComentario{
+.btnComentario {
     background-color: rgba(0, 0, 0, 0.1);
     border: 0px;
     border-radius: 20px;
@@ -358,10 +360,10 @@ form input {
     font-size: 12px;
 }
 
-.btnComentario:hover{
+.btnComentario:hover {
     background-color: rgba(0, 0, 0, 0.2);
-
 }
+
 .container-results {
     width: 100%;
 }
@@ -398,23 +400,65 @@ form input {
     background-color: rgba(105, 105, 105, 0.555);
 }
 
-.container-account{
+.container-account {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items:center; */
+    height: 35rem;
+    width: 50%;
+    margin: auto;
+    font-size: 1.8rem;
+    /* text-align: center; */
+}
+
+.accountLogo {
+    width: 6rem;
+    height: 4rem;
+    margin: auto;
+}
+
+.boxAccount{
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    justify-content: center;
-    /* align-items: center; */
-    height: 35rem;
-    width: 30%;
+    padding: 0.5rem;
+}
+
+.boxAccount input{
+    border-radius: 50px;
+    border:transparent;
+}
+.inputAccount{
+    margin: 0.5rem;
+}
+
+.passwordAccount{
+}
+
+.userAccount{
+}
+
+.container-verificationAccount{
+    width: 50%;
     margin: auto;
-    border: 1px solid green;
-    font-size: 1.8rem;
+}
+.errorAccount {
+    color: #262626;
+    font-size: 0.8rem;
 }
 
-.container-account img{
-    width: 1.3rem;
-    height: 1.3rem;
+.btnAccount {
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 0px;
+    border-radius: 20px;
+    padding: 0.4rem;
+    cursor: pointer;
+    font-variant: small-caps;
+    font-size: 1rem;
 }
 
-.usuarioAccount{
+.btnAccount:hover {
+    background-color: rgba(0, 0, 0, 0.2);
 }
