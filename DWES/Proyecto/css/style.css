@@ -222,6 +222,7 @@ footer {
     justify-content: center;
     align-items: center;
     text-align: center;
+    flex-wrap: wrap;
 }
 
 .sub2-login {
@@ -258,12 +259,42 @@ footer {
     text-align: center;
 }
 
+
+.mssgInicioRevels {
+    margin: auto;
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.unfollow {
+    width: 8rem;
+    margin: 0.5rem auto;
+    text-align: center;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    font-variant: small-caps;
+}
+
+.unfollow:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.unfollow a {
+    text-decoration: none;
+    color: #262626;
+}
+
 .welcome-text {
     text-align: center;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin-bottom: 0.3em;
 }
 
+.comentarioFecha{
+    font-size: 8px;
+}
 form {
     text-align: center;
 
@@ -317,34 +348,73 @@ form input {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-.container-results{
+.btnComentario{
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 0px;
+    border-radius: 20px;
+    padding: 0.2rem;
+    cursor: pointer;
+    font-variant: small-caps;
+    font-size: 12px;
+}
+
+.btnComentario:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+
+}
+.container-results {
     width: 100%;
 }
-.results{
+
+.results {
     width: 50%;
     margin: 1.5em auto;
     text-align: center;
 }
-.results a{
+
+.results a {
     text-decoration: none;
     color: #262626;
 }
 
-.resultsName{
+.resultsName {
     font-size: 22px;
 }
-.resultsSeguir{
+
+.resultsSeguir {
     width: 5em;
     margin: auto;
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
 
-.resultsSeguir:hover{
+.resultsSeguir:hover {
     background-color: rgba(0, 0, 0, 0.2);
 }
+
 /*------------------------------BACKEND------------------------------*/
 
 .backend {
     background-color: rgba(105, 105, 105, 0.555);
+}
+
+.container-account{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    height: 35rem;
+    width: 30%;
+    margin: auto;
+    border: 1px solid green;
+    font-size: 1.8rem;
+}
+
+.container-account img{
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
+.usuarioAccount{
 }

@@ -44,44 +44,45 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 </head>
 
 <body>
-
-    <?php
-    include_once('includes/menu.inc.php');
-    ?>
-    <?php
-    if (empty($_POST) || isset($errores)) {
-    ?>
-
-        <!--Muestra el formulario de login-->
-        <div class="container-login">
-            <div class="sub1-login">
-                <h1>Login</h1>
-            </div>
-            <div class="sub2-login">
-                <form action="#" method="POST">
-                    <label for="user">Usuario: </label><br>
-                    <input type="text" name="user" id="user" value="<?= $_POST['user'] ?? "" ?>"><br>
-                    <br>
-                    <label for="password">Contraseña: </label><br>
-                    <input type="password" name="password" id="password" value="<?= $_POST['password'] ?? "" ?>"><br>
-                    <?= isset($errores['session']) ? $errores['session'] : "" ?>
-                    <br>
-                    <label for="login"></label><br>
-                    <input type="submit" class="btnRegistro" id="login" value="Login">
-                </form>
-            </div>
-        </div>
+    <div class="container">
         <?php
-        //Solo se muestra en caso que el usuario se acabe de registrar
-        if (isset($_GET['mssg']))
-            if ($_GET['mssg'] == 'registrado') {
-                echo '<div class="mssgRegistrado">¡Ha sido registrado correctamente! Inicie sesión para continuar</div>';
-            }
+        include_once('includes/menu.inc.php');
         ?>
-    <?php
-    }
-    include_once('includes/footer.inc.php');
-    ?>
+        <?php
+        if (empty($_POST) || isset($errores)) {
+        ?>
+
+            <!--Muestra el formulario de login-->
+            <div class="container-login">
+                <div class="sub1-login">
+                <?php
+                //Solo se muestra en caso que el usuario se acabe de registrar
+                if (isset($_GET['mssg']))
+                    if ($_GET['mssg'] == 'registrado') {
+                        echo '<div class="mssgRegistrado">¡Ha sido registrado correctamente! <br> Inicie sesión para continuar</div>';
+                    }
+                ?>
+                    <h1>Login</h1>
+                </div>
+                <div class="sub2-login">
+                    <form action="#" method="POST">
+                        <label for="user">Usuario: </label><br>
+                        <input type="text" name="user" id="user" value="<?= $_POST['user'] ?? "" ?>"><br>
+                        <br>
+                        <label for="password">Contraseña: </label><br>
+                        <input type="password" name="password" id="password" value="<?= $_POST['password'] ?? "" ?>"><br>
+                        <?= isset($errores['session']) ? $errores['session'] : "" ?>
+                        <br>
+                        <label for="login"></label><br>
+                        <input type="submit" class="btnRegistro" id="login" value="Login">
+                    </form>
+                </div>
+            </div>
+        <?php
+        }
+        include_once('includes/footer.inc.php');
+        ?>
+    </div>
 </body>
 
 </html>

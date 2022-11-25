@@ -86,18 +86,15 @@ if (!empty($_POST)) {
       //Código que se ejecutará en caso de estar logeado
     ?>
       <main class="main">
-        <!-- <div class="sidebar">
-          sidebar
-        </div> -->
         <div class="content">
           <?php
-          $userid = $_SESSION['usrSession']['id'];
-          $follows = $conexion->query("SELECT * FROM follows WHERE userid = $userid");
-          foreach ($follows->fetchAll() as $follow) { //Recorre la tabla revels
-            $followedid = $follow['userfollowed'];
 
+          $userid = $_SESSION['usrSession']['id'];
+          $revels = $conexion->query("SELECT * FROM revels WHERE userid = $userid OR userid IN (SELECT userfollowed FROM follows WHERE userid = $userid) ORDER BY fecha DESC");
+          if ($revels->rowCount() == 0) {
+            echo '<div class="mssgInicioRevels">Crea un revel o sigue a alguien para ver sus revels</div>';
+          } else {
             //Muestra los revels del usuario
-            $revels = $conexion->query("SELECT * FROM revels WHERE /*userid = $userid OR*/ userid = $followedid");
             foreach ($revels->fetchAll() as $revel) { //Recorre la tabla revels
               $revelid = $revel['id'];
               echo '<div class="revelBox"><a href="revel.php?id=' . $revelid . '">';
@@ -126,6 +123,7 @@ if (!empty($_POST)) {
               echo '</a></div>';
             }
           }
+
           unset($follows);
           ?>
         </div>
@@ -137,7 +135,7 @@ if (!empty($_POST)) {
           foreach ($follows->fetchAll() as $follow) { //Recorre la tabla revels
             $followedid = $follow['userfollowed'];
             $usuarios = $conexion->query("SELECT * FROM users WHERE id = $followedid");
-           
+
             // echo '<ul>';
             echo '<div>';
             foreach ($usuarios->fetchAll() as $usuario) {
