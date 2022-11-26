@@ -82,12 +82,12 @@ Revels es una aplicación web donde cada usuario puede publicar sus propios reve
 * Crea una conexión con la base de datos.
 
 ## menu.inc.php
-* Incluye el menu.
+* Incluye el menú.
 * En caso de haber iniciado sesión mostrará el menú completo.
 * En caso de no haber iniciado sesión mostrará únicamente un enlace a index.php.
 
 ## menuBackend.inc.php
-* Incluye el menu del Backend.
+* Incluye el menú del Backend.
 * En caso de haber iniciado sesión muestra el menú completo.
 
 ## footer.inc.php
