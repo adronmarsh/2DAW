@@ -182,6 +182,7 @@ if (isset($_COOKIE['verificar'])) {
                     <div class="formsAccount">
                         <!--Muestra el formulario para cambiar el nombre de usuario-->
                         <form action="#" method="POST">
+                            <img class="editarAccount" src="media/editar.svg" alt="configuración">
                             <div class="userAccount">
                                 <div class="boxAccount">
                                     <div><strong>Usuario</strong></div>
