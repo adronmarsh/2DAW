@@ -1,7 +1,7 @@
 <?php
 /** 
  * Si no se ha inciado la sesión muestra un formulario de registro.
- * También muestra un enlace a al formulario de inicio de sesión.
+ * También muestra un enlace al formulario de inicio de sesión.
  * Si la sesión está iniciada muestra los revels propios y de los 
  * usuarios a los sigue por orden de fecha.
  * Si no existe ningún revel mostrará un mensaje.
