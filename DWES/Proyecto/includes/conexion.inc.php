@@ -1,5 +1,5 @@
 <?php
- function conectar()
+ function conectar() //Conecta con la BDD y devuelve $conexion para poder conectar fácilmente
     {
         $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
         $dsn = 'mysql:host=localhost;dbname=revels';

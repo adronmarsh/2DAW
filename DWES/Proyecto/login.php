@@ -1,4 +1,12 @@
 <?php
+/**
+ * Se muestra un formulario para iniciar sesión.
+ * Una vez enviado se comprueba que el usario
+ * y la contraseña introducidos son los correctos.
+ * Si son correctos se guardan los datos en la
+ * variable $_SESSION y se redirecciona a index.php
+ * Si no son correctos se muestran los errores
+ */
 session_start();
 require_once('includes/conexion.inc.php');
 $conexion = conectar();
@@ -40,7 +48,7 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Login</title>
+    <title>Revels | Login</title>
 </head>
 
 <body>

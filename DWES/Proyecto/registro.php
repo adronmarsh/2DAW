@@ -1,4 +1,9 @@
 <?php
+/**
+ * Comprueba que los datos que le llegan por POST no tengan errores
+ * Si tienen, envia los errores
+ * Si no, inserta los datos en la tabla users
+ */
 session_start();
 require_once('includes/conexion.inc.php');
 if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
@@ -14,6 +19,8 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     $errorPassword = '<span class="error">ERROR: La contraseña debe contener como mínimo 8 caracteres</span><br>';
     $errorPrimaryUser = '<span class="error">ERROR: Este nombre de usuario ya está registrado!</span><br>';
     $errorPrimaryMail = '<span class="error">ERROR: Esta dirección de mail ya está registrada!</span><br>';
+    $errorPasswordMatch = '<span class="error">ERROR: Los campos no coinciden</span>';
+
 
     //Expresiones regulares
     $user_formato = '/^\w{3,}$/';
@@ -35,11 +42,17 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
         $_SESSION['errores']['password'] = $mensajeError;
     else if (!preg_match($password_formato, $_POST['password']))
         $_SESSION['errores']['password'] = $errorPassword;
+        
+    if (empty($_POST['password2']))
+        $_SESSION['errores']['password2'] = $mensajeError;
+    else if ($_POST['password2'] != $_POST['password'])
+        $_SESSION['errores']['password2'] = $errorPasswordMatch;
 
     $conexion = conectar();
 
-    $usuario = $_POST['user'];
-    $primaryUser = $conexion->query("SELECT usuario FROM users WHERE usuario = '$usuario'");
+    $primaryUser = $conexion->prepare('SELECT usuario FROM users WHERE usuario = ?');
+    $primaryUser->bindParam(1,$_POST['user'] );
+    $primaryUser->execute();
     foreach ($primaryUser->fetchAll() as $user) { //Comprueba que no se repita el usuario
         if ($_POST['user'] != $user) {
             $_SESSION['errores']['user'] = $errorPrimaryUser;
@@ -47,8 +60,9 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     }
     unset($primaryUser);
 
-    $email = $_POST['mail'];
-    $primaryMail = $conexion->query("SELECT email FROM users WHERE email = '$email'");
+    $primaryMail = $conexion->prepare('SELECT email FROM users WHERE email = ?');
+    $primaryMail->bindParam(1, $_POST['mail']);
+    $primaryMail->execute();
     foreach ($primaryMail->fetchAll() as $mail) { //Comprueba que no se repita el mail
         if ($_POST['mail'] != $mail) {
             $_SESSION['errores']['mail'] = $errorPrimaryMail;
@@ -58,7 +72,6 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
 }
 
 if (!empty($_POST) && empty($_SESSION['errores'])) {
-    $conexion = conectar();
 
     //Se encripta la contraseña
     $encryptedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -74,7 +87,9 @@ if (!empty($_POST) && empty($_SESSION['errores'])) {
 
     $consulta->execute();
     unset($consulta);
+    unset($conexion);
     header('location:login.php?mssg=registrado');
 } else {
+    unset($conexion);
     header('location:index.php');
 }

@@ -1,10 +1,17 @@
 <?php
+/**
+ * Recibe por POST el valor introducido en el formulario
+ * de revel.php.
+ * Si está vacío envia un error
+ * Si no, inserta los datos en la tabla comments
+ */
 session_start();
+var_dump($_SESSION);
 require_once('includes/conexion.inc.php');
 $conexion = conectar();
 unset($_SESSION['errores']['comentario']);
 if ($_POST['comentario'] == "") {
-    $_SESSION['errores']['comentario'] = "<span class='error'>ERROR: Este campo no puede estar vacío.</span><br>";
+    $_SESSION['errores']['comentario'] = "<span class='error'>ERROR: Este campo no puede estar vacío.<br></span>";
 } else {
     //Se introducen los datos
     $consulta = $conexion->prepare('INSERT INTO comments
@@ -19,4 +26,5 @@ if ($_POST['comentario'] == "") {
     $consulta->execute();
     unset($consulta);
 }
+unset($conexion);
 header('Location:revel.php?id=' . $_SESSION['usrSession']['revelid']);

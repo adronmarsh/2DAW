@@ -1,3 +1,5 @@
+<!--Incluye el menu del backend-->
+<!--En caso de haber iniciado sesión mostrará el menú completo-->
 <header>
     <nav class="menu">
         <ul>
@@ -8,8 +10,6 @@
                 <li><a href="logout.php"><img src="media/header/logout.svg" alt="close"></a></li>
                 <li><a href="cancel.php"><img src="media/header/cancel.svg" alt="cancel"></a></li>
             <?php
-            } else {
-                header('Location:index.php');
             }
             ?>
         </ul>

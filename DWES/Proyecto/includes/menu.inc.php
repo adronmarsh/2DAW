@@ -1,5 +1,8 @@
+<!--Incluye el menu-->
+<!--En caso de haber iniciado sesión mostrará el menú completo-->
+<!--En caso de NO haber iniciado sesión mostrará únicamente un enlace a index.php-->
 <header>
-    <nav class="menu">
+    <nav class="menu"> 
         <ul>
             <?php
             if (isset($_SESSION['usrSession'])) {

@@ -290,7 +290,7 @@ footer {
 .welcome-text {
     text-align: center;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    margin-bottom: 0.3em;
+    margin-bottom: 6rem;
 }
 
 .comentarioFecha {
@@ -310,7 +310,7 @@ form input {
     text-align: center;
     font-variant: small-caps;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-bottom: 0.3em;
+    margin-bottom: 0.3rem;
 }
 
 .error {
@@ -394,6 +394,11 @@ form input {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
+.addRevelInput {
+    border-radius: 0.5rem;
+    border: transparent;
+}
+
 /*------------------------------BACKEND------------------------------*/
 
 .backend {
@@ -417,33 +422,30 @@ form input {
     width: 6rem;
     height: 4rem;
     margin: auto;
+    margin-bottom: 3rem;
 }
 
-.boxAccount{
+.boxAccount {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     padding: 0.5rem;
 }
 
-.boxAccount input{
+.boxAccount input {
     border-radius: 50px;
-    border:transparent;
+    border: transparent;
 }
-.inputAccount{
+
+.inputAccount {
     margin: 0.5rem;
 }
 
-.passwordAccount{
-}
-
-.userAccount{
-}
-
-.container-verificationAccount{
+.container-verificationAccount {
     width: 50%;
     margin: auto;
 }
+
 .errorAccount {
     color: #262626;
     font-size: 0.8rem;
@@ -461,4 +463,46 @@ form input {
 
 .btnAccount:hover {
     background-color: rgba(0, 0, 0, 0.2);
+}
+
+.revelsAccount {
+    text-decoration: none;
+    font-variant: small-caps;
+    margin-bottom: 1rem;
+}
+
+.container-cancel{
+    height: 20rem;
+    width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
+
+.btnCancel{
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 0px;
+    border-radius: 20px;
+    padding: 0.3rem;
+    cursor: pointer;
+    font-variant: small-caps;
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: #262626;
+    margin: 0.4rem;
+}
+
+.btnCancel:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.checkboxCancel{
+    margin: 1.5rem;
+}
+
+.mssgCancel{
+    font-weight: bold;
+    font-size: 1.5rem;
 }

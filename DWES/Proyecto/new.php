@@ -1,9 +1,20 @@
 <?php
+/**
+ * Muestra un formulario donde introducir el revel
+ * En caso de que esté vacío da error
+ * Si no, inserta los datos en la tabla revels
+ */
 session_start();
 require_once('includes/conexion.inc.php');
 
 
 if (!empty($_POST)) {
+    // No funciona!!
+    // unset($_SESSION['errores']['revel']);
+    // if(!empty($_POST['texto'])){
+    //     $_SESSION['errores']['revel'] = "<span class='error'>ERROR: Este campo no puede estar vacío.</span>";
+    //     header('Location:new.php');
+    // }
     $conexion = conectar();
     //Se introducen los datos
     $consulta = $conexion->prepare('INSERT INTO revels
@@ -28,7 +39,7 @@ if (!empty($_POST)) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>New</title>
+    <title>Revels | New</title>
 </head>
 
 <body>
@@ -46,7 +57,7 @@ if (!empty($_POST)) {
                         <label for="user">Introduce texto: </label><br>
                         <input type="text" name="texto" id="texto" value="<?= $_POST['texto'] ?? "" ?>"><br>
                         <input type="hidden" name="fecha" id="fecha" value="<?= date("Y-m-d H:i:s") ?>"><br>
-                        <br>
+                        <!-- <?= isset($_SESSION['errores']['revel']) ? $_SESSION['errores']['revel'] : "" ?> -->
                         <label for="revel"></label><br>
                         <input class="btnRegistro" type="submit" id="publicar" value="Publicar">
                     </form>

@@ -1,7 +1,15 @@
 <?php
+/** 
+ * Si no se ha inciado la sesión muestra un formulario de registro.
+ * También muestra un enlace a al formulario de inicio de sesión.
+ * Si la sesión está iniciada muestra los revels propios y de los 
+ * usuarios a los sigue por orden de fecha.
+ * Si no existe ningún revel mostrará un mensaje.
+ * También aparece una barra lateral donde se muestran los usuarios
+ * a los cuales sigue el usuario.
+ */
 session_start();
 require_once('includes/conexion.inc.php');
-$conexion = conectar();
 
 //Mensajes de error
 $errorMessage = "<span class='error'>ERROR: Este campo no puede estar vacío.</span><br>";
@@ -70,6 +78,9 @@ if (!empty($_POST)) {
               <input type="password" name="password" id="password" value="<?= "" ?? "" ?>"><br>
               <?= isset($_SESSION['errores']['password']) ? $_SESSION['errores']['password'] : "" ?>
               <br>
+              <label for="password2">Confirmar Contraseña: </label><br>
+              <input type="password" name="password2" id="password2" value="<?= "" ?? "" ?>"><br>
+              <?= isset($_SESSION['errores']['password2']) ? $_SESSION['errores']['password2'] : "" ?>
               <label for="registrar"></label><br>
               <?php
               unset($_SESSION['errores']);
@@ -88,35 +99,41 @@ if (!empty($_POST)) {
       <main class="main">
         <div class="content">
           <?php
-
-          $userid = $_SESSION['usrSession']['id'];
-          $revels = $conexion->query("SELECT * FROM revels WHERE userid = $userid OR userid IN (SELECT userfollowed FROM follows WHERE userid = $userid) ORDER BY fecha DESC");
+          $conexion = conectar();
+          $revels = $conexion->prepare('SELECT * FROM revels WHERE userid = ? OR userid IN (SELECT userfollowed FROM follows WHERE userid = ?) ORDER BY fecha DESC');
+          $revels->bindParam(1, $_SESSION['usrSession']['id']);
+          $revels->bindParam(2, $_SESSION['usrSession']['id']);
+          $revels->execute();
           if ($revels->rowCount() == 0) {
             echo '<div class="mssgInicioRevels">Crea un revel o sigue a alguien para ver sus revels</div>';
           } else {
             //Muestra los revels del usuario
             foreach ($revels->fetchAll() as $revel) { //Recorre la tabla revels
-              $revelid = $revel['id'];
-              echo '<div class="revelBox"><a href="revel.php?id=' . $revelid . '">';
+              echo '<div class="revelBox"><a href="revel.php?id=' . $revel['id'] . '">';
               //Selecciona el nombre de usuario
-              $userid =  $revel['userid'];
-              $usuarios = $conexion->query("SELECT * FROM users WHERE id = $userid");
+              $usuarios = $conexion->prepare('SELECT * FROM users WHERE id = ?');
+              $usuarios->bindParam(1, $revel['userid']);
+              $usuarios->execute();
               foreach ($usuarios->fetchAll() as $usuario) {
                 echo '<div class=revNombre>';
                 echo $usuario['usuario'];
                 echo '</div>';
               }
+              unset($usuarios);
               echo '<div class=revTexto>';
               echo $revel['texto'];
               echo '</div>';
               echo '<div class=revFecha>';
               echo $revel['fecha'];
               echo '</div>';
-              $comentarios = $conexion->query("SELECT * FROM comments WHERE revelid = $revelid");
+              $comentarios = $conexion->prepare('SELECT * FROM comments WHERE revelid = ?');
+              $comentarios->bindParam(1, $revel['id']);
+              $comentarios->execute();
               $count = 0;
               foreach ($comentarios->fetchAll() as $comentario) {
                 $count++;
               }
+              unset($comentarios);
               echo '<div class=revComentario>';
               echo 'Comentarios: ' . $count;
               echo '</div>';
@@ -127,23 +144,26 @@ if (!empty($_POST)) {
           unset($follows);
           ?>
         </div>
+        <!--Muestra la tabla de usuarios a los que sigue-->
         <div class="sidebar">
           <span class="title">usuarios que sigues</span>
           <?php
-          $userid = $_SESSION['usrSession']['id'];
-          $follows = $conexion->query("SELECT * FROM follows WHERE userid = $userid");
+          $follows = $conexion->prepare('SELECT * FROM follows WHERE userid = ?');
+          $follows->bindParam(1, $_SESSION['usrSession']['id']);
+          $follows->execute();
           foreach ($follows->fetchAll() as $follow) { //Recorre la tabla revels
-            $followedid = $follow['userfollowed'];
-            $usuarios = $conexion->query("SELECT * FROM users WHERE id = $followedid");
-
-            // echo '<ul>';
+            $usuarios = $conexion->prepare('SELECT * FROM users WHERE id = ?');
+            $usuarios->bindParam(1, $follow['userfollowed']);
+            $usuarios->execute();
             echo '<div>';
             foreach ($usuarios->fetchAll() as $usuario) {
               echo $usuario['usuario'];
             }
+            unset($usuarios);
             echo '</div>';
-            // echo '</ul>';
           }
+          unset($follows);
+          unset($conexion);
           ?>
         </div>
       </main>
