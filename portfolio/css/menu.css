@@ -1,0 +1,32 @@
+nav ul {
+    list-style: none;
+    overflow: hidden;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 0%;
+  }
+  
+  nav ul li {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+  }
+  
+  nav ul li a {
+    display: flex;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    /* background-color: rgba(0, 0, 0, 0.1); */
+    height: 100%;
+    align-items: flex-start;
+    font-variant: small-caps;
+  
+  }
+  
+  nav ul li:hover {
+    /* background-color: rgba(0, 0, 0, 0.2); */
+    border-radius: 2px;
+  }
+  
+  

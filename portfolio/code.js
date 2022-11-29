@@ -1,4 +1,0 @@
-function header() {
-   alert('a')
-
-}
