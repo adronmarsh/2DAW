@@ -18,15 +18,16 @@
 .avatar {
 	width: 10rem;
 	height: 10rem;
-	border: 0.6rem double aqua;
-	border-radius: 100%;
-	overflow: hidden;
 	transform: translatey(0px);
 	animation: float 4s ease-in-out infinite;
 	margin: auto;
 }
 
 .avatar img {
+	border: 0.3rem solid aqua;
+	border-radius: 100%;
+	overflow: hidden;
+	box-shadow: 1px 1px 20px 1px aqua;
 	width: 100%;
 	height: auto;
 }
