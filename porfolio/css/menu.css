@@ -1,0 +1,48 @@
+.menu {
+  list-style: none;
+  overflow: hidden;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  padding: 0%;
+}
+
+.menu li {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+.menu li a {
+  display: flex;
+  padding: 0.8rem;
+  text-decoration: none;
+  font-variant: small-caps;
+  position: relative;
+  font-size: 1rem;
+  color: rgb(163, 162, 162);
+}
+
+.menu li a:hover {
+  color: black;
+}
+
+.menu li a::before {
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  inset: 0 0 0 0;
+  background: aqua;
+  z-index: -1;
+  transition: transform .3s ease;
+}
+
+.menu li a:hover::before {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}

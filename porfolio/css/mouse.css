@@ -1,0 +1,18 @@
+#cursor {
+    position: absolute;
+    width: 0rem;
+    height: 0rem;
+    /* border: 2px solid rgba(250, 86, 4, 0.822); */
+    box-sizing: border-box;
+    transition: 0s;
+    transform: translate(00%, 00%);
+    border-radius: 100%;
+    box-shadow: aqua 1px 1px 12px 6px ;
+    pointer-events: none;
+    /* background-color: rgba(0, 255, 255, 0.2); */
+}
+
+#cursor img{
+    width: 20px;
+    height: 10px
+}
