@@ -18,16 +18,11 @@
 .avatar {
 	width: 10rem;
 	height: 10rem;
-	/* box-sizing: border-box; */
-	/* border: 5px white solid; */
-	border-radius: 10%;
+	border: 0.6rem double aqua;
+	border-radius: 100%;
 	overflow: hidden;
 	transform: translatey(0px);
 	animation: float 4s ease-in-out infinite;
-	border: 0.6rem double aqua;
-	/* border: 10px solid aqua; */
-	box-shadow: white 6px 6px 6px 7px;
-	/* box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6); */
 	margin: auto;
 }
 
