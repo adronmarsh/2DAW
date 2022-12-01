@@ -1,17 +1,32 @@
 /*Incluye el estilo del fondo*/
 @import url('background.css');
 
-/*Incluye el estilo del menu*/
-@import url('menu.css');
-
-/*Incluye el estilo del avatar*/
-@import url('avatar.css');
-
 /*Incluye el estilo del ratón*/
 @import url('mouse.css');
+
+/*Incluye el estilo del menu*/
+@import url('menu.css');
 
 /*Incluye el estilo de la plantilla*/
 @import url('template.css');
 
 /*Incluye el estilo de la cabecera*/
 @import url('header.css');
+
+/*Incluye el estilo del avatar*/
+@import url('avatar.css');
+
+/*Incluye el estilo del efecto console*/
+@import url('console.css');
+
+.lenguajes img{
+    width: 6rem;
+    height: 6rem;
+}
+
+.console-container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}

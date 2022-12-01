@@ -4,7 +4,7 @@ body {
   cursor: none;
   font-family: Arial, sans-serif;
   /* cursor: crosshair; */
-
+  overflow: hidden;
 }
 
 .container {
@@ -43,19 +43,6 @@ body {
   height: 100%;
 }
 
-.sidebar {
-  display: flex;
-  flex-direction: row;
-  background: skyblue;
-  padding: 1rem;
-}
-
-.sidebar a {
-  margin: 1rem;
-  padding: 0.5rem 2rem;
-  border: 1px solid black;
-}
-
 .sidebar2 {
   padding: 1rem;
 }
@@ -70,12 +57,6 @@ body {
     flex-direction: column;
   }
 
-  .sidebar {
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
   .menu li a {
     justify-content: center;
   }
@@ -83,5 +64,9 @@ body {
   #cursor {
     width: 0px;
     height: 0px;
+  }
+
+  body {
+    overflow:auto;
   }
 }

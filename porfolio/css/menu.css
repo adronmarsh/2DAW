@@ -19,6 +19,7 @@
 
 .menu li a:hover {
   color: black;
+  background: aqua;
 }
 
 .menu li a::before {
