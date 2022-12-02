@@ -7,6 +7,11 @@
   padding: 0%;
 }
 
+.menu:hover {
+  background: rgba(231, 230, 230, 0.089);
+  box-shadow: 1px -9px 10px 1px aqua;
+}
+
 .menu li a {
   display: flex;
   padding: 0.8rem;

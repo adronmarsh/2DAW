@@ -1,4 +1,3 @@
-// function([string1, string2],target id,[color1,color2])    
 consoleText(['HTML', 'CSS', 'JavaScript', 'JAVA', 'PHP'], 'text', ['chocolate', 'dodgerblue', 'yellow', 'orange', 'cornflowerblue']);
 
 function consoleText(words, id, colors) {

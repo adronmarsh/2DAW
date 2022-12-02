@@ -10,7 +10,7 @@ html {
     width: 0.2rem;
     height: 0.1rem;
     background: transparent;
-    animation: animStarLeft 50s linear infinite;
+    animation: animStarLeft 60s linear infinite;
     box-shadow: 779px 1331px rgba(240, 248, 255, 0.6), 324px 42px rgba(240, 248, 255, 0.6), 303px 586px rgba(240, 248, 255, 0.6),
         1312px 276px rgba(240, 248, 255, 0.6), 451px 625px rgba(240, 248, 255, 0.6), 521px 1931px rgba(240, 248, 255, 0.6), 1087px 1871px rgba(240, 248, 255, 0.6),
         36px 1546px rgba(240, 248, 255, 0.6), 132px 934px rgba(240, 248, 255, 0.6), 1698px 901px rgba(240, 248, 255, 0.6), 1418px 664px rgba(240, 248, 255, 0.6),
@@ -195,7 +195,7 @@ html {
     width: 0.2rem;
     height: 0.1rem;
     background: transparent;
-    animation: animStarRight 50s linear infinite;
+    animation: animStarRight 60s linear infinite;
     box-shadow: 779px 1331px rgba(240, 248, 255, 0.6), 324px 42px rgba(240, 248, 255, 0.6), 303px 586px rgba(240, 248, 255, 0.6),
         1312px 276px rgba(240, 248, 255, 0.6), 451px 625px rgba(240, 248, 255, 0.6), 521px 1931px rgba(240, 248, 255, 0.6), 1087px 1871px rgba(240, 248, 255, 0.6),
         36px 1546px rgba(240, 248, 255, 0.6), 132px 934px rgba(240, 248, 255, 0.6), 1698px 901px rgba(240, 248, 255, 0.6), 1418px 664px rgba(240, 248, 255, 0.6),
@@ -380,7 +380,7 @@ html {
     width: 0.2rem;
     height: 0.1rem;
     background: transparent;
-    animation: animStarUp 50s linear infinite;
+    animation: animStarUp 60s linear infinite;
     box-shadow: 779px 1331px rgba(240, 248, 255, 0.6), 324px 42px rgba(240, 248, 255, 0.6), 303px 586px rgba(240, 248, 255, 0.6),
         1312px 276px rgba(240, 248, 255, 0.6), 451px 625px rgba(240, 248, 255, 0.6), 521px 1931px rgba(240, 248, 255, 0.6), 1087px 1871px rgba(240, 248, 255, 0.6),
         36px 1546px rgba(240, 248, 255, 0.6), 132px 934px rgba(240, 248, 255, 0.6), 1698px 901px rgba(240, 248, 255, 0.6), 1418px 664px rgba(240, 248, 255, 0.6),
@@ -565,7 +565,7 @@ html {
     width: 0.2rem;
     height: 0.1rem;
     background: transparent;
-    animation: animStarDown 50s linear infinite;
+    animation: animStarDown 60s linear infinite;
     box-shadow: 779px 1331px rgba(240, 248, 255, 0.6), 324px 42px rgba(240, 248, 255, 0.6), 303px 586px rgba(240, 248, 255, 0.6),
         1312px 276px rgba(240, 248, 255, 0.6), 451px 625px rgba(240, 248, 255, 0.6), 521px 1931px rgba(240, 248, 255, 0.6), 1087px 1871px rgba(240, 248, 255, 0.6),
         36px 1546px rgba(240, 248, 255, 0.6), 132px 934px rgba(240, 248, 255, 0.6), 1698px 901px rgba(240, 248, 255, 0.6), 1418px 664px rgba(240, 248, 255, 0.6),
@@ -747,7 +747,7 @@ html {
 
 @keyframes animStarLeft {
     from {
-        transform: translateX(0px);
+        transform: translateX(30px);
     }
 
     to {
@@ -757,7 +757,7 @@ html {
 
 @keyframes animStarRight {
     from {
-        transform: translateX(0px);
+        transform: translateX(20px);
     }
 
     to {
@@ -767,7 +767,7 @@ html {
 
 @keyframes animStarUp {
     from {
-        transform: translateY(0px);
+        transform: translateY(-10px);
     }
 
     to {
@@ -777,7 +777,7 @@ html {
 
 @keyframes animStarDown {
     from {
-        transform: translateY(0px);
+        transform: translateY(40px);
     }
 
     to {
