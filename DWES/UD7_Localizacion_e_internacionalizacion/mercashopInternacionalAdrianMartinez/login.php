@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('includes/lang/'.$_COOKIE['lang'].'.inc.php');
 
 //Llama a la BDD
 $dsn = 'mysql:host=localhost;dbname=tiendamercha';
@@ -69,7 +70,7 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>MercaShop | Login</title>
+    <title>MercaShop | <?php echo $lang['login.login']?></title>
 </head>
 
 <body>
@@ -90,16 +91,16 @@ if (!empty($_POST)) { //Este código se ejecutará una vez enviado el formulario
             ?>
             <!--Muestra el formulario de login-->
             <div class="login">
-                <h1>Login</h1>
+                <h1><?php echo $lang['login.login']?></h1>
                 <form action="#" method="POST">
-                    <label for="user">Usuario: </label><br>
+                    <label for="user"><?php echo $lang['login.user']?>: </label><br>
                     <input type="text" name="user" id="user" value="<?= $_POST['user'] ?? "" ?>"><br>
                     <br>
-                    <label for="password">Contraseña: </label><br>
+                    <label for="password"><?php echo $lang['login.password']?>: </label><br>
                     <input type="password" name="password" id="password" value="<?= $_POST['password'] ?? "" ?>"><br>
                     <?= isset($errores['session']) ? $errores['session'] : "" ?>
                     <br>
-                    <p class="autologin"><input type="checkbox" name="autologin" id="autologin">Mantener conectado</p>
+                    <p class="autologin"><input type="checkbox" name="autologin" id="autologin"><?php echo $lang['login.autologin']?></p>
                     <label for="login"></label><br>
                     <input type="submit" id="login" value="Login">
                 </form>

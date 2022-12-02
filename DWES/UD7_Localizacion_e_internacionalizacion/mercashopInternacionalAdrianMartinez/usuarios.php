@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('includes/lang/'.$_COOKIE['lang'].'.inc.php');
 if ($_SESSION['usrSession']['rol'] != 'admin') {
     header('Location:index.php');
 }
@@ -12,7 +13,7 @@ if ($_SESSION['usrSession']['rol'] != 'admin') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>MercaShop | Usuarios</title>
+    <title>MercaShop | <?php echo $lang['title.users']?></title>
 </head>
 
 <body>
@@ -24,7 +25,7 @@ if ($_SESSION['usrSession']['rol'] != 'admin') {
         </div>
         <div class="subcontainer2">
             <div class="subcontainer2-1">
-                <h4>Usuarios</h4>
+                <h4><?php echo $lang['usuarios.users']?></h4>
             </div>
             <?php
             //Llama a la BDD
@@ -38,9 +39,9 @@ if ($_SESSION['usrSession']['rol'] != 'admin') {
                 <!--Muestra una tabla con los usuarios-->
                 <table>
                     <tr>
-                        <th>Nombre</th>
-                        <th>eMail</th>
-                        <th>Rol</th>
+                        <th><?php echo $lang['usuarios.name']?></th>
+                        <th><?php echo $lang['usuarios.email']?></th>
+                        <th><?php echo $lang['usuarios.rol']?></th>
                     </tr>
                     <?php
                     foreach ($usuarios->fetchAll() as $usuario) {

@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once('includes/lang/'.$_COOKIE['lang'].'.inc.php');
+
 //Llama a la BDD
 $dsn = 'mysql:host=localhost;dbname=tiendamercha';
 $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
@@ -14,7 +16,7 @@ $conexion = new PDO($dsn, 'Lumos', 'Nox', $opciones);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>MercaShop | Ofertas</title>
+    <title>MercaShop | <?php echo $lang['title.ofertas']?></title>
 </head>
 
 <body>
@@ -23,7 +25,7 @@ $conexion = new PDO($dsn, 'Lumos', 'Nox', $opciones);
     ?>
     <div class="container-ofer">
         <div class="subcontainer1-ofer">
-            <h4>Productos en oferta</h4>
+            <h4><?php echo $lang['ofertas.products']?></h4>
         </div>
         <div class="ofertas">
             <?php

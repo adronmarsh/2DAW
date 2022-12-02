@@ -191,7 +191,15 @@ body {
     font-size: small;
 }
 
-.banderas{
-    width: 1rem;
-    height: 1rem;
+.flags img{
+    width: 2rem;
+    height: 2rem;
+    /* border: black 1px solid; */
+    border-radius: 50%;
+    /* background: blue; */
+    /* style="background-image:url(media/en.svg); width="0rem"; height="0rem" */
+}
+
+.english{
+    background: red;
 }

@@ -1,10 +1,18 @@
 <?php
 session_start();
+require_once('includes/lang/' . $_COOKIE['lang'] . '.inc.php');
+
 //Llama a la BDD
 $dsn = 'mysql:host=localhost;dbname=tiendamercha';
 $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 //Conecta con la BDD
 $conexion = new PDO($dsn, 'Lumos', 'Nox', $opciones);
+
+//Detecta el idioma del navegador y lo guarda en la sesión
+if (!isset($_SESSION['lang'])) {
+    $_SESSION['lang'] = locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+    $_SESSION['lang'] = substr($_SESSION['lang'], 0, 2);
+}
 
 //Se ejecuta cuando ha habido alguna modificación en algún producto
 if (isset($_GET['producto'])) {
@@ -49,7 +57,7 @@ if (isset($_GET['producto'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>MercaShop | Inicio</title>
+    <title>MercaShop | <?php echo $lang['title.index']?></title>
 </head>
 
 <body>
@@ -67,17 +75,17 @@ if (isset($_GET['producto'])) {
             ?>
                 <div class="subcontainer2-0">
                     <div class="registro">
-                        <h1>Registro</h1>
+                        <h1><?php echo $lang['index.register']?></h1>
                         <form action="registro.php" method="POST">
-                            <label for="user">Usuario: </label><br>
+                            <label for="user"><?php echo $lang['index.user']?>: </label><br>
                             <input type="text" name="user" id="user" value="<?= $_SESSION['tmpSession']['user'] ?? "" ?>"><br>
                             <?= isset($_SESSION['errores']['user']) ? $_SESSION['errores']['user'] : "" ?>
                             <br>
-                            <label for="mail">Mail: </label><br>
+                            <label for="mail"><?php echo $lang['index.mail']?>: </label><br>
                             <input type="text" name="mail" id="mail" value="<?= $_SESSION['tmpSession']['mail'] ?? "" ?>"><br>
                             <?= isset($_SESSION['errores']['mail']) ? $_SESSION['errores']['mail'] : "" ?>
                             <br>
-                            <label for="password">Contraseña: </label><br>
+                            <label for="password"><?php echo $lang['index.password']?>: </label><br>
                             <input type="password" name="password" id="password" value="<?= "" ?? "" ?>"><br>
                             <?= isset($_SESSION['errores']['password']) ? $_SESSION['errores']['password'] : "" ?>
                             <br>
@@ -86,17 +94,27 @@ if (isset($_GET['producto'])) {
                             unset($_SESSION['errores']);
                             ?>
                             <input type="submit" id="registrar" value="Registrar">
-                            <a style="font-size: 11px;" href="login.php">Iniciar Sesión</a>
+                            <a style="font-size: 11px;" href="login.php"><?php echo $lang['index.login']?></a>
                         </form>
                     </div>
-                    <a href="ofertas.php"><img class="oferta" src="media/oferta.png" alt="oferta"></a>
+                    <?php
+                    switch ($_COOKIE['lang']) {
+                        case 'en':
+                            echo '<a href="ofertas.php"><img class="oferta" src="media/enOferta.png" alt="oferta"></a>';
+                            break;
+
+                        default:
+                            echo '<a href="ofertas.php"><img class="oferta" src="media/esOferta.png" alt="oferta"></a>';
+                            break;
+                    }
+                    ?>
                 </div>
             <?php
             } else {
             ?>
                 <div class="subcontainer2-1">
                     <a href="carrito.php"><img class="carrito" src="media/carrito.png" alt="carrito"></a>
-                    <h4>Productos añadidos:
+                    <h4><?php echo $lang['index.addedProducts']?>
                         <?php
                         //Muestra el número de productos distintos en el carro
                         if (isset($_SESSION['carrito'])) {

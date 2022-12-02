@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('includes/lang/'.$_COOKIE['lang'].'.inc.php');
 
 //Llama a la BDD
 $dsn = 'mysql:host=localhost;dbname=tiendamercha';
