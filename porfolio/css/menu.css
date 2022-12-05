@@ -9,7 +9,7 @@
 
 .menu:hover {
   background: rgba(231, 230, 230, 0.089);
-  box-shadow: 1px -9px 10px 1px aqua;
+  box-shadow: 3px 0px 1000px 10px aqua;
 }
 
 .menu li a {
@@ -25,25 +25,4 @@
 .menu li a:hover {
   color: black;
   background: aqua;
-}
-
-.menu li a::before {
-  transform: scaleX(0);
-  transform-origin: bottom right;
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  inset: 0 0 0 0;
-  background: aqua;
-  z-index: -1;
-  transition: transform .3s ease;
-}
-
-.menu li a:hover::before {
-  transform: scaleX(1);
-  transform-origin: bottom left;
 }

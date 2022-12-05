@@ -747,7 +747,7 @@ html {
 
 @keyframes animStarLeft {
     from {
-        transform: translateX(30px);
+        transform: translateX(60px);
     }
 
     to {
@@ -783,4 +783,61 @@ html {
     to {
         transform: translateY(1000px);
     }
+}
+
+#ovni {
+    width: 6rem;
+    height: 4rem;
+}
+
+.ovni-container {
+    position: absolute;
+    top: 30%;
+    left: -10%;
+    /* transform: scale(0) translateX(10vw); */
+    /* will-change: transform; */
+
+    animation-name: volar;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    animation-duration: 15s;
+    animation-delay: 0s;
+}
+
+
+@keyframes volar {
+
+    0% {
+        transform: scale(0.3) translateX(-2000vw);
+    }
+
+    10% {
+        transform: translateY(0vh) translateX(30vw) scale(0.4);
+    }
+
+    20% {
+        transform: translateY(0vh) translateX(40vw) scale(0.4);
+    }
+
+    30% {
+        transform: translateY(0vh) translateX(50vw) scale(0.4);
+    }
+
+    40% {
+        transform: translateY(0vh) translateX(60vw) scale(0.4);
+    }
+
+    50% {
+        transform: translateY(-5vh) translateX(75vw) scale(0.3);
+    }
+
+    60% {
+        transform: translateY(-5vh) translateX(1100vw) scale(0.3);
+    }
+
+    100% {
+        transform: translateY(0vh) translateX(1100vw) scale(0.3);
+    }
+
 }
