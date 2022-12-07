@@ -785,28 +785,43 @@ html {
     }
 }
 
-#ovni {
+#ovni,
+#meteorito {
     width: 6rem;
     height: 4rem;
+
+}
+
+.mt1-container {
+    position: absolute;
+    top: 0%;
+    left: 10%;
+
+    animation-name: mt1;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
+    animation-delay: 0s;
+    /* border: 1px solid red; */
 }
 
 .ovni-container {
     position: absolute;
     top: 30%;
     left: -10%;
-    /* transform: scale(0) translateX(10vw); */
-    /* will-change: transform; */
 
-    animation-name: volar;
+    animation-name: ovni;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
-
+    animation-direction: alternate;
     animation-duration: 15s;
     animation-delay: 0s;
+
+    /* border: 1px solid red; */
 }
 
 
-@keyframes volar {
+@keyframes ovni {
 
     0% {
         transform: scale(0.3) translateX(-2000vw);
@@ -838,6 +853,53 @@ html {
 
     100% {
         transform: translateY(0vh) translateX(1100vw) scale(0.3);
+    }
+
+}
+
+@keyframes mt1 {
+    0% {
+        transform: translateY(-10vh) translateX(0vw) scale(0.6);
+    }
+
+    10% {
+        transform: translateY(0vh) translateX(10vw) scale(0.6);
+    }
+
+    20% {
+        transform: translateY(10vh) translateX(20vw) scale(0.5);
+    }
+
+    30% {
+        transform: translateY(20vh) translateX(30vw) scale(0.5);
+    }
+
+    40% {
+        transform: translateY(30vh) translateX(40vw) scale(0.5);
+    }
+
+    50% {
+        transform: translateY(40vh) translateX(50vw) scale(0.5);
+    }
+
+    60% {
+        transform: translateY(50vh) translateX(60vw) scale(0.4);
+    }
+
+    70% {
+        transform: translateY(60vh) translateX(70vw) scale(0.3);
+    }
+
+    80% {
+        transform: translateY(70vh) translateX(80vw) scale(0.2);
+    }
+
+    90% {
+        transform: translateY(80vh) translateX(90vw) scale(0.1);
+    }
+
+    100% {
+        transform: translateY(90vh) translateX(100vw) scale(0);
     }
 
 }
