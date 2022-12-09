@@ -18,10 +18,11 @@ $map = [
 	'listar' => ['controller' =>'MangAnimeController', 'action' =>'listar'],
 	'insertar' => ['controller' =>'MangAnimeController', 'action' =>'insertar'],
 	'buscarPorNombre' => ['controller' =>'MangAnimeController', 'action' =>'buscarPorNombre'],
-	// 'buscarPorDemografia' => ['controller' =>'MangAnimeController', 'action' =>'buscarPorDemografia'],
-	// 'buscarCombinada' => ['controller' =>'MangAnimeController', 'action' =>'buscarCombinada'],
+	'ver' => ['controller' =>'MangAnimeController', 'action' =>'ver'],
+	'buscarPorDemografia' => ['controller' =>'MangAnimeController', 'action' =>'ver'],
+	'buscarCombinada' => ['controller' =>'MangAnimeController', 'action' =>'ver'],
 
-	// TODO: completar con todas las rutas y acciones que se necesiten
+	// DOIT: completar con todas las rutas y acciones que se necesiten
 ];
 
 // Parseo de la ruta

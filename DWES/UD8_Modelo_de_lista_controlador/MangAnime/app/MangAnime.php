@@ -30,10 +30,9 @@ class MangAnime
 	{
 		$nombre = htmlspecialchars($nombre);
 
-		// TODO: crear consulta para buscar MangAnimes por nombre en el orden y sentido indicados usando los parámetros recibidos
-		$sql = 'SELECT * FROM manganime WHERE nombre = ?';
+		// DOIT: crear consulta para buscar MangAnimes por nombre en el orden y sentido indicados usando los parámetros recibidos
+		$sql = 'SELECT * FROM manganime WHERE nombre like ? ORDER BY ' . $orden . ' DESC ';
 		$result = $this->conexion->prepare($sql);
-		$result->bindparam(1, $nombre);
 		$result->execute(['%' . $nombre . '%']);
 
 		return $result->fetchAll(PDO::FETCH_ASSOC);
@@ -43,10 +42,9 @@ class MangAnime
 	{
 		$id = htmlspecialchars($id);
 
-		// TODO: crear consulta para buscar un MangAnime por su id usando el parámetro recibido
-		$sql = 'SELECT * FROM manganime WHERE id = ';
+		// DOIT: crear consulta para buscar un MangAnime por su id usando el parámetro recibido
+		$sql = 'SELECT * FROM manganime WHERE id = ?';
 		$result = $this->conexion->prepare($sql);
-		$result->bindparam(1, $id);
 		$result->execute([$id]);
 
 		return $result->fetch(PDO::FETCH_ASSOC);

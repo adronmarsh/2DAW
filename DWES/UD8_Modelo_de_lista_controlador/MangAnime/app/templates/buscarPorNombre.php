@@ -15,8 +15,8 @@
 			<th>Demografía</th>
 			<th>
 				Fecha de estreno
-				<a href="index.php?accion=buscarPorNombre&nombre=<?=$params['nombre']?>&order=estreno&by=asc"><img src="img/interfaz/asc.png" alt="orden ascendiente" class="imgorden"></a>
-				<a href="index.php?accion=buscarPorNombre&nombre=<?=$params['nombre']?>&order=estreno&by=desc"><img src="img/interfaz/desc.png" alt="orden descendiente" class="imgorden"></a>
+				<a href="index.php?accion=buscarPorNombre&nombre=<?=$params['nombre']?>&orden=estreno&by=asc"><img src="img/interfaz/asc.png" alt="orden ascendiente" class="imgorden"></a>
+				<a href="index.php?accion=buscarPorNombre&nombre=<?=$params['nombre']?>&orden=estreno&by=desc"><img src="img/interfaz/desc.png" alt="orden descendiente" class="imgorden"></a>
 			</th>
 			<th>Fecha de finalización</th>
 			<th>Cantidad de tomos</th>

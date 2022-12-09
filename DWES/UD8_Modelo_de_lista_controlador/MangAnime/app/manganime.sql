@@ -37,7 +37,7 @@ CREATE TABLE `manganime` (
   `nombre` varchar(255) NOT NULL,
   `creador` varchar(255) NOT NULL,
   `genero` varchar(255) NOT NULL,
-  `demografia` enum('Kodomo','Shōnen','Shōjo','Seinien','Josei') NOT NULL,
+  `demografia` enum('Kodomo','Shōnen','Shōjo','Seinen','Josei') NOT NULL,
   `estreno` date DEFAULT NULL,
   `fin` date DEFAULT NULL,
   `tomos` int(11) DEFAULT NULL,
