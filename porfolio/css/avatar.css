@@ -1,28 +1,8 @@
-@keyframes float {
-	0% {
-		box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
-		border-radius: 100%;
-		transform: translatey(0px);
-	}
-
-	50% {
-		box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
-		border-radius: 100%;
-		transform: translatey(-20px);
-	}
-
-	100% {
-		box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
-		border-radius: 100%;
-		transform: translatey(0px);
-	}
-}
-
 .avatar {
 	width: 10rem;
 	height: 10rem;
 	transform: translatey(0px);
-	animation: float 4s ease-in-out infinite;
+	animation: float 4s linear infinite;
 	margin: auto;
 }
 
@@ -34,3 +14,21 @@
 	width: 100%;
 	height: auto;
 }
+/* 
+@keyframes float {
+
+
+	25% {
+		transform: rotate(15deg);
+
+	}
+
+
+
+	75% {
+		transform: rotate(-15deg);
+
+	}
+
+
+} */

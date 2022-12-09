@@ -786,7 +786,7 @@ html {
 }
 
 #ovni,
-#meteorito {
+.meteorito {
     width: 6rem;
     height: 4rem;
 
@@ -800,10 +800,64 @@ html {
     animation-name: mt1;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
-    animation-duration: 5s;
+    animation-duration: 15s;
     animation-delay: 0s;
     /* border: 1px solid red; */
 }
+
+.mt2-container {
+    position: absolute;
+    top: 0%;
+    left: 10%;
+
+    animation-name: mt2;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 35s;
+    animation-delay: 0s;
+    /* border: 1px solid red; */
+}
+
+.mt4-container {
+    position: absolute;
+    top: 0%;
+    left: 10%;
+
+    animation-name: mt4;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 25s;
+    animation-delay: 0s;
+    /* border: 1px solid red; */
+}
+
+.mt5-container {
+    position: absolute;
+    top: 0%;
+    left: 10%;
+
+    animation-name: orbitar;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 27s;
+    animation-delay: 0s;
+    /* border: 1px solid red; */
+}
+
+.mt8-container {
+    position: absolute;
+    top: 0%;
+    left: 10%;
+
+    animation-name: mt8;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 27s;
+    animation-delay: 0s;
+    /* border: 1px solid red; */
+}
+
+
 
 .ovni-container {
     position: absolute;
@@ -824,27 +878,27 @@ html {
 @keyframes ovni {
 
     0% {
-        transform: scale(0.3) translateX(-2000vw);
+        transform: scale(0.3) translateX(-2000vw) scale(0.3);
     }
 
     10% {
-        transform: translateY(0vh) translateX(30vw) scale(0.4);
+        transform: translateY(-5vh) translateX(30vw) scale(0.3);
     }
 
     20% {
-        transform: translateY(0vh) translateX(40vw) scale(0.4);
+        transform: translateY(-5vh) translateX(45vw) scale(0.3);
     }
 
     30% {
-        transform: translateY(0vh) translateX(50vw) scale(0.4);
+        transform: translateY(0vh) translateX(55vw) scale(0.4);
     }
 
     40% {
-        transform: translateY(0vh) translateX(60vw) scale(0.4);
+        transform: translateY(0vh) translateX(65vw) scale(0.4);
     }
 
     50% {
-        transform: translateY(-5vh) translateX(75vw) scale(0.3);
+        transform: translateY(-5vh) translateX(80vw) scale(0.3);
     }
 
     60% {
@@ -862,44 +916,80 @@ html {
         transform: translateY(-10vh) translateX(0vw) scale(0.6);
     }
 
-    10% {
-        transform: translateY(0vh) translateX(10vw) scale(0.6);
-    }
-
-    20% {
-        transform: translateY(10vh) translateX(20vw) scale(0.5);
-    }
-
-    30% {
-        transform: translateY(20vh) translateX(30vw) scale(0.5);
-    }
-
-    40% {
-        transform: translateY(30vh) translateX(40vw) scale(0.5);
-    }
-
-    50% {
-        transform: translateY(40vh) translateX(50vw) scale(0.5);
-    }
-
-    60% {
-        transform: translateY(50vh) translateX(60vw) scale(0.4);
-    }
-
-    70% {
-        transform: translateY(60vh) translateX(70vw) scale(0.3);
-    }
-
-    80% {
-        transform: translateY(70vh) translateX(80vw) scale(0.2);
-    }
-
-    90% {
-        transform: translateY(80vh) translateX(90vw) scale(0.1);
+    5% {
+        transform: translateY(90vh) translateX(100vw) scale(0.1);
     }
 
     100% {
         transform: translateY(90vh) translateX(100vw) scale(0);
     }
 
+}
+
+@keyframes mt2 {
+    0% {
+        transform: translateY(100vh) translateX(-80vw) scale(0.6);
+    }
+
+    /* 50% {
+        transform: translateY(40vh) translateX(50) scale(0.6);
+    } */
+
+    100% {
+        transform: translateY(0vh) translateX(100vw) scale(0.6);
+    }
+
+}
+
+@keyframes mt4 {
+    0% {
+        transform: translateY(0vh) translateX(100vw) scale(0.6);
+    }
+
+    /* 50% {
+        transform: translateY(40vh) translateX(50) scale(0.6);
+    } */
+
+    100% {
+        transform: translateY(100vh) translateX(40vw) scale(0.6);
+    }
+
+}
+
+@keyframes mt8 {
+    0% {
+        transform: translateY(250vh) translateX(100vw) scale(0.6);
+    }
+
+    /* 50% {
+        transform: translateY(40vh) translateX(50) scale(0.6);
+    } */
+
+    5% {
+        transform: translateY(-40vh) translateX(-30vw) scale(0.1);
+    }
+
+    100% {
+        transform: translateY(-40vh) translateX(-30vw) scale(0);
+    }
+}
+
+#orbita {
+    position: fixed;
+    margin: auto;
+    width: 225px;
+    height: 225px;
+    border: 2px #4A437F dashed;
+    border-radius: 100%;
+    top: 21rem;
+	animation: orbitar 15s linear infinite;
+}
+
+@keyframes orbitar {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
