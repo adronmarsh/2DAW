@@ -2,7 +2,7 @@
 	width: 10rem;
 	height: 10rem;
 	transform: translatey(0px);
-	animation: float 4s linear infinite;
+	animation: float 10s linear infinite;
 	margin: auto;
 }
 
@@ -14,7 +14,7 @@
 	width: 100%;
 	height: auto;
 }
-/* 
+
 @keyframes float {
 
 
@@ -31,4 +31,4 @@
 	}
 
 
-} */
+}

@@ -975,6 +975,7 @@ html {
 }
 
 #orbita {
+    opacity: 0%;
     position: fixed;
     margin: auto;
     width: 225px;

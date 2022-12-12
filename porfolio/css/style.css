@@ -19,6 +19,9 @@
 /*Incluye el estilo del efecto console*/
 @import url('console.css');
 
+/*Incluye el estilo del content*/
+@import url('about.css');
+
 .lenguajes img{
     width: 6rem;
     height: 6rem;
