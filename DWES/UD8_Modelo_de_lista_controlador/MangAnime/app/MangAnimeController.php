@@ -96,6 +96,7 @@ class MangAnimeController
 
 	public function buscarPorNombre()
 	{
+
 		$params = [
 			'nombre' => '',
 			'resultado' => []
@@ -119,12 +120,68 @@ class MangAnimeController
 			$params['by'] = $by;
 			// DOIT: completar con la llamada al método del modelo que devuelve los manganimes que coinciden con el nombre
 			$params['resultado'] = $mangAnimeModel->findMangAnimesByName($params['nombre']);
-
 			unset($mangAnimeModel);
 		}
 		require __DIR__ . '/templates/buscarPorNombre.php';
 	}
 
+	public function buscarPorDemografia()
+	{
+		$params = [
+			'nombre' => '',
+			'resultado' => []
+		];
+
+		if ($_SERVER['REQUEST_METHOD'] == 'POST' || isset($_GET['nombre'])) {
+			$_POST['nombre'] = isset($_GET['nombre']) ? $_GET['nombre'] : $_POST['nombre'];
+			$orden = isset($_GET['orden']) ? $_GET['orden'] : 'nombre';
+			$by = isset($_GET['by']) ? $_GET['by'] : 'DESC';
+
+			// DOIT: completar con la instancia del modelo MangAnime
+			$mangAnimeModel = new MangAnime(
+				Config::$bd_nombre,
+				Config::$bd_usuario,
+				Config::$bd_clave,
+				Config::$bd_hostname
+			);
+			$params['nombre'] = $_POST['nombre'];
+			// Si se necesita pasar el orden y el tipo de orden a la vista:
+			$params['orden'] = $orden;
+			$params['by'] = $by;
+			// DOIT: completar con la llamada al método del modelo que devuelve los manganimes que coinciden con el nombre
+			$params['resultado'] = $mangAnimeModel->findMangAnimesByName($params['nombre']);
+			unset($mangAnimeModel);
+		}
+		require __DIR__ . '/templates/buscarPorDemografia.php';
+	}
+	public function buscarCombinada()
+	{
+		$params = [
+			'nombre' => '',
+			'resultado' => []
+		];
+		if ($_SERVER['REQUEST_METHOD'] == 'POST' || isset($_GET['nombre'])) {
+			$_POST['nombre'] = isset($_GET['nombre']) ? $_GET['nombre'] : $_POST['nombre'];
+			$orden = isset($_GET['orden']) ? $_GET['orden'] : 'nombre';
+			$by = isset($_GET['by']) ? $_GET['by'] : 'DESC';
+
+			// DOIT: completar con la instancia del modelo MangAnime
+			$mangAnimeModel = new MangAnime(
+				Config::$bd_nombre,
+				Config::$bd_usuario,
+				Config::$bd_clave,
+				Config::$bd_hostname
+			);
+			$params['nombre'] = $_POST['nombre'];
+			// Si se necesita pasar el orden y el tipo de orden a la vista:
+			$params['orden'] = $orden;
+			$params['by'] = $by;
+			// DOIT: completar con la llamada al método del modelo que devuelve los manganimes que coinciden con el nombre
+			$params['resultado'] = $mangAnimeModel->findMangAnimesByName($params['nombre']);
+			unset($mangAnimeModel);
+		}
+		require __DIR__ . '/templates/buscarCombinada.php';
+	}
 	public function ver()
 	{
 		if (!isset($_GET['id'])) {
@@ -142,10 +199,12 @@ class MangAnimeController
 			Config::$bd_clave,
 			Config::$bd_hostname
 		);
-		$params = ['manganimes' => $mangAnimeModel->getMangAnimes()];
+		// $params = ['manganimes' => $mangAnimeModel->getMangAnimes()];
 
 		// TODO: completar con la llamada al método del modelo que devuelve el manganime con el id pasado por parámetro
-		$params['id'] = ['manganimes' => $mangAnimeModel->getMangAnime($id)];
+		$params = ['manganimes' => $mangAnimeModel->getMangAnime($id)];
+		var_dump($params);
+		var_dump($params['id']);
 		unset($mangAnimeModel);
 		require __DIR__ . '/templates/verMangAnime.php';
 	}

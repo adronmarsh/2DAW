@@ -19,8 +19,8 @@ $map = [
 	'insertar' => ['controller' =>'MangAnimeController', 'action' =>'insertar'],
 	'buscarPorNombre' => ['controller' =>'MangAnimeController', 'action' =>'buscarPorNombre'],
 	'ver' => ['controller' =>'MangAnimeController', 'action' =>'ver'],
-	'buscarPorDemografia' => ['controller' =>'MangAnimeController', 'action' =>'ver'],
-	'buscarCombinada' => ['controller' =>'MangAnimeController', 'action' =>'ver'],
+	'buscarPorDemografia' => ['controller' =>'MangAnimeController', 'action' =>'buscarPorDemografia'],
+	'buscarCombinada' => ['controller' =>'MangAnimeController', 'action' =>'buscarCombinada'],
 
 	// DOIT: completar con todas las rutas y acciones que se necesiten
 ];

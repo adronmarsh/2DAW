@@ -30,11 +30,20 @@ class MangAnime
 	{
 		$nombre = htmlspecialchars($nombre);
 
-		// DOIT: crear consulta para buscar MangAnimes por nombre en el orden y sentido indicados usando los parámetros recibidos
-		$sql = 'SELECT * FROM manganime WHERE nombre like ? ORDER BY ' . $orden . ' DESC ';
+		if (isset($_GET['accion'])) {
+			if ($_GET['accion'] == 'buscarPorNombre') {
+				// DOIT: crear consulta para buscar MangAnimes por nombre en el orden y sentido indicados usando los parámetros recibidos
+				$sql = 'SELECT * FROM manganime WHERE nombre like ? ORDER BY ' . $orden . ' ' . $ascDesc;
+			}
+			if ($_GET['accion'] == 'buscarPorDemografia') {
+				$sql = 'SELECT * FROM manganime WHERE demografia like ? ORDER BY ' . $orden . ' ' . $ascDesc;
+			}
+			if ($_GET['accion'] == 'buscarCombinada') {
+				$sql = 'SELECT * FROM manganime WHERE demografia like ? OR nombre like ? ORDER BY ' . $orden . ' ' . $ascDesc;
+			}
+		}
 		$result = $this->conexion->prepare($sql);
-		$result->execute(['%' . $nombre . '%']);
-
+		$result->execute(['%' . $nombre . '%', '%' . $nombre . '%']);
 		return $result->fetchAll(PDO::FETCH_ASSOC);
 	}
 
