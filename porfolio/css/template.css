@@ -66,6 +66,16 @@ body {
   }
 
   body {
-    overflow:auto;
+    overflow: auto;
   }
+
+  .estrellas div{
+    opacity: 40%;
+  }
+
+  /* html{
+    overflow: hidden;
+  } */
+
+  
 }

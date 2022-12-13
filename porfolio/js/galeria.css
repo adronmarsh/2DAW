@@ -1,0 +1,18 @@
+/* Ocultamos todas las fotos de la galería excepto la primera */
+.gallery img:not(:first-child) {
+    display: none;
+  }
+  
+  /* Estilos para el botón con la flecha */
+  .gallery-button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  /* Estilos para la flecha del botón */
+  .arrow {
+    font-size: 24px;
+  }
+  

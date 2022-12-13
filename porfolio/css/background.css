@@ -785,6 +785,10 @@ html {
     }
 }
 
+.estrellas div{
+    opacity: 80%;
+}
+
 #ovni,
 .meteorito {
     width: 6rem;

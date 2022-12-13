@@ -16,8 +16,11 @@
 .texto {
     text-align: left;
     font-size: 0.9rem;
-    text-shadow: 1px 1px 100px yellow;
+    color: aqua;
 }
-.text:hover{
-    font-size: 5rem;
+
+@media screen and (max-width: 700px) {
+.texto{
+    text-align: center;
+}
 }

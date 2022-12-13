@@ -19,32 +19,8 @@
 /*Incluye el estilo del efecto console*/
 @import url('console.css');
 
-/*Incluye el estilo del content*/
+/*Incluye el estilo del about*/
 @import url('about.css');
 
-.lenguajes img{
-    width: 6rem;
-    height: 6rem;
-}
-
-.console-container{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.skills-background{
-    /* border: 1px solid red; */
-    width: 50%;
-    height: 80%;
-    padding: 1rem;
-    border-radius: 1rem;
-    background: rgba(0, 0, 0, 0.493);
-    /* background: rgba(0, 0, 0, 1); */
-    box-shadow: 1px 1px 10px 1px black;
-}
-
-.skills-background:hover{
-    background: rgba(231, 230, 230, 0.089);
-}
+/*Incluye el estilo de las skills*/
+@import url('skills.css');
