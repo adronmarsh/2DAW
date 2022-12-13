@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="102.3716mm"
-   height="144.49777mm"
+   width="361px"
+   height="361px"
    viewBox="0 0 362.73401 511.99998"
    id="svg3476"
    version="1.1"
@@ -83,14 +83,17 @@
       <path
          id="path2999"
          d="m 160,0 55,0 0,23 -32,0 0,23 32,0 0,23 -55,0 z"
+         style="fill:#2760e5"
          inkscape:connector-curvature="0" />
       <path
          id="path3001"
          d="m 226,0 55,0 0,20 -32,0 0,4 32,0 0,46 -55,0 0,-21 32,0 0,-4 -32,0 z"
+         style="fill:#2760e5"
          inkscape:connector-curvature="0" />
       <path
          id="path3003"
          d="m 292,0 55,0 0,20 -32,0 0,4 32,0 0,46 -55,0 0,-21 32,0 0,-4 -32,0 z"
+         style="fill:#2760e5"
          inkscape:connector-curvature="0" />
       <polygon
          id="polygon3005"

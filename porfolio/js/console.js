@@ -48,3 +48,26 @@ function consoleText(words, id, colors) {
         }
     }, 400)
 }
+
+// Obtener todos los elementos <p> dentro del <div>
+const paragraphs = document.querySelectorAll('div p');
+
+// Asignar un controlador de eventos al <div> que se ejecute cuando se haga clic
+document.querySelector('div').addEventListener('click', () => {
+  // Recorrer cada elemento <p>
+  paragraphs.forEach((paragraph) => {
+    // Cambiar la clase del elemento <p> utilizando el método classList.toggle()
+    paragraph.classList.toggle('highlighted');
+  });
+});
+{/* <div id="carrusel">
+  <div class="slide">
+    <img src="imagen1.jpg" alt="Imagen 1">
+  </div>
+  <div class="slide">
+    <img src="imagen2.jpg" alt="Imagen 2">
+  </div>
+  <div class="slide">
+    <img src="imagen3.jpg" alt="Imagen 3">
+  </div>
+</div> */}

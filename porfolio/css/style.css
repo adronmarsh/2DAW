@@ -24,3 +24,6 @@
 
 /*Incluye el estilo de las skills*/
 @import url('skills.css');
+
+/*Incluye el estilo del carrusel*/
+@import url('carrusel.css');
