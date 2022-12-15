@@ -9,6 +9,7 @@
 		<th>Fecha de finalización</th>
 		<th>Cantidad de tomos</th>
 		<th>Cantidad de capítulos</th>
+		<th>Personajes</th>
 	</tr>	
 	<?php foreach ($params['manganimes'] as $manganime) :?>
 		<tr>
@@ -20,6 +21,7 @@
 			<td><?=$manganime['fin']?></td>
 			<td><?=$manganime['tomos']?></td>
 			<td><?=$manganime['capitulos']?></td>
+			<td><a href="index.php?accion=mostrarPersonajesFromManganime&manganimeId=<?=$manganime['id']?>">Personajes</a></td>
 		</tr>
 	<?php endforeach; ?>
 </table>

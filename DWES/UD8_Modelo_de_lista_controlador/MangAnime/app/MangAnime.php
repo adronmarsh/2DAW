@@ -26,6 +26,18 @@ class MangAnime
 		return $result->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	public function getMangAnime($id)
+	{
+		$id = htmlspecialchars($id);
+
+		// DOIT: crear consulta para buscar un MangAnime por su id usando el parámetro recibido
+		$sql = 'SELECT * FROM manganime WHERE id = ?';
+		$result = $this->conexion->prepare($sql);
+		$result->execute([$id]);
+
+		return $result->fetch(PDO::FETCH_ASSOC);
+	}
+
 	public function findMangAnimesByName($nombre, $orden = 'estreno', $ascDesc = 'DESC')
 	{
 		$nombre = htmlspecialchars($nombre);
@@ -41,22 +53,17 @@ class MangAnime
 			if ($_GET['accion'] == 'buscarCombinada') {
 				$sql = 'SELECT * FROM manganime WHERE demografia like ? OR nombre like ? ORDER BY ' . $orden . ' ' . $ascDesc;
 			}
+			if ($_GET['accion'] == 'buscarPersonaje') {
+				$sql = 'SELECT * FROM personajes WHERE nombre like ?';
+			}
 		}
 		$result = $this->conexion->prepare($sql);
-		$result->execute(['%' . $nombre . '%', '%' . $nombre . '%']);
+		if ($_GET['accion'] == 'buscarCombinada') {
+			$result->execute(['%' . $nombre . '%', '%' . $nombre . '%']);
+		} else {
+			$result->execute(['%' . $nombre . '%']);
+		}
 		return $result->fetchAll(PDO::FETCH_ASSOC);
-	}
-
-	public function getMangAnime($id)
-	{
-		$id = htmlspecialchars($id);
-
-		// DOIT: crear consulta para buscar un MangAnime por su id usando el parámetro recibido
-		$sql = 'SELECT * FROM manganime WHERE id = ?';
-		$result = $this->conexion->prepare($sql);
-		$result->execute([$id]);
-
-		return $result->fetch(PDO::FETCH_ASSOC);
 	}
 
 	public function insertMangAnime($nombre, $creador, $genero, $demografia, $estreno, $fin, $tomos, $capitulos, $imagen)
@@ -82,4 +89,47 @@ class MangAnime
 	{
 		return (is_string($nombre) && is_string($creador) && is_string($genero) && is_string($demografia) && is_string($estreno) && is_string($fin) && is_numeric($tomos) && is_numeric($capitulos));
 	}
+
+
+	public function getPersonajes($id)
+	{
+		$sql = 'SELECT * FROM personajes WHERE id = ?';
+		$result = $this->conexion->prepare($sql);
+		$result->execute([$id]);
+
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+	}
+	public function getPersonajesFromManganime($manganime)
+	{
+		$sql = 'SELECT * FROM personajes WHERE manganime = ?';
+		$result = $this->conexion->prepare($sql);
+		$result->execute([$manganime]);
+
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+	}
+	
+	public function insertPersonajes($id, $nombre, $descripcion, $edad, $manganime)
+	{
+		$id = htmlspecialchars($id);
+		$nombre = htmlspecialchars($nombre);
+		$descripcion = htmlspecialchars($descripcion);
+		$edad = htmlspecialchars($edad);
+		$manganime = htmlspecialchars($manganime);
+
+		$sql = 'INSERT INTO personajes (id, nombre, descripcion, edad, manganime) VALUES (?,?,?,?,?);';
+		$result = $this->conexion->prepare($sql);
+		$result->execute([$id, $nombre, $descripcion, $edad, $manganime]);
+
+		return $result;
+	}
+
+	public function mostrarPersonajes()
+	{
+		$sql = 'SELECT * FROM personajes';
+		$result = $this->conexion->query($sql);
+
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+
 }
