@@ -124,7 +124,6 @@ class MangAnimeController
 		}
 		require __DIR__ . '/templates/buscarPorNombre.php';
 	}
-
 	public function buscarPorDemografia()
 	{
 		$params = [
@@ -199,12 +198,9 @@ class MangAnimeController
 			Config::$bd_clave,
 			Config::$bd_hostname
 		);
-		// $params = ['manganimes' => $mangAnimeModel->getMangAnimes()];
 
-		// TODO: completar con la llamada al método del modelo que devuelve el manganime con el id pasado por parámetro
-		$params = ['manganimes' => $mangAnimeModel->getMangAnime($id)];
-		var_dump($params);
-		var_dump($params['id']);
+		// DOIT: completar con la llamada al método del modelo que devuelve el manganime con el id pasado por parámetro
+		$params = $mangAnimeModel->getMangAnime($id);
 		unset($mangAnimeModel);
 		require __DIR__ . '/templates/verMangAnime.php';
 	}

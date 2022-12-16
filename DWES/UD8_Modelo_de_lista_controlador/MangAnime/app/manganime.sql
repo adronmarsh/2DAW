@@ -32,19 +32,28 @@ USE manganime;
 
 
 DROP TABLE IF EXISTS `manganime`;
-CREATE TABLE `manganime` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `creador` varchar(255) NOT NULL,
-  `genero` varchar(255) NOT NULL,
-  `demografia` enum('Kodomo','Shōnen','Shōjo','Seinen','Josei') NOT NULL,
-  `estreno` date DEFAULT NULL,
-  `fin` date DEFAULT NULL,
-  `tomos` int(11) DEFAULT NULL,
-  `capitulos` int(11) DEFAULT NULL,
-  `imagen` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE manganime (
+`id` INT(11) PRIMARY KEY NOT NULL,
+`nombre` VARCHAR(255) NOT NULL,
+`creador` VARCHAR(255) NOT NULL,
+`genero` VARCHAR(255) NOT NULL,
+`demografia` ENUM('Kodomo', 'Shōnen', 'Shōjo', 'Seinen', 'Josei') NOT NULL,
+`estreno` DATE DEFAULT NULL,
+`fin` DATE DEFAULT NULL,
+`tomos` INT(11) DEFAULT NULL,
+`capitulos` INT(11) DEFAULT NULL,
+`imagen` VARCHAR(255) DEFAULT NULL)
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `personajes`;
+CREATE TABLE personajes (
+`id` INT PRIMARY KEY AUTO_INCREMENT,
+`nombre` VARCHAR(255) NOT NULL,
+`descripcion` TEXT,
+`edad` INT,
+`manganime` INT,
+FOREIGN KEY (`manganime`) REFERENCES `manganime`(id)
+);
 --
 -- Volcado de datos para la tabla `manganime`
 --
