@@ -6,9 +6,8 @@ class MyMenu extends HTMLElement {
                 <li><a href="index.html">inicio</a></li>
                 <li><a href="about.html">sobre mi</a></li>
                 <li><a href="skills.html">skills</a></li>
-                <li><a href="#!">proyectos</a></li>
-                <li><a href="#!">contacto</a></li>
-                <li><a href="#!">github</a></li>
+                <li><a href="projects.html">proyectos</a></li>
+                <li><a href="contacto.html">contacto</a></li>
             </ul>
         </nav>
         `

@@ -1,6 +1,6 @@
 .avatar {
-	width: 10rem;
-	height: 10rem;
+	width: 20rem;
+	height: 20rem;
 	transform: translatey(0px);
 	animation: float 10s linear infinite;
 	margin: auto;

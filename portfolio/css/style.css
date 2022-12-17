@@ -27,3 +27,9 @@
 
 /*Incluye el estilo del carrusel*/
 @import url('carrusel.css');
+
+/*Incluye el estilo de los proyectos*/
+@import url('projects.css');
+
+/*Incluye el estilo del contacto*/
+@import url('contacto.css');

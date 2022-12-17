@@ -28,35 +28,33 @@
     <script src="js/sidebar2.js"></script>
     <script src="js/footer.js"></script>
     <script src="js/mouse.js"></script>
+    <script src="js/contacto.js"></script>
+
 
     <div class="container">
         <header class="header">
             <a href="index.html">
-                <h1 class="border">INICIO</h1>
-                <h1 class="wave">INICIO</h1>
+                <h1 class="border">CONTACTO</h1>
+                <h1 class="wave">CONTACTO</h1>
             </a>
         </header>
         <main class="main">
             <my-menu></my-menu>
             <div class="content">
-                <div id="orbita"><img class="meteorito" src="media/mt5.png" alt=""></div>
-                <div class="avatar">
-                    <div id="mi-mensaje"></div>
-                    <a href="about.html"><img src="media/avatar.jpg" alt="avatar" id="avatar"></a>
+                <div class="container-contacto">
+                    <a href="https://www.linkedin.com/in/adri%C3%A1n-mart%C3%ADnez-gil-918913237/">
+                        <div class="contacto"><img src="media/LinkedIn.svg" alt="Logo de LinkedIn"></div>
+                    </a>
+                    <div class="contacto" id="textCorreo">
+                        <div id="copiado" style="display: none;">Texto copiado al portapapeles</div>
+                        <img src="media/correo.svg" alt="Correo: adrianmargil8@gmail.com" class="imagenContacto"
+                            onclick="copiarTexto()">
+                        <div id="miCorreo">adrianmargil8@gmail.com</div>
+                    </div>
+                    <a href="https://github.com/adronmarsh">
+                        <div class="contacto"><img src="media/github.svg" alt="Logo de GitHub"></div>
+                    </a>
                 </div>
-                <script>
-                    const avatar = document.getElementById("avatar");
-
-                    avatar.addEventListener("mouseover", function () {
-                        avatar.style.width = "22rem";
-                        avatar.style.height = "22rem";
-                    });
-
-                    avatar.addEventListener("mouseout", function () {
-                        avatar.style.width = "";
-                        avatar.style.height = "";
-                    });
-                </script>
             </div>
             <my-sidebar2></my-sidebar2>
         </main>
