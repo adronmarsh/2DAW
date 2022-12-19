@@ -39,24 +39,12 @@
         <main class="main">
             <my-menu></my-menu>
             <div class="content">
-                <div id="orbita"><img class="meteorito" src="media/mt5.png" alt=""></div>
                 <div class="avatar">
                     <div id="mi-mensaje"></div>
-                    <a href="about.html"><img src="media/avatar.jpg" alt="avatar" id="avatar"></a>
+                    <a href="about.html"><div id="black"><img src="media/avatar.png" alt="avatar" id="avatar"></div></a>
+                    <a id="cv" download="CV-AdrianMartinezGil" href="media/pdf/CV-AdrianMartineGil.pdf.pdf">Descargar CV</a>
                 </div>
-                <script>
-                    const avatar = document.getElementById("avatar");
-
-                    avatar.addEventListener("mouseover", function () {
-                        avatar.style.width = "22rem";
-                        avatar.style.height = "22rem";
-                    });
-
-                    avatar.addEventListener("mouseout", function () {
-                        avatar.style.width = "";
-                        avatar.style.height = "";
-                    });
-                </script>
+                <script src="js/avatar.js"></script>
             </div>
             <my-sidebar2></my-sidebar2>
         </main>

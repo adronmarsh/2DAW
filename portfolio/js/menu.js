@@ -15,4 +15,3 @@ class MyMenu extends HTMLElement {
 }
 
 customElements.define('my-menu',MyMenu)
-

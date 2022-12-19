@@ -20,14 +20,14 @@
     box-shadow: 0px 0px 10px 1px aqua;
     border-radius: 8%;
     background-size:contain;
-    background-color: black;
+    background-color: rgb(22, 21, 21);
     color: aqua;
     align-items: center;
     font-variant: small-caps;
 }
 
 .project:hover{
-    background-color: rgb(24, 24, 24);
+    background-color: rgb(29, 29, 29);
     color: rgb(2, 189, 189);
     border: 12px double rgb(2, 189, 189);
 }
@@ -44,4 +44,33 @@
     .container-projects {
         grid-template-columns: repeat(1, 1fr);
     }
+}
+
+section{
+    color: aqua;
+    width: 50%;
+    margin: auto;
+    text-align: justify;
+    padding: 1.5rem;
+    word-spacing: 0.2rem;
+    line-height: 1.5rem;
+}
+
+button{
+    color: aqua;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+button:hover{
+    opacity: 0.8;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:visited{
+    color: #a3a2a2;
 }

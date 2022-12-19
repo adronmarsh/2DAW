@@ -1,12 +1,22 @@
 .avatar {
-	width: 20rem;
-	height: 20rem;
+	width: 15rem;
+	height: 15rem;
 	transform: translatey(0px);
 	animation: float 10s linear infinite;
 	margin: auto;
+
 }
 
+.avatar img:hover{
+	border: 6px double aqua;
+	opacity: 0.8;
+}
+#black{
+	background-color: black;
+	border-radius: 50%;
+}
 .avatar img {
+	opacity: 1;
 	border: 0.3rem solid aqua;
 	border-radius: 100%;
 	overflow: hidden;
@@ -31,4 +41,9 @@
 	}
 
 
+}
+
+#cv{
+	color: aqua;
+	text-decoration: none;
 }
