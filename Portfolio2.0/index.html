@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Portfolio | Adrián Martínez</title>
+</head>
+
+<body>
+    <span class="estrellas">
+        <div id="starsLeft"></div>
+        <div id="starsRight"></div>
+        <div id="starsUp"></div>
+        <div id="starsDown"></div>
+    </span>
+    <div id="cursor"></div>
+    <div class="ovni-container"><img id="ovni" src="media/ovni.svg" alt=""></div>
+    <div class="mt1-container"><img class="meteorito" src="media/mt1.png" alt=""></div>
+    <div class="mt2-container"><img class="meteorito" src="media/mt2.png" alt=""></div>
+    <div class="mt4-container"><img class="meteorito" src="media/mt4.png" alt=""></div>
+    <div class="mt8-container"><img class="meteorito" src="media/mt8.svg" alt=""></div>
+
+    <script src="js/header.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/sidebar2.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/mouse.js"></script>
+
+    <div class="container">
+        <header class="header">
+            <a href="index.html">
+                <h1 class="border">INICIO</h1>
+                <h1 class="wave">INICIO</h1>
+            </a>
+        </header>
+        <main class="main">
+            <my-menu></my-menu>
+            <div class="content">
+                <div class="avatar">
+                    <div id="mi-mensaje"></div>
+                    <a href="about.html"><div id="black"><img src="media/avatar.png" alt="avatar" id="avatar"></div></a>
+                    <a id="cv" download="CV-AdrianMartinezGil" href="media/pdf/CV-AdrianMartineGil.pdf.pdf">Descargar CV</a>
+                </div>
+                <script src="js/avatar.js"></script>
+            </div>
+            <my-sidebar2></my-sidebar2>
+        </main>
+        <my-footer></my-footer>
+    </div>
+
+</body>
+
+</html>

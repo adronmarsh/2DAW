@@ -1,0 +1,36 @@
+.menu {
+  list-style: none;
+  overflow: hidden;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  padding: 0%;
+}
+
+.menu:hover {
+  background: rgba(231, 230, 230, 0.089);
+  box-shadow: 3px 0px 1000px 10px aqua;
+}
+
+.menu li a {
+  display: flex;
+  padding: 0.8rem;
+  text-decoration: none;
+  font-variant: small-caps;
+  position: relative;
+  font-size: 1.2rem;
+  color: rgb(163, 162, 162);
+}
+
+
+.menu li a:hover {
+  color: black;
+  background: aqua;
+}
+
+@media screen and (max-width: 700px) {
+  .menu:hover {
+    background: none;
+    box-shadow: none;
+  }
+}
