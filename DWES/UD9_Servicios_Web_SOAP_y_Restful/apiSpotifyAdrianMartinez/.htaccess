@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule ^([a-zA-Z]+)/([a-zA-Z]+)$ usoapiAdrianMartinez.php?album=$1&artist=$2

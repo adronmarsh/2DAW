@@ -1,3 +1,4 @@
 RewriteEngine on
+RewriteCond %{REQUEST_URI} !index.php
 RewriteRule ^([a-zA-Z]+)$ index.php?name=$1
 RewriteRule ^([0-9]+)$ personaje.php?id=$1
