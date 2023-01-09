@@ -1,0 +1,35 @@
+/*Incluye el estilo del fondo*/
+@import url('background.css');
+
+/*Incluye el estilo del ratón*/
+@import url('mouse.css');
+
+/*Incluye el estilo del menu*/
+@import url('menu.css');
+
+/*Incluye el estilo de la plantilla*/
+@import url('template.css');
+
+/*Incluye el estilo de la cabecera*/
+@import url('header.css');
+
+/*Incluye el estilo del avatar*/
+@import url('avatar.css');
+
+/*Incluye el estilo del efecto console*/
+@import url('console.css');
+
+/*Incluye el estilo del about*/
+@import url('about.css');
+
+/*Incluye el estilo de las skills*/
+@import url('skills.css');
+
+/*Incluye el estilo del carrusel*/
+@import url('carrusel.css');
+
+/*Incluye el estilo de los proyectos*/
+@import url('projects.css');
+
+/*Incluye el estilo del contacto*/
+@import url('contacto.css');

@@ -1,0 +1,26 @@
+
+
+.about-content {
+    display: flex;
+    margin: auto;
+    width: 50%;
+    padding: 2rem;
+    font-family:'Courier New', Courier, monospace ;
+    border-radius: 20px;
+}
+
+.about-content:hover{
+    background: rgba(231, 230, 230, 0.089);
+}
+
+.texto {
+    text-align: left;
+    font-size: 0.9rem;
+    color: aqua;
+}
+
+@media screen and (max-width: 700px) {
+.texto{
+    text-align: center;
+}
+}
