@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Act1</title>
+</head>
+
+<body>
+    <!--
+        Realiza un programa que cada 5 segundos (mediante setInterval) solicite un DNI hasta
+        que alguien le escriba la cadena “-1”.
+        En ese momento, el programa debe mostrar seguidas las letras de todos los DNIs
+        introducidos
+    -->
+    
+    <script>
+        let intervalId = setInterval(() => {
+            let dni = prompt("Introduce DNI o -1 para parar:");
+            if (dni === "-1") {
+                clearInterval(intervalId);
+                let dniLetters = dnis.map(dniNumber => {
+                    let letter = "TRWAGMYFPDXBNJZSQVHLCKE"[dniNumber % 23];
+                    return dniNumber + letter;
+                });
+                console.log(dniLetters);
+            }
+        }, 5000);
+    </script>
+</body>
+
+</html>
