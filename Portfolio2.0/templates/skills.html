@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Portfolio | Adrián Martínez</title>
+</head>
+
+<body>
+    <span class="estrellas">
+        <div id="starsLeft"></div>
+        <div id="starsRight"></div>
+        <div id="starsUp"></div>
+        <div id="starsDown"></div>
+    </span>
+    <div id="cursor"></div>
+    <div class="ovni-container"><img id="ovni" src="../media/ovni.svg" alt=""></div>
+    <div class="mt1-container"><img class="meteorito" src="../media/mt1.png" alt=""></div>
+    <div class="mt2-container"><img class="meteorito" src="../media/mt2.png" alt=""></div>
+    <div class="mt4-container"><img class="meteorito" src="../media/mt4.png" alt=""></div>
+    <div class="mt8-container"><img class="meteorito" src="../media/mt8.svg" alt=""></div>
+
+
+    <script src="../js/header.js"></script>
+    <script src="../js/menu.js"></script>
+    <script src="../js/sidebar2.js"></script>
+    <script src="../js/footer.js"></script>
+    <script src="../js/mouse.js"></script>
+
+    <div class="container">
+        <header class="header">
+            <a href="skills.html">
+                <h1 class="border">SKILLS</h1>
+                <h1 class="wave">SKILLS</h1>
+            </a>
+        </header>
+        <main class="main">
+            <my-menu></my-menu>
+            <div class="content">
+                <div class="container-carrusel">
+                    <div class="carrusel" id="carrusel1">
+                        <div class="tarjeta">
+                            <img src="../media/html.svg" alt="HTML5">
+                        </div>
+                        <div class="flechas">
+                            <a href="#carrusel5">
+                                <i>&lt;</i>
+                            </a>
+                            <a href="#carrusel2">
+                                <i>&gt;</i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="carrusel" id="carrusel2">
+                        <div class="tarjeta">
+                            <img src="../media/css.svg" alt="CSS3">
+                        </div>
+                        <div class="flechas">
+                            <a href="#carrusel1">
+                                <i>&lt;</i>
+                            </a>
+                            <a href="#carrusel3">
+                                <i>&gt;</i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="carrusel" id="carrusel3">
+                        <div class="tarjeta">
+                            <img src="../media/js.svg" alt="JavaScript">
+                        </div>
+                        <div class="flechas">
+                            <a href="#carrusel2">
+                                <i>&lt;</i>
+                            </a>
+                            <a href="#carrusel4">
+                                <i>&gt;</i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="carrusel" id="carrusel4">
+                        <div class="tarjeta">
+                            <img src="../media/php.svg" alt="PHP">
+                        </div>
+                        <div class="flechas">
+                            <a href="#carrusel3">
+                                <i>&lt;</i>
+                            </a>
+                            <a href="#carrusel5">
+                                <i>&gt;</i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="carrusel" id="carrusel5">
+                        <div class="tarjeta">
+                            <img src="../media/java.svg" alt="Java">
+                        </div>
+                        <div class="flechas">
+                            <a href="#carrusel4">
+                                <i>&lt;</i>
+                            </a>
+                            <a href="#carrusel1">
+                                <i>&gt;</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <script src="../js/console.js"></script>
+            </div>
+            <my-sidebar2></my-sidebar2>
+        </main>
+        <my-footer></my-footer>
+    </div>
+
+
+
+</body>
+
+</html>

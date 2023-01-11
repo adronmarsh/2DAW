@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Portfolio | Adrián Martínez</title>
+</head>
+
+<body>
+    <span class="estrellas">
+        <div id="starsLeft"></div>
+        <div id="starsRight"></div>
+        <div id="starsUp"></div>
+        <div id="starsDown"></div>
+    </span>
+    <div id="cursor"></div>
+    <div class="ovni-container"><img id="ovni" src="../media/ovni.svg" alt=""></div>
+    <div class="mt1-container"><img class="meteorito" src="../media/mt1.png" alt=""></div>
+    <div class="mt2-container"><img class="meteorito" src="../media/mt2.png" alt=""></div>
+    <div class="mt4-container"><img class="meteorito" src="../media/mt4.png" alt=""></div>
+    <div class="mt8-container"><img class="meteorito" src="../media/mt8.svg" alt=""></div>
+
+    <script src="../js/header.js"></script>
+    <script src="../js/menu.js"></script>
+    <script src="../js/sidebar2.js"></script>
+    <script src="../js/footer.js"></script>
+    <script src="../js/mouse.js"></script>
+
+    <div class="container">
+        <header class="header">
+            <a href="index.html">
+                <h1 class="border">PORTFOLIO</h1>
+                <h1 class="wave">PORTFOLIO</h1>
+            </a>
+        </header>
+        <main class="main">
+            <my-menu></my-menu>
+            <div class="content">
+                <div id="part1">
+                    <h2>Introducción</h2>
+                    <section>Para crear este Portfolio, me inspiré en mis intereses personales y en mi pasión por la
+                        ciencia ficción y los videojuegos. Quería hacer algo que no solo fuera útil para mostrar mis
+                        habilidades y logros, sino que también fuera divertido y atractivo para cualquiera que lo
+                        viera.
+
+                        Para darle ese toque de videojuego, decidí utilizar una temática espacial y crear una
+                        interfaz
+                        que simulara un juego de navegación por el espacio. Esto incluyó la utilización de gráficos
+                        y
+                        animaciones que dieran la sensación de estar viajando a través del universo, además de la
+                        creación de menús y opciones que se ajustaran a esta temática.</section>
+                    <a href="index.html">
+                        <h2>Inicio</h2>
+                    </a>
+                    <section>Decidí incluir una foto mía en mi Portfolio porque creo que es importante mostrar mi
+                        rostro
+                        y mi personalidad a las personas que lo visitan. Me parece que esto puede ayudar a los
+                        visitantes a conectarse conmigo de manera más personal y a sentirse más cómodos al explorar
+                        mi
+                        Portfolio. Además, creo que la foto es una buena forma de mostrar quién soy y cómo me
+                        presento,
+                        lo que puede ser importante para algunos posibles empleadores o clientes.
+
+                        También decidí incluir un botón para descargar mi CV en mi Portfolio porque sé que puede ser
+                        útil para las personas que quieran conocer más sobre mi experiencia laboral y mis
+                        habilidades.
+                        Me parece que esto es una característica muy útil para aquellos que quieran obtener una
+                        copia de
+                        mi CV de manera rápida y sencilla, y creo que es una forma eficiente de proporcionar a las
+                        personas toda la información que necesitan sobre mí.</section>
+                    <a href="about.html">
+                        <h2>Sobre Mí</h2>
+                    </a>
+                    <section>En el apartado "Sobre mí" utilicé una animación en la que el texto aparece poco a poco
+                        para
+                        atraer la atención del visitante y generar su curiosidad para saber cuándo finalizará el
+                        texto.
+                        Esta animación está ajustada a una velocidad que permite al visitante leer el texto mientras
+                        se
+                        escribe, lo que evita que se sienta abrumado o frustrado al tratar de seguir el ritmo de la
+                        escritura. Sin este efecto, es posible que el visitante no se sienta motivado a leer el
+                        texto
+                        completo.
+                    </section>
+                    <button onclick="showPart2()">Continúa</button>
+                </div>
+                <div id="part2" style="display: none;">
+                    <a href="skills.html">
+                        <h2>Skills</h2>
+                    </a>
+                    <section>En el apartado de skills, he creado un menú similar a los que se encuentran en muchos
+                        videojuegos, donde se puede elegir un personaje. Sin embargo, en mi caso, en lugar de
+                        personajes, se muestran los diferentes lenguajes de programación que domino.</section>
+                    <a href="projects.html">
+                        <h2>Proyectos</h2>
+                    </a>
+                    <section>En el apartado de proyectos he decidido presentar mis trabajos anteriores
+                        y compartir mis logros y experiencias. Para facilitar la navegación y selección de los
+                        proyectos, he creado una interfaz intuitiva que permite al usuario elegir entre mis diferentes
+                        proyectos. Con esta interfaz, busco simular la experiencia de selección de mapas que se
+                        encuentra en muchos videojuegos, con el objetivo de hacer más atractiva y amena la navegación
+                        por mis proyectos. Cada proyecto incluye una descripción detallada y un enlace para acceder a
+                        más información y ver el proyecto completo.</section>
+                    <a href="contacto.html">
+                        <h2>Contacto</h2>
+                    </a>
+                    <section>En el apartado de contacto he incluido tres formas diferentes para que las
+                        personas puedan ponerse en contacto conmigo: a través de mi perfil de LinkedIn, mi dirección de
+                        correo electrónico y mi perfil de GitHub. Estas son las tres vías más comunes y fáciles de
+                        utilizar para contactar conmigo y estoy siempre dispuesto a atender cualquier consulta o
+                        solicitud que me hagan a través de cualquiera de ellas.
+
+                        Una de las características más útiles del apartado de contacto es la opción de copiar mi
+                        dirección de correo electrónico al hacer clic en ella. Esto puede ser muy útil para aquellas
+                        personas que quieran enviarme un correo electrónico sin tener que escribir mi dirección
+                        manualmente. Además, esta opción también puede ayudar a evitar posibles errores de escritura o
+                        confundir mi dirección con otra similar.</section>
+                    <button onclick="showPart1()">Atrás</button>
+                </div>
+            </div>
+            <script>
+                function showPart1() {
+                    document.getElementById("part2").style.display = "none";
+                    document.getElementById("part1").style.display = "block";
+                }
+                function showPart2() {
+                    document.getElementById("part1").style.display = "none";
+                    document.getElementById("part2").style.display = "block";
+                }
+            </script>
+            <my-sidebar2></my-sidebar2>
+        </main>
+        <my-footer></my-footer>
+    </div>
+
+
+
+</body>
+
+</html>
