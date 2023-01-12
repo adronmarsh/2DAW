@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empleados</title>
+</head>
+
+<body>
+    <script>
+        function empleado() {
+            class Empleado {
+                constructor(nombre, fechaNacimiento, nif) {
+                    this.nombre = nombre;
+                    this.fechaNacimiento = fechaNacimiento;
+                    this.nif = nif;
+                }
+                muestraInfo() {
+                    console.log(`Nombre: ${this.nombre}\nFecha de nacimiento: ${this.fechaNacimiento}\nNIF: ${this.nif}`);
+                }
+            }
+
+            class EmpleadoTemporal extends Empleado {
+                constructor(nombre, fechaNacimiento, nif, fechaAlta, fechaBaja) {
+                    super(nombre, fechaNacimiento, nif);
+                    this.fechaAlta = fechaAlta;
+                    this.fechaBaja = fechaBaja;
+                }
+                muestraInfo() {
+                    console.log(`Nombre: ${this.nombre}\nFecha de nacimiento: ${this.fechaNacimiento}\nNIF: ${this.nif}\nFecha de Alta: ${this.fechaAlta}\nFecha de Baja: ${this.fechaBaja}`);
+                }
+            }
+            
+            class EmpleadoPorHoras extends Empleado {
+                constructor(nombre, fechaNacimiento, nif, precioHora, horasTrabajadas) {
+                    super(nombre, fechaNacimiento, nif);
+                    this.precioHora = precioHora;
+                    this.horasTrabajadas = horasTrabajadas;
+                }
+                muestraInfo() {
+                    console.log(`Nombre: ${this.nombre}\nFecha de nacimiento: ${this.fechaNacimiento}\nNIF: ${this.nif}\nPrecio por hora: ${this.precioHora}\nHoras trabajadas este mes: ${this.horasTrabajadas}`);
+                }
+            }
+            
+            class EmpleadoFijo extends Empleado {
+                constructor(nombre, fechaNacimiento, nif, anioAlta) {
+                    super(nombre, fechaNacimiento, nif);
+                    this.anioAlta = anioAlta;
+                }
+                muestraInfo() {
+                    console.log(`Nombre: ${this.nombre}\nFecha de nacimiento: ${this.fechaNacimiento}\nNIF: ${this.nif}\nAño de Alta: ${this.anioAlta}`);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
